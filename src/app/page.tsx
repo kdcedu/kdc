@@ -16,7 +16,7 @@ export default function Home() {
   }
 
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen">
       <div className="w-full h-fit bg-[#f5712e]">
         <Image
           src="/headers/header.png"
