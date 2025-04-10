@@ -30,7 +30,7 @@ export default function Home() {
         <Image
           preview={false}
           src="/backgrounds/loginBackground.png"
-          alt="Login Header"
+          alt="Background"
           width={580}
         />
 

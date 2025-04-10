@@ -6,7 +6,7 @@ import PrimaryButton from "@/components/primaryButton";
 import ReactionBar from "@/components/reactionBar";
 import ShareButton from "@/components/shareButton";
 import { videos } from "@/constant/videos";
-import { BackwardOutlined, HeartFilled, HomeFilled } from "@ant-design/icons";
+import { BackwardOutlined, HomeFilled } from "@ant-design/icons";
 import { Image } from "antd";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -34,7 +34,7 @@ export default function VideoPage() {
           />
         </div>
 
-        <Image preview={false} src="/components/comment.png" />
+        <Image preview={false} src="/components/comment.png" alt="Comment Box"/>
       </div>
 
       <div className="flex mt-10 justify-between">
@@ -54,13 +54,13 @@ export default function VideoPage() {
                 với mình nhé!
               </CatConversation>
 
-              <Image width={250} preview={false} src="/icons/cat2.png" />
+              <Image alt="Cat" width={250} preview={false} src="/icons/cat2.png" />
             </div>
           </>
         ) : (
           <>
             <div className="flex gap-6 w-[65%] items-center">
-              <Image width={350} preview={false} src="/icons/cat.png" />
+              <Image alt="Cat" width={350} preview={false} src="/icons/cat.png" />
               <CatConversation>
                 {!isNoShare && "Mình rất vui vì bạn đã chia sẻ cảm xúc với mình. Vậy bạn có muốn chia sẻ video này đến bạn bè?"}
 

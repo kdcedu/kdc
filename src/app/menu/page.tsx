@@ -20,6 +20,7 @@ export default function Menu() {
               <Image
                 height={250}
                 preview={false}
+                alt="Video"
                 src={video.imageUrl}
                 className="rounded-lg cursor-pointer"
                 onClick={() => handleRedirect(video.id)}
@@ -33,7 +34,7 @@ export default function Menu() {
         </div>
 
         <div className="flex">
-          <Image width={700} preview={false} src="/icons/cat.png" />
+          <Image width={700} preview={false} src="/icons/cat.png" alt="Cat"/>
 
           <CatConversation>
             Chào các bạn mình là <span className="font-semibold text-emerald-400">DigiMeo</span>, hôm nay chúng mình cùng xem video nhé! Có 3 video ở phía trên , bạn muốn xem video nào trước? Hãy nhấn vào video bạn muốn xem.
