@@ -1,5 +1,6 @@
 'use client'
 
+import AudioPlayer from "@/components/audioPlayer";
 import CatConversation from "@/components/catConversation";
 import { videos } from "@/constant/videos";
 import { Image } from "antd";
@@ -37,7 +38,9 @@ export default function Menu() {
           <Image width={700} preview={false} src="/icons/cat.png" alt="Cat"/>
 
           <CatConversation>
-            Chào các bạn mình là <span className="font-semibold text-emerald-400">DigiMeo</span>, hôm nay chúng mình cùng xem video nhé! Có 3 video ở phía trên , bạn muốn xem video nào trước? Hãy nhấn vào video bạn muốn xem.
+            Chào các bạn, mình là <span className="font-semibold text-emerald-400">DigiMeo</span>, hôm nay chúng mình cùng xem video nhé! Có 3 video ở phía trên , bạn muốn xem video nào trước? Hãy nhấn vào video bạn muốn xem.
+
+            <AudioPlayer src="/audios/welcome.mp3"/>
           </CatConversation>
         </div>
       </div>

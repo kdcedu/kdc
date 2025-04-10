@@ -1,5 +1,6 @@
 "use client"
 
+import AudioPlayer from "@/components/audioPlayer";
 import CatConversation from "@/components/catConversation";
 import HeartGiven from "@/components/heartGiven";
 import PrimaryButton from "@/components/primaryButton";
@@ -20,7 +21,7 @@ export default function SharePage() {
       <div>
         <Image alt="Chat Box" preview={false} src="/components/chatbox.png" width={600}/>
 
-        <div className="absolute top-40 left-72">
+        <div className="absolute top-36 left-72">
           <Image alt="Video" width={300} preview={false} src={video?.imageUrl} className="rounded-xl"/>
 
           <div className="text-xl w-72 mt-2">
@@ -28,16 +29,24 @@ export default function SharePage() {
           </div>
         </div>
 
-        <div className="absolute bottom-64 left-60 text-xl w-80">
+        <div className="absolute bottom-72 left-60 text-xl w-80">
           {video?.isGood ? 'Cảm ơn bạn! Video này hay quá. Mình xem rất là vui!' : 'Trời ơi, video gì thấy gheeeee! Mình không thích đâu!'}
         </div>
       </div>
       
 
       <div className="w-1/2 flex flex-col">
-      <div className="w-4/5 mx-auto mt-20">
+      <div className="mx-auto mt-20">
         <CatConversation>
-          {video?.isGood ? 'Vậy là Bin đã thích video bạn chia sẻ. Chia sẻ niềm vui thật là tuyệt!' : 'Vậy là Bin không thích video bạn chia sẻ. Lần sau, chúng ta hãy suy nghĩ kỹ trước khi chia sẻ nhé!'}
+          {video?.isGood ? <>
+            Vậy là Bin đã thích video bạn chia sẻ. Chia sẻ niềm vui thật là tuyệt!
+
+            <AudioPlayer src="/audios/shareGood.mp3"/>
+          </> : <>
+            Vậy là Bin không thích video bạn chia sẻ. Lần sau, chúng ta hãy suy nghĩ kỹ trước khi chia sẻ nhé!
+
+            <AudioPlayer src="/audios/shareNotGood.mp3"/>
+          </>}
         </CatConversation>
       </div>
         <div className={`flex ${video?.isGood ? 'justify-between' : 'justify-end'} items-end pl-14 mb-20`}>

@@ -1,5 +1,6 @@
 "use client";
 
+import AudioPlayer from "@/components/audioPlayer";
 import CatConversation from "@/components/catConversation";
 import HeartGiven from "@/components/heartGiven";
 import PrimaryButton from "@/components/primaryButton";
@@ -52,6 +53,8 @@ export default function VideoPage() {
                   chia sẻ cảm xúc
                 </span>{" "}
                 với mình nhé!
+
+                <AudioPlayer src="/audios/reaction.mp3"/>
               </CatConversation>
 
               <Image alt="Cat" width={250} preview={false} src="/icons/cat2.png" />
@@ -62,11 +65,23 @@ export default function VideoPage() {
             <div className="flex gap-6 w-[65%] items-center">
               <Image alt="Cat" width={350} preview={false} src="/icons/cat.png" />
               <CatConversation>
-                {!isNoShare && "Mình rất vui vì bạn đã chia sẻ cảm xúc với mình. Vậy bạn có muốn chia sẻ video này đến bạn bè?"}
+                {!isNoShare && <>
+                  Mình rất vui vì bạn đã chia sẻ cảm xúc với mình. Vậy bạn có muốn chia sẻ video này đến bạn bè không?
 
-                {isNoShare && video?.isGood && "Không sao cả, mình xem video khác thôi. Lần sau, có nội dung hay, bạn hãy chia sẻ nhé!"}
+                  <AudioPlayer src="/audios/share.mp3"/>
+                </>}
 
-                {isNoShare && !video?.isGood && "Đúng rồi, những nội dung có thể khiến người khác không vui thì chúng ta không nên chia sẻ!"}
+                {isNoShare && video?.isGood && <>
+                  Không sao cả, mình xem video khác thôi. Lần sau, có nội dung hay, bạn hãy chia sẻ nhé!
+
+                  <AudioPlayer src="/audios/noshare.mp3"/>
+                </>}
+
+                {isNoShare && !video?.isGood && <>
+                  Đúng rồi, những nội dung có thể khiến người khác không vui thì chúng ta không nên chia sẻ!
+
+                  <AudioPlayer src="/audios/goodNoShare.mp3"/>
+                </>}
               </CatConversation>
 
               {isNoShare && !video?.isGood && <HeartGiven />}

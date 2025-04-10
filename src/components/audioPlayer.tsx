@@ -1,0 +1,35 @@
+import { SoundFilled } from "@ant-design/icons";
+import { useEffect, useRef } from "react";
+
+interface AudioPlayerProps {
+  src: string;
+}
+
+export default function AudioPlayer({ src }: AudioPlayerProps) {
+  useEffect(() => {
+    const playAudio = async () => {
+      try {
+        await audioRef.current?.play();
+      } catch (error) {
+        console.warn("Không thể tự động phát audio:", error);
+      }
+    };
+
+    playAudio();
+  }, []);
+
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  return (
+    <div className="float-right mt-2">
+      <audio ref={audioRef} src={src} />
+
+      <span
+        className="text-orange-500 cursor-pointer w-fit hover:text-orange-300 text-3xl"
+        onClick={() => audioRef.current?.play()}
+      >
+        <SoundFilled />
+      </span>
+    </div>
+  );
+}

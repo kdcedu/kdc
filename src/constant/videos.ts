@@ -18,6 +18,6 @@ export const videos = [
     title: "Bài hát thiếu nhi",
     id: '3',
     link: 'https://www.youtube.com/embed/PRQq54KKtFY?si=S_Je6FkMFAYKK2d8',
-    isGood: false
+    isGood: true
   },
 ];
