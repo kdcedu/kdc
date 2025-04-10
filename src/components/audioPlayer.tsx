@@ -25,7 +25,7 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
       <audio ref={audioRef} src={src} />
 
       <span
-        className="text-orange-500 cursor-pointer w-fit hover:text-orange-300 text-3xl"
+        className="text-orange-500 cursor-pointer w-fit hover:text-orange-300 active:text-orange-300 text-3xl"
         onClick={() => audioRef.current?.play()}
       >
         <SoundFilled />

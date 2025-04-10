@@ -15,7 +15,7 @@ export default function ReactionBar( {setIsReaction} : ReactionBarProps) {
 
   return <>
     <div className="flex gap-5">
-      {icons.map(icon => <Image alt="Video" width={90} className="cursor-pointer hover:scale-110" key={icon} preview={false} src={`/icons/${icon}.png`} onClick={() => setIsReaction(true)}/>)}
+      {icons.map(icon => <Image alt="Video" width={70} className="cursor-pointer hover:scale-110" key={icon} preview={false} src={`/icons/${icon}.png`} onClick={() => setIsReaction(true)}/>)}
     </div>
   </>
 }

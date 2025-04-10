@@ -4,7 +4,7 @@ export default function VideoLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="w-screen h-screen px-28 pt-10 bg-[url(/backgrounds/mainBackground.png)]">
+    <div className="w-screen min-h-screen px-28 pt-10 bg-[url(/backgrounds/mainBackground.png)]">
       {children}
     </div>
   );

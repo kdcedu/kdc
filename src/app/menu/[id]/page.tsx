@@ -62,7 +62,7 @@ export default function VideoPage() {
           </>
         ) : (
           <>
-            <div className="flex gap-6 w-[65%] items-center">
+            <div className="flex gap-6 w-3/5 items-center">
               <Image alt="Cat" width={350} preview={false} src="/icons/cat.png" />
               <CatConversation>
                 {!isNoShare && <>

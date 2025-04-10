@@ -2,6 +2,7 @@
 
 import AudioPlayer from "@/components/audioPlayer";
 import CatConversation from "@/components/catConversation";
+import ChatBox from "@/components/chatBox";
 import HeartGiven from "@/components/heartGiven";
 import PrimaryButton from "@/components/primaryButton";
 import { videos } from "@/constant/videos";
@@ -18,24 +19,11 @@ export default function SharePage() {
 
   return <>
     <div className="flex gap-10">
-      <div>
-        <Image alt="Chat Box" preview={false} src="/components/chatbox.png" width={600}/>
 
-        <div className="absolute top-36 left-72">
-          <Image alt="Video" width={300} preview={false} src={video?.imageUrl} className="rounded-xl"/>
-
-          <div className="text-xl w-72 mt-2">
-            Bin ơi, video này hay lắm! Bạn xem thử đi. 
-          </div>
-        </div>
-
-        <div className="absolute bottom-72 left-60 text-xl w-80">
-          {video?.isGood ? 'Cảm ơn bạn! Video này hay quá. Mình xem rất là vui!' : 'Trời ơi, video gì thấy gheeeee! Mình không thích đâu!'}
-        </div>
-      </div>
+      <ChatBox imgSrc={video?.imageUrl} isGood={video?.isGood}/>
       
 
-      <div className="w-1/2 flex flex-col">
+      <div className="flex flex-col">
       <div className="mx-auto mt-20">
         <CatConversation>
           {video?.isGood ? <>
