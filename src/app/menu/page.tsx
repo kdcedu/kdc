@@ -23,24 +23,22 @@ export default function Menu() {
                 preview={false}
                 alt="Video"
                 src={video.imageUrl}
-                className="rounded-lg cursor-pointer"
+                className="rounded-lg cursor-pointer active:scale-95"
                 onClick={() => handleRedirect(video.id)}
               />
 
-              <div className="mt-2 text-2xl text-center cursor-pointer hover:text-orange-400 hover:underline" onClick={() => handleRedirect(video.id)}>
+              <div className="mt-2 text-2xl text-center cursor-pointer hover:text-orange-400 hover:underline active:text-orange-400" onClick={() => handleRedirect(video.id)}>
                 {video.title}
               </div>
             </div>
           ))}
         </div>
 
-        <div className="flex">
-          <Image width={700} preview={false} src="/icons/cat.png" alt="Cat"/>
+        <div className="flex items-center">
+          <Image width={600} preview={false} src="/icons/cat.png" alt="Cat"/>
 
-          <CatConversation>
+          <CatConversation icon={<AudioPlayer src="/audios/welcome.mp3"/>}>
             Chào các bạn, mình là <span className="font-semibold text-emerald-400">DigiMeo</span>, hôm nay chúng mình cùng xem video nhé! Có 3 video ở phía trên , bạn muốn xem video nào trước? Hãy nhấn vào video bạn muốn xem.
-
-            <AudioPlayer src="/audios/welcome.mp3"/>
           </CatConversation>
         </div>
       </div>

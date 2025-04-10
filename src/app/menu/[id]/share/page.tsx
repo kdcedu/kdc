@@ -25,15 +25,11 @@ export default function SharePage() {
 
       <div className="flex flex-col">
       <div className="mx-auto mt-20">
-        <CatConversation>
+        <CatConversation icon={ video?.isGood ? <AudioPlayer src="/audios/shareGood.mp3"/> : <AudioPlayer src="/audios/shareNotGood.mp3"/>}>
           {video?.isGood ? <>
             Vậy là Bin đã thích video bạn chia sẻ. Chia sẻ niềm vui thật là tuyệt!
-
-            <AudioPlayer src="/audios/shareGood.mp3"/>
           </> : <>
             Vậy là Bin không thích video bạn chia sẻ. Lần sau, chúng ta hãy suy nghĩ kỹ trước khi chia sẻ nhé!
-
-            <AudioPlayer src="/audios/shareNotGood.mp3"/>
           </>}
         </CatConversation>
       </div>

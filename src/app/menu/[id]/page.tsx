@@ -10,12 +10,30 @@ import { videos } from "@/constant/videos";
 import { BackwardOutlined, HomeFilled } from "@ant-design/icons";
 import { Image } from "antd";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 export default function VideoPage() {
   const [isReact, setIsReact] = useState(false);
 
   const [isNoShare, setIsNoShare] = useState(false);
+
+  const videoRef = useRef<HTMLIFrameElement | null>(null);
+
+  const handlePause = () => {
+    videoRef.current?.contentWindow?.postMessage(
+      JSON.stringify({
+        event: "command",
+        func: "pauseVideo",
+        args: [],
+      }),
+      "*"
+    );
+  };
+
+  const handleReact = (value: boolean) => {
+    setIsReact(value);
+    handlePause();
+  }
 
   const { id } = useParams();
 
@@ -28,8 +46,9 @@ export default function VideoPage() {
       <div className="flex gap-10">
         <div className="border-8 w-3/5 border-rose-300 rounded-3xl">
           <iframe
+            ref={videoRef}
             className="w-full h-full rounded-xl overflow-hidden"
-            src={video?.link}
+            src={`${video?.link}&enablejsapi=1`}
             title={video?.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           />
@@ -38,12 +57,12 @@ export default function VideoPage() {
         <Image preview={false} src="/components/comment.png" alt="Comment Box"/>
       </div>
 
-      <div className="flex mt-10 justify-between">
+      <div className="flex mt-10 justify-between items-center">
         {!isReact ? (
           <>
-            <ReactionBar setIsReaction={setIsReact} />
+            <ReactionBar setIsReaction={handleReact} />
             <div className="flex w-1/2">
-              <CatConversation>
+              <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/reaction.mp3"/>}>
                 Các bạn hãy{" "}
                 <span className="text-emerald-400 font-semibold">
                   xem video
@@ -53,8 +72,6 @@ export default function VideoPage() {
                   chia sẻ cảm xúc
                 </span>{" "}
                 với mình nhé!
-
-                <AudioPlayer src="/audios/reaction.mp3"/>
               </CatConversation>
 
               <Image alt="Cat" width={250} preview={false} src="/icons/cat2.png" />
@@ -64,25 +81,17 @@ export default function VideoPage() {
           <>
             <div className="flex gap-6 w-3/5 items-center">
               <Image alt="Cat" width={350} preview={false} src="/icons/cat.png" />
-              <CatConversation>
-                {!isNoShare && <>
+                {!isNoShare && <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/share.mp3"/>}>
                   Mình rất vui vì bạn đã chia sẻ cảm xúc với mình. Vậy bạn có muốn chia sẻ video này đến bạn bè không?
+                </CatConversation>}
 
-                  <AudioPlayer src="/audios/share.mp3"/>
-                </>}
-
-                {isNoShare && video?.isGood && <>
+                {isNoShare && video?.isGood && <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/noshare.mp3"/>}>
                   Không sao cả, mình xem video khác thôi. Lần sau, có nội dung hay, bạn hãy chia sẻ nhé!
+                </CatConversation>}
 
-                  <AudioPlayer src="/audios/noshare.mp3"/>
-                </>}
-
-                {isNoShare && !video?.isGood && <>
-                  Đúng rồi, những nội dung có thể khiến người khác không vui thì chúng ta không nên chia sẻ!
-
-                  <AudioPlayer src="/audios/goodNoShare.mp3"/>
-                </>}
-              </CatConversation>
+                {isNoShare && !video?.isGood && <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/goodNoShare.mp3"/>}>
+                  Đúng rồi, những nội dung có thể khiến người khác không vui thì chúng ta không nên chia sẻ!s
+                </CatConversation>}
 
               {isNoShare && !video?.isGood && <HeartGiven />}
             </div>
