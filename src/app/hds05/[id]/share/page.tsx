@@ -44,7 +44,7 @@ export default function SharePage() {
                     Trở lại
                   </PrimaryButton>
 
-                  <PrimaryButton icon={<HomeFilled />} onClick={() => router.replace('/menu')}>
+                  <PrimaryButton icon={<HomeFilled />} onClick={() => router.replace('/hds05')}>
                     Trang chủ
                   </PrimaryButton>
                 </div>

@@ -1,18 +1,13 @@
 "use client";
 
-import { Input, Image } from "antd";
-import { redirect } from "next/navigation";
+import CustomPIN from "@/components/pin";
+import { ROUTES } from "@/constant/route";
+import { Image } from "antd";
 import { useState } from "react";
 
 export default function Home() {
-  const [isError, setIsError] = useState(false);
-
-  const trueOtp = "1234";
-
-  const handleChange = (value: string) => {
-    if(value === trueOtp) redirect('/menu');
-    else setIsError(true);
-  }
+  const [pin, setPin] = useState('');
+  const [link, setLink] = useState('');
 
   return (
     <div className="w-screen">
@@ -34,12 +29,24 @@ export default function Home() {
           width={580}
         />
 
-        <div className="border-4 rounded-xl border-orange-400 m-auto p-5">
-          <h1 className="text-4xl font-semibold text-[#f5712e] text-center">Đăng nhập</h1>
-          <div className="text-xl text-center text-orange-400 my-5">Bạn hãy vui lòng nhập mã PIN để tham gia hoạt động</div>
-          <div className="flex justify-center">
-            <Input.OTP inputMode="numeric" length={4} mask="•" status={isError ? "error" : ""} onChange={handleChange}/>
+        <div className="m-auto p-10 rounded-3xl">
+          {pin === '' ? <>
+            <div className="font-semibold text-3xl text-orange-500 mb-10">
+            Danh sách Bài thực hành
           </div>
+
+          <div>
+            {ROUTES.map(route => <div key={route.name} onClick={() => {
+              setPin(route.pin);
+              setLink(route.name)
+            }} className="bg-orange-500 text-white py-3 rounded-xl mb-5 text-center cursor-pointer active:opacity-70 active:scale-95 text-lg">
+              {route.title}
+            </div>)}
+          </div>
+          </> : <>
+            <CustomPIN to={link} password={pin} />
+          </>}
+          
         </div>
       </div>
     </div>

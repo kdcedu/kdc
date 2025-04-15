@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 export default function Menu() {
 
   const handleRedirect = (id: string) => {
-    redirect('menu/' + id);
+    redirect('hds05/' + id);
   }
 
   return (

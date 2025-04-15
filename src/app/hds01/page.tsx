@@ -5,7 +5,8 @@ import { defaultProfile } from "@/constant/profile";
 import TextArea from "antd/es/input/TextArea";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { CameraFilled, EditFilled } from "@ant-design/icons";
+import { EditFilled } from "@ant-design/icons";
+import AvatarPicker from "@/components/avatarPicker";
 
 export default function HDS01() {
   const [form] = Form.useForm();
@@ -39,7 +40,7 @@ export default function HDS01() {
           Hồ sơ cá nhân của bạn
         </div>
 
-        <div className="border-6 border-sky-300 rounded-3xl bg-white py-5 px-20 w-4/5 mx-auto">
+        <div className="border-6 border-sky-300 rounded-3xl bg-white py-5 px-20 w-fit mx-auto">
           <div className="w-full">
             <div className="w-full h-56">
               <Image
@@ -51,13 +52,9 @@ export default function HDS01() {
               />
             </div>
 
-            <div className="relative -top-10 left-10 flex items-center">
-              <div className=" bg-white w-32 h-32 flex justify-center p-2 rounded-full">
-                <Image alt="Avatar" preview={false} width={100} src="/icons/Bin.svg" />
-              </div>
-              <div className="relative right-8 top-10 font-semibold text-xl bg-gray-200 w-8 h-8 flex justify-center items-center rounded-full active:opacity-60 cursor-pointer">
-                <CameraFilled />
-              </div>
+            <div className="relative -top-10 flex items-center px-10">
+              <AvatarPicker />
+              
               <div className="mt-5 flex gap-40">
                 <div>
                   <div className="text-2xl font-semibold">{info.fullName}</div>
@@ -66,7 +63,7 @@ export default function HDS01() {
                   </div>
                 </div>
 
-                <div className="flex justify-center items-center rounded-full w-8 h-8 bg-gray-200 cursor-pointer active:opacity-60"
+                <div className={`flex justify-center items-center rounded-full w-8 h-8 bg-gray-200 cursor-pointer active:opacity-60 ${edit && 'invisible'}`}
                 onClick={() => setEdit(true)}>
                   <EditFilled />
                 </div>
@@ -165,10 +162,16 @@ export default function HDS01() {
                 <TextArea autoSize={{ minRows: 1, maxRows: 10 }} readOnly={!edit} className={`${!edit && inputClassName}`} />
               </Form.Item>
 
-              {edit && <Form.Item className="flex justify-end" label={null}>
-                <Button variant="solid" color="green" htmlType="submit">
-                  Hoàn thành
-                </Button>
+              {edit && <Form.Item label={null}>
+                <div className="flex gap-5 justify-end">
+                  <Button variant="solid" color="cyan" htmlType="submit">
+                    Hoàn thành
+                  </Button>
+
+                  <Button onClick={() => {form.setFieldsValue(info); setEdit(false)}}>
+                    Hủy
+                  </Button>
+                </div>
               </Form.Item>}
             </Form>
           </div>
