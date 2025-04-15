@@ -54,14 +54,16 @@ export default function VideoPage() {
           />
         </div>
 
-        <Image preview={false} src="/components/comment.png" alt="Comment Box"/>
+        <div className="flex flex-1">
+          <Image preview={false} width="100%" height="100%" src="/components/comment.png" alt="Comment Box"/>
+        </div>
       </div>
 
-      <div className="flex mt-10 justify-between items-center">
+      <div className="flex mt-10 justify-between items-center gap-10">
         {!isReact ? (
           <>
             <ReactionBar setIsReaction={handleReact} />
-            <div className="flex w-1/2">
+            <div className="flex items-center">
               <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/reaction.mp3"/>}>
                 Các bạn hãy{" "}
                 <span className="text-emerald-400 font-semibold">

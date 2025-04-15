@@ -14,7 +14,7 @@ export default function Menu() {
 
   return (
     <div>
-      <div className="flex flex-col gap-20">
+      <div className="flex flex-col gap-5">
         <div className="flex m-auto gap-5 px-5 py-3 bg-white border-4 border-rose-300 rounded-2xl">
           {videos.map((video) => (
             <div className="flex-1" key={video.id}>

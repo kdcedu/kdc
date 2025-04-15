@@ -31,7 +31,7 @@ export default function Home() {
 
         <div className="m-auto p-10 rounded-3xl">
           {pin === '' ? <>
-            <div className="font-semibold text-3xl text-orange-500 mb-10">
+            <div className="font-semibold text-xl text-orange-500 mb-10">
             Danh sách Bài thực hành
           </div>
 
