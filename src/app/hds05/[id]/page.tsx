@@ -90,7 +90,7 @@ export default function VideoPage() {
                 </CatConversation>}
 
                 {isNoShare && !video?.isGood && <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/goodNoShare.mp3"/>}>
-                  Đúng rồi, những nội dung có thể khiến người khác không vui thì chúng ta không nên chia sẻ!s
+                  Đúng rồi, những nội dung có thể khiến người khác không vui thì chúng ta không nên chia sẻ!
                 </CatConversation>}
 
               {isNoShare && !video?.isGood && <HeartGiven />}
