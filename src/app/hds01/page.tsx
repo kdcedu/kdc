@@ -40,7 +40,7 @@ export default function HDS01() {
           Hồ sơ cá nhân của bạn
         </div>
 
-        <div className="border-6 border-sky-300 w-3/4 sm:w-3/5 rounded-3xl bg-white mx-auto">
+        <div className="border-6 border-sky-300 w-5/6 rounded-3xl bg-white mx-auto">
           <div className="w-full">
             <div className="w-full h-56 rounded-t-2xl overflow-hidden">
               <Image
