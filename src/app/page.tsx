@@ -10,7 +10,7 @@ export default function Home() {
   const [link, setLink] = useState('');
 
   return (
-    <div className="w-screen">
+    <div className="w-screen h-screen flex flex-col justify-between">
       <div className="w-full h-fit bg-[#f5712e]">
         <Image
           preview={false}
@@ -21,17 +21,19 @@ export default function Home() {
         />
       </div>
 
-      <div className="flex w-full">
-        <Image
-          preview={false}
-          src="/backgrounds/loginBackground.png"
-          alt="Background"
-          width={580}
-        />
+      <div className="flex flex-1 items-center w-full gap-5">
+        <div className="w-1/2 hidden md:block">
+          <Image
+            preview={false}
+            src="/backgrounds/loginBackground.png"
+            alt="Background"
+            width="100%"
+          />
+        </div>
 
         <div className="m-auto p-10 rounded-3xl">
           {pin === '' ? <>
-            <div className="font-semibold text-xl text-orange-500 mb-10">
+            <div className="font-semibold text-xl text-orange-500 text-center mb-10">
             Danh sách Bài thực hành
           </div>
 
@@ -39,7 +41,7 @@ export default function Home() {
             {ROUTES.map(route => <div key={route.name} onClick={() => {
               setPin(route.pin);
               setLink(route.name)
-            }} className="bg-orange-500 text-white py-3 rounded-xl mb-5 text-center cursor-pointer active:opacity-70 active:scale-95 text-lg">
+            }} className="bg-orange-500 text-white px-3 py-3 rounded-xl mb-5 text-center cursor-pointer active:opacity-70 active:scale-95 text-lg">
               {route.title}
             </div>)}
           </div>
