@@ -1,12 +1,19 @@
 import { avatars } from "@/constant/avatar";
 import { CameraFilled } from "@ant-design/icons";
 import { Image, message, Modal } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AvatarPicker() {
   const [isOpen, setIsOpen] = useState(false);
 
   const [avatar, setAvatar] = useState('/icons/Bin.svg');
+
+  useEffect(() => {
+    const stored = localStorage.getItem("avatar");
+    if (stored) {
+      setAvatar(stored)
+    }
+  }, [])
 
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -19,6 +26,7 @@ export default function AvatarPicker() {
 
   const handleChangeAvatar = (ava: string) => {
     setAvatar(`/avatars/${ava}.svg`)
+    localStorage.setItem('avatar', `/avatars/${ava}.svg`)
     setIsOpen(false);
     success();
   }

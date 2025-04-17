@@ -3,9 +3,15 @@
 import CustomPIN from "@/components/pin";
 import { ROUTES } from "@/constant/route";
 import { Image } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('avatar');
+    console.log('Clear')
+  }, [])
+
   const [pin, setPin] = useState('');
   const [link, setLink] = useState('');
 
