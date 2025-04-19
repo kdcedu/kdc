@@ -14,4 +14,9 @@ export const ROUTES = [
     title: 'Tạo và quản lý tài khoản trực tuyến',
     pin: '3333'
   },
+  {
+    name: 'k3/hds03',
+    title: 'Kỹ năng bảo mật mật khẩu',
+    pin: '3333'
+  },
 ]
