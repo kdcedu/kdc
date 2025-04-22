@@ -18,7 +18,7 @@ export default function CustomPIN( {password, to} : PINProps) {
   return <>
     <div className="text-xl font-semibold text-center text-orange-500 my-5">Bạn hãy vui lòng nhập mã PIN để tham gia hoạt động</div>
           <div className="flex justify-center">
-            <Input.OTP inputMode="numeric" length={4} mask="•" status={isError ? "error" : ""} onChange={handleChange}/>
+            <Input.OTP inputMode="numeric" type="password" length={4} status={isError ? "error" : ""} onChange={handleChange}/>
           </div>
 
           {isError && <div className="text-red-500 text-center mt-5">

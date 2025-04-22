@@ -9,6 +9,8 @@ export default function Pin() {
   const [continuousError, setContinuousError] = useState<Status>("normal");
   const [repeatError, setRepeatError] = useState<Status>("normal");
 
+  const [isView, setIsView] = useState(false);
+
   const [next, setNext] = useState(false);
 
   const router = useRouter();
@@ -61,7 +63,9 @@ export default function Pin() {
 
       <div className="flex justify-center items-center mb-5">
         <div className="w-1/4 font-semibold text-lg">Mã PIN:</div>
-        <Input.OTP length={4} onChange={handleChange} inputMode="numeric"/>
+        <Input.OTP type={ isView ? "text" : "password"} length={4} onChange={handleChange} inputMode="numeric"/>
+        
+        {isView ? <Button variant="filled" color="orange" className="ml-5" onClick={() => setIsView(!isView)}>Ẩn mã PIN</Button> : <Button variant="filled" color="orange" className="ml-5" onClick={() => setIsView(!isView)}>Xem mã PIN</Button>}
       </div>
 
       <div className="bg-gray-100 p-5 rounded-lg mb-5">
