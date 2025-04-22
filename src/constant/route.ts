@@ -19,4 +19,9 @@ export const ROUTES = [
     title: 'Kỹ năng bảo mật mật khẩu',
     pin: '3333'
   },
+  {
+    name: 'k3/hds02',
+    title: 'Bảo vệ bản thân trước bắt nạt trực tuyến',
+    pin: '3333'
+  }
 ]

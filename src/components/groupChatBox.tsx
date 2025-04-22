@@ -75,7 +75,7 @@ export default function GroupChatBox({ redirect, haveCheckBox }: GroupChatBoxPro
           <Input placeholder="Nhập tin nhắn" readOnly suffix={<SendOutlined />}/>
           {haveCheckBox && <>
             <Button variant="solid" color={isSubmit ? `green` : `orange`} onClick={() => {if(isSubmit) redirect(); else setIsSubmit(true)}}>{isSubmit ? 'Tiếp tục' : 'Nộp bài'}</Button>
-            <Button variant="outlined" color="orange" onClick={() => setIsSubmit(false)}>Làm lại</Button>
+            {isSubmit && <Button variant="outlined" color="orange" onClick={() => setIsSubmit(false)}>Làm lại</Button>}
           </>}
           
         </div>
