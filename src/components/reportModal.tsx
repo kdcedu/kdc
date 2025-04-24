@@ -55,7 +55,7 @@ export default function ReportModal({ isModalOpen, handleCancel, handleOk, isTru
   }
   return (
     <Modal title={<div className="text-center text-xl text-orange-500">Tin nhắn này có vấn đề gì?</div>} open={isModalOpen} onCancel={handleCancel} footer={<div className="flex flex-col gap-2">
-      <Button disabled={selectedReason.length === 0} className="w-full" variant="solid" color="orange" onClick={handleReport}>Báo cáo</Button>
+      <Button disabled={selectedReason.length === 0} className="w-full" variant="solid" color="orange" onClick={handleReport}>Gửi</Button>
     </div>}>
       {contextHolder}
     <div className="flex flex-col gap-5 ml-16 py-5"> 
