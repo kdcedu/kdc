@@ -3,10 +3,11 @@
 import CatConversation from "@/components/catConversation";
 import GroupChatBox from "@/components/groupChatBox";
 import Header from "@/components/header";
-import { boys } from "@/constant/avatar";
-import { filterUsers } from "@/constant/chatContent";
+import BlockModal from "@/components/blockModal";
+import { animals } from "@/constant/avatar";
+import { chatContent, filterUsers } from "@/constant/chatContent";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Avatar, Button, Image, message, Modal } from "antd";
+import { Avatar, Button, Image, message } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 export default function Hds02() {
@@ -21,6 +22,7 @@ export default function Hds02() {
   const [isBegin, setIsBegin] = useState(true);
   const [conversation, setConversation] = useState<string>('Bạn hãy đọc và chọn những tin nhắn nào bạn cho là bắt nạt trực tuyến nhé!');
   const [canBlock, setCanBlock] = useState(false);
+  const [canReport, setCanReport] = useState(true);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -72,13 +74,7 @@ export default function Hds02() {
 
   return <>
   {contextHolder}
-      <Modal title={<div className="text-center text-xl">{`Chặn ${selectedUser}`}</div>} open={isModalOpen} onCancel={handleCancel} footer={<div className="flex flex-col gap-2">
-        <Button className="w-full" variant="solid" color="red" onClick={handleOk}>Chặn</Button>
-        <Button className="w-full" variant="outlined" color="red" onClick={handleCancel}>Hủy</Button>
-      </div>}>
-        <div>Bạn sẽ không thể nhận được tin nhắn từ {selectedUser} nữa.</div>
-        <div>Bạn có muốn tiếp tục không?</div>
-      </Modal>
+    <BlockModal selectedUser={selectedUser} isModalOpen={isModalOpen} handleCancel={handleCancel} handleOk={handleOk} />
       
 
     <Header title="Bảo vệ bản thân trước bắt nạt trực tuyến"/>
@@ -93,19 +89,19 @@ export default function Hds02() {
       <Image alt="Cat" preview={false} src="/icons/cat.png" /></div>
       
     </div>
-    </> : <div className="flex px-2 gap-3">
-      <div className="flex flex-col gap-5 bg-white rounded-lg p-2 shadow-xl">
+    </> : <div className="flex flex-1 px-2 gap-3 overflow-auto">
+      <div className="flex flex-col gap-5 bg-white rounded-lg p-2 shadow-xl overflow-auto">
         <div className="bg-gray-300 rounded-lg p-2">
-          <Image alt="People" width={70} preview={false} src={`/images/people.png`} />
+          <Image alt="People" width={50} preview={false} src={`/images/people.png`} />
         </div>
-        {boys.slice(0, 4).map(boy => <div key={boy} className="rounded-lg p-2"><Avatar size={70} src={`/avatars/${boy}.svg`} /></div>)}
+        {animals.map(animal => <div key={animal} className="rounded-lg p-2"><Avatar size={50} src={`/avatars/${animal}.svg`} /></div>)}
       </div>
 
-      <div className="flex-1 h-fit bg-white rounded-lg p-2 shadow-xl">
-        <GroupChatBox haveCheckBox={!canBlock} redirect={() => {setIsBegin(true); setConversation('Để bảo vệ mình, bạn hãy chặn những người có dấu hiệu bắt nạt trực tuyến nhé!'); setCanBlock(true)}}/>
+      <div className="flex flex-col flex-1 h-full bg-white rounded-lg p-2 shadow-xl">
+        <GroupChatBox setCanReport={setCanReport} canReport={canReport} selfId={2} isFull={!canBlock} chatContent={chatContent} name="Nhóm chat lớp 3A" imgSrc="/images/people.png" haveCheckBox={!canBlock} redirect={(guide) => {setIsBegin(true); setConversation(guide); setCanBlock(true)}}/>
       </div>
 
-      <div className="w-1/3 bg-white rounded-lg py-2 px-5 shadow-xl relative">
+      {canBlock && <div className="w-1/3 flex flex-col overflow-auto bg-white rounded-lg py-2 px-5 shadow-xl relative">
         <div className="flex justify-center rounded-lg p-2 mb-2">
           <Image alt="People" width={70} preview={false} src='/images/people.png' />
         </div>
@@ -124,11 +120,11 @@ export default function Hds02() {
 
           <div className="flex items-center justify-between bg-gray-200 shadow-md rounded-lg px-3 py-1 mb-4">
             <span className="font-semibold">Thành viên trong đoạn chat</span>
-            <span className="text-xs"><UpOutlined /></span>
+            <span className="text-xs">{!canReport ? <UpOutlined /> : <DownOutlined />}</span>
           </div>
 
 
-        {filterUsers.map(item => <div key={item.id} className="flex items-center justify-between px-2 mb-4">
+        {filterUsers.filter(item => item.id != 2).map(item => !canReport && <div key={item.id} className="flex items-center justify-between px-2 mb-4">
           <div className="flex items-center gap-2">
             <Avatar src={item.avatar} />
             <div className="text-sm">{item.name}</div>
@@ -137,9 +133,8 @@ export default function Hds02() {
             <Button disabled={blockedUsers.includes(item.name)} variant="solid" color="red" onClick={() => {setSelectedUser(item.name); setIsCorrect(item.answer); showModal()}}>Chặn</Button>
           </div>
         </div>)}
-
-        {!canBlock && <div className="absolute inset-0 z-10 pointer-events-auto bg-gray-200 opacity-50" />}
-      </div>
+      </div>}
+      
     </div>}
     
   </>

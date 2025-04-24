@@ -17,7 +17,11 @@ export default function Hds02Finish() {
           </div>
 
           <div className="bg-gray-100 px-4 pb-2 pt-4 rounded-lg">
-            <CheckItem title="Chặn tin nhắn của những người bắt nạt trực tuyến" status="success" />
+            <CheckItem title="Báo cáo những tin nhắn có biểu hiện bắt nạt trực tuyến" status="success" />
+          </div>
+
+          <div className="bg-gray-100 px-4 pb-2 pt-4 rounded-lg">
+            <CheckItem title="Chặn những người có hành vi bắt nạt trực tuyến" status="success" />
           </div>
           
         </div>

@@ -1,4 +1,14 @@
-export const chatContent = [
+export interface ChatContent {
+  id: number;
+  name: string;
+  content: string;
+  answer?: boolean;
+  img?: string;
+  avatar?: string;
+  link?: string;
+}
+
+export const chatContent: ChatContent[] = [
   {
     id: 1,
     name: "Bình",
@@ -69,4 +79,15 @@ export const filterUsers = [
     avatar: "/avatars/boy_6.svg",
     answer: true
    },
+]
+
+export const clickChatContent: ChatContent[] = [
+  {
+    id: 1,
+    name: "Bình",
+    content: "Trời ơi Chi ơi, điểm Toán của mày thấp tệ luôn á! Sao lại làm dở vậy?",
+    avatar: "/avatars/boy_1.svg",
+    link: "https://www.virus.com/profile.php?id=10",
+    img: "/images/grade.jpg"
+  }
 ]
