@@ -4,7 +4,7 @@ export default function HDS02Layout({
   children: React.ReactNode;
 }>) {
   return (
-      <div className="w-screen min-h-screen bg-[url(/backgrounds/backgroundDesktop.jpg)] bg-cover bg-center p-5">
+      <div className="w-screen h-screen bg-[url(/backgrounds/backgroundDesktop.jpg)] bg-cover bg-center px-5">
         {children}
       </div>
   );

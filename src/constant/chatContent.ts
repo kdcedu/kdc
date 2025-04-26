@@ -81,13 +81,38 @@ export const filterUsers = [
    },
 ]
 
-export const clickChatContent: ChatContent[] = [
+export const clickChatContent: ChatContent[][] = [
+  [
   {
     id: 1,
     name: "Bình",
-    content: "Trời ơi Chi ơi, điểm Toán của mày thấp tệ luôn á! Sao lại làm dở vậy?",
+    content: "Mình thấy có video rất hay về cách làm bài tập Toán, bạn có muốn xem không?",
     avatar: "/avatars/boy_1.svg",
-    link: "https://www.virus.com/profile.php?id=10",
-    img: "/images/grade.jpg"
+    link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    img: "/images/grade.jpg",
+    answer: true
   }
+  ],
+  [
+    {
+      id: 1,
+      name: "Người lạ",
+      content: "Content người lạ",
+      avatar: "/avatars/boy_2.svg",
+      link: "https://www.virus.com/profile.php?id=10 link doc hai",
+      img: "/images/grade.jpg",
+      answer: false
+    }
+  ],
+  [
+    {
+      id: 1,
+      name: "Người quen",
+      content: "Content người quen",
+      avatar: "/avatars/boy_3.svg",
+      link: "https://www.virus.com/profile.php?id=10 link binh thuong",
+      img: "/images/grade.jpg",
+      answer: true
+    }
+  ]
 ]

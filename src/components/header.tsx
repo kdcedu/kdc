@@ -9,9 +9,8 @@ interface HeaderProps {
 
 export default function Header({title}: HeaderProps) {
   const router = useRouter();
-
-
-  return <div className="w-screen flex mb-5 pt-2 items-end justify-center gap-5">
+  
+  return <div className="w-full flex mb-5 pt-2 items-end justify-center gap-5">
   <div className="flex w-24 cursor-pointer" onClick={() => router.push('/')}>
     <Image alt="Logo" preview={false} src="/components/logo.png" />
   </div>
