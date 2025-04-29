@@ -29,7 +29,7 @@ export default function NotificationModal({
         Chúc mừng bạn đã đưa ra lựa chọn đúng
       </div>
       <div className="w-1/2">
-        <Image preview={false} alt="Result" src={trueResult}/>
+        <Image preview={false} alt="Result" src={trueResult} />
       </div>
       <div className="font-semibold text-center">
           {trueContent}
@@ -43,7 +43,7 @@ export default function NotificationModal({
         Tiếc quá bạn đã đưa ra lựa chọn sai
       </div>
       <div className="w-1/2">
-        <Image preview={false} alt="Result" src={falseResult}/>
+        <Image preview={false} alt="Result" src={falseResult} />
       </div>
       
       <div className="font-semibold text-center">
@@ -54,6 +54,7 @@ export default function NotificationModal({
 
   return (
     <Modal
+      key={isTrue ? 'true-content' : 'false-content'}
       open={open}
       onCancel={onCancel}
       footer={
