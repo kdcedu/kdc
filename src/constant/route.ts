@@ -1,5 +1,3 @@
-import { title } from "process";
-
 export const ROUTES = [
   {
     name: 'k1/hds05',
