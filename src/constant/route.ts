@@ -1,3 +1,5 @@
+import { title } from "process";
+
 export const ROUTES = [
   {
     name: 'k1/hds05',
@@ -7,21 +9,26 @@ export const ROUTES = [
   {
     name: 'k2/hds01',
     title: 'Khám phá về tài khoản người dùng',
-    pin: '2222'
+    pin: '1111'
   },
   {
     name: 'k3/hds01',
     title: 'Tạo và quản lý tài khoản trực tuyến',
-    pin: '3333'
+    pin: '1111'
   },
   {
     name: 'k3/hds03',
     title: 'Kỹ năng bảo mật mật khẩu',
-    pin: '3333'
+    pin: '1111'
   },
   {
     name: 'k3/hds02',
     title: 'Bảo vệ bản thân trước bắt nạt trực tuyến',
-    pin: '3333'
+    pin: '1111'
+  },
+  {
+    name: 'k5/hds02',
+    title: 'An toàn trước click độc hại',
+    pin: '1111'
   }
 ]

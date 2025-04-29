@@ -17,9 +17,7 @@ interface GroupChatBoxProps {
   selfId?: number;
   canReport?: boolean;
   setCanReport?: (canReport: boolean) => void;
-  listSuggest?: string[];
   handleClick?: (answer: boolean) => void;
-  addNewMessage?: (message: string) => void;
 }
 
 export default function GroupChatBox({
@@ -32,9 +30,7 @@ export default function GroupChatBox({
   selfId,
   canReport,
   setCanReport,
-  listSuggest,
   handleClick,
-  addNewMessage,
 }: GroupChatBoxProps) {
   const [isSubmit, setIsSubmit] = useState(false);
 
@@ -45,10 +41,10 @@ export default function GroupChatBox({
   const [self, setSelf] = useState<number | undefined>(selfId);
 
   useEffect(() => {
-    if(chatContent.length === 1) {
+    if (chatContent.length === 1) {
       setSelf(undefined);
     }
-  }, [chatContent])
+  }, [chatContent]);
 
   useEffect(() => {
     if (
@@ -104,12 +100,13 @@ export default function GroupChatBox({
             src="/icons/videocall.png"
           />
 
-          <Image
+          <ReportPopover handleConfirm={() => handleClick?.(!chatContent[0].answer)} answer={!chatContent[0].answer} isUserReport icon={<Image
             preview={false}
             width={40}
             alt="Dot Icon"
             src="/icons/3cham.png"
-          />
+          />}/>
+          
         </div>
       </div>
 
@@ -131,38 +128,28 @@ export default function GroupChatBox({
                   <Avatar src={item.avatar} />
                 </div>
               )}
-              <div className="flex flex-col">
+              <div className="flex flex-col gap-2">
                 {self !== item.id && (
                   <div className="font-semibold">{item.name}</div>
                 )}
-                <div
+                {item.img && <div
                   className={`${
                     self !== item.id ? "bg-sky-100" : "bg-sky-600 text-white"
                   } rounded-lg p-2 w-fit`}
                 >
-                  <div
-                    className={`${item.link && "cursor-pointer"}`}
-                    onClick={() => {
-                      handleClick?.(item.answer ?? false);
-                    }}
-                  >
-                    {item.link && (
-                      <span
-                        className="text-blue-500 underline cursor-pointer"
-                        onClick={() => {}}
-                      >
-                        {item.link}
-                      </span>
-                    )}
-                    <div className="w-full">
-                      {item.img && (
-                        <Image preview={false} src={item.img} alt="Image" />
-                      )}
-                    </div>
+                  <div className="w-full">
+                      <Image preview={false} src={item.img} alt="Image" />
                   </div>
+                </div>}
+                
 
-                  <span className="block w-fit">{item.content}</span>
-                </div>
+                {item.content.map((chat, index) => (
+                      <div key={index} className={`${
+                        self !== item.id ? "bg-sky-100" : "bg-sky-600 text-white"
+                      } rounded-lg p-2 w-fit`}>
+                        {chat}
+                      </div>
+                    ))}
               </div>
             </div>
             {self !== item.id && (
@@ -176,7 +163,7 @@ export default function GroupChatBox({
                   canReport && (
                     <ReportPopover
                       answer={item.answer}
-                      setReportIds={() => setReportIds([...reportIds, item.id])}
+                      handleConfirm={() => setReportIds([...reportIds, item.id])}
                     />
                   )
                 )}
@@ -191,24 +178,6 @@ export default function GroupChatBox({
       </div>
 
       <div className="shrink-0 flex flex-col gap-3 mt-2">
-        <div className="flex gap-2">
-          {listSuggest &&
-            self === undefined &&
-            listSuggest.map((item) => (
-              <Button
-                key={item}
-                variant="outlined"
-                color="orange"
-                onClick={() => {
-                  addNewMessage?.(item);
-                  setSelf(10);
-                  handleClick?.(chatContent[0].answer ? !chatContent[0].answer : true);
-                }}
-              >
-                {item}
-              </Button>
-            ))}
-        </div>
         <div className="flex gap-2">
           <Input
             placeholder="Nhập tin nhắn"

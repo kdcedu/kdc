@@ -16,19 +16,19 @@ interface ReportModalProps {
 const reportReasons = [
   {
     id: 1,
-    reason: 'Ngôn từ không phù hợp'
+    reason: 'Bắt nạt - Quấy rối'
   },
   {
     id: 2,
-    reason: 'Bắt nạt'
-  },
-  {
-    id: 3,
     reason: 'Nội dung không phù hợp'
   },
   {
+    id: 3,
+    reason: 'Giả mạo người khác'
+  },
+  {
     id: 4,
-    reason: 'Giả mạo'
+    reason: 'Khác'
   },
 ]
 
@@ -36,25 +36,35 @@ export default function ReportModal({ isModalOpen, handleCancel, handleOk, isTru
 
   const [selectedReason, setSelectedReason] = useState<string[]>([]);
 
+  const [renderKey, setRenderKey] = useState(0);
+
   const [messageApi, contextHolder] = message.useMessage();
+
+  const resetCheckBox = () => {
+    setRenderKey(prev => prev + 1);
+    setSelectedReason([]);
+  }
 
   const handleReport = () => {
     if (isTrue) {
       messageApi.open({
         type: 'success',
-        content: <span className="text-green-500 text-xl">Bạn đã báo cáo đúng tin nhắn bắt nạt</span>,  
+        content: <span className="text-green-500 text-xl">Bạn đã báo cáo đúng tin nhắn</span>,  
       });
     } else {
       messageApi.open({
         type: 'error',
-        content: <span className="text-red-500 text-xl">Bạn đã báo cáo sai tin nhắn bắt nạt</span>,
+        content: <span className="text-red-500 text-xl">Bạn đã báo cáo sai tin nhắn</span>,
       });
     }
+    
+    resetCheckBox();
 
     handleOk();
   }
+
   return (
-    <Modal title={<div className="text-center text-xl text-orange-500">Tin nhắn này có vấn đề gì?</div>} open={isModalOpen} onCancel={handleCancel} footer={<div className="flex flex-col gap-2">
+    <Modal title={<div className="text-center text-xl text-orange-500">Tin nhắn này có vấn đề gì?</div>} open={isModalOpen} onCancel={() => {handleCancel(); resetCheckBox();}} footer={<div className="flex flex-col gap-2">
       <Button disabled={selectedReason.length === 0} className="w-full" variant="solid" color="orange" onClick={handleReport}>Gửi</Button>
     </div>}>
       {contextHolder}
@@ -67,7 +77,7 @@ export default function ReportModal({ isModalOpen, handleCancel, handleOk, isTru
           setSelectedReason([...selectedReason, reason.reason]);
         }
       }}>
-          <CustomCheckBox key={reason.id} answer={false} isSubmit={false} />
+          <CustomCheckBox key={renderKey + '-' + reason.id} answer={false} isSubmit={false} />
         </div>
         <div className="font-semibold text-lg">{reason.reason}</div>
       </div>)}

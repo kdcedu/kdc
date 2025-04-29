@@ -1,13 +1,15 @@
-import { CheckCircleFilled, CloseCircleFilled } from "@ant-design/icons";
-import { Button, Modal } from "antd";
+import { Button, Image, Modal } from "antd";
 
 interface NotificationModalProps {
   open: boolean;
   onCancel: () => void;
   isTrue: boolean;
-  answer?: boolean;
   handleNext: () => void;
   isEnd: boolean;
+  trueResult?: string;
+  falseResult?: string;
+  trueContent?: string;
+  falseContent?: string;
 }
 
 export default function NotificationModal({
@@ -16,93 +18,37 @@ export default function NotificationModal({
   isTrue,
   handleNext,
   isEnd,
-  answer,
+  trueResult,
+  falseResult,
+  trueContent,
+  falseContent
 }: NotificationModalProps) {
   const TrueContent = (
     <div className="flex flex-col items-center gap-2 ">
       <div className="flex items-center gap-2 text-xl font-semibold text-green-500">
         Chúc mừng bạn đã đưa ra lựa chọn đúng
       </div>
-      {answer ? <>
-        <div className="text-lg text-orange-400 font-semibold">
-              Bạn đã truy cập đúng vào:
-            </div>
-            <ul className="flex flex-col gap-3 text-green-400">
-              <li className="flex items-center gap-5">
-                <CheckCircleFilled />
-                <div>Những chia sẻ thú vị của bạn bè</div>
-              </li>
-              <li className="flex items-center gap-5">
-                <CheckCircleFilled />
-                <div>Những khoảnh khắc đáng nhớ với gia đình</div>
-              </li>
-            </ul>
-      </> : <>
-      <div className="text-lg text-orange-400 font-semibold">
-              Bạn đã bỏ qua đúng đường dẫn độc lại:
-            </div>
-            <ul className="flex flex-col gap-3 text-green-400">
-            <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Ngăn chặn đánh cắp tài khoản cá nhân</div>
-              </li>
-              <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Ngăn chặn đánh cắp tiền trong tài khoản</div>
-              </li>
-              <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Ngăn chặn lây nhiễm các phần mềm độc hại</div>
-              </li>
-            </ul>
-      </>}
+      <div className="w-1/2">
+        <Image preview={false} alt="Result" src={trueResult}/>
+      </div>
+      <div className="font-semibold text-center">
+          {trueContent}
+        </div>
     </div>
   );
 
   const FalseContent = (
-    <div className="flex flex-col items-center gap-2">
+    <div className="w-full flex flex-col items-center gap-2">
       <div className="flex items-center gap-2 w-full justify-center bg-red-100 p-2 rounded-lg text-red-500 text-2xl font-semibold">
         Tiếc quá bạn đã đưa ra lựa chọn sai
       </div>
-      <div className="flex flex-col items-center gap-5 mb-5">
-        {answer ? (
-          <>
-            <div className="text-lg text-orange-400 font-semibold">
-              Bạn đã bỏ qua:
-            </div>
-            <ul className="flex flex-col gap-3 text-red-400">
-              <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Những chia sẻ thú vị của bạn bè</div>
-              </li>
-              <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Những khoảnh khắc đáng nhớ với gia đình</div>
-              </li>
-            </ul>
-          </>
-        ) : (
-          <>
-            <div className="text-lg text-orange-400 font-semibold">
-              Những rủi ro bạn có thể gặp phải:
-            </div>
-            <ul className="flex flex-col gap-3 text-red-400">
-              <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Bị đánh cắp tài khoản cá nhân</div>
-              </li>
-              <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Bị đánh cắp tiền trong tài khoản</div>
-              </li>
-              <li className="flex items-center gap-5">
-                <CloseCircleFilled />
-                <div>Bị lây nhiễm các phần mềm độc hại</div>
-              </li>
-            </ul>
-          </>
-        )}
+      <div className="w-1/2">
+        <Image preview={false} alt="Result" src={falseResult}/>
       </div>
+      
+      <div className="font-semibold text-center">
+          {falseContent}
+        </div>
     </div>
   );
 

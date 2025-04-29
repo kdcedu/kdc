@@ -38,5 +38,5 @@ export const apps = [
     id: 8,
     name: 'Spotify',
     icon: '/apps/spotify.svg'
-  }
+  },
 ]
