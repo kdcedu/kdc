@@ -17,7 +17,7 @@ export const ROUTES = [
   {
     grade: 1,
     name: '',
-    title: '[Bài thực hành] truy cập và sử dụng ứng dụng an toàn',
+    title: 'Truy cập và sử dụng ứng dụng an toàn',
     pin: '1111',
     type: 'Thao tác số'
   },
@@ -52,13 +52,13 @@ export const ROUTES = [
   {
     grade: 2,
     name: '',
-    title: 'An toàn trước nội dung độc hại trên internet',
+    title: 'Nhà thiết kế nội thất tương lai',
     pin: '1111',
-    type: 'Thao tác số'
+    type: 'Hoạt động khác'
   },
   {
     grade: 2,
-    name: '',
+    name: 'k2/hds03',
     title: 'Virus và phần mềm diệt virus',
     pin: '1111',
     type: 'Thao tác số'
@@ -66,7 +66,7 @@ export const ROUTES = [
   {
     grade: 2,
     name: '',
-    title: '[Bài mở rộng] Giao tiếp lễ phép và văn minh',
+    title: 'Giao tiếp lễ phép và văn minh',
     pin: '1111',
     type: 'Xử lý tình huống'
   },
@@ -94,7 +94,7 @@ export const ROUTES = [
   {
     grade: 3,
     name: 'k3/hds03',
-    title: '[Thực hành] Kỹ năng bảo mật mật khẩu',
+    title: 'Kỹ năng bảo mật mật khẩu',
     pin: '1111',
     type: 'Thao tác số'
   },
@@ -122,7 +122,7 @@ export const ROUTES = [
   {
     grade: 4,
     name: 'https://new-t-t-s-k4-t-h-caidatriengtutren-k-g-m-zc969z.flutterflow.app/',
-    title: '[Thực hành] Cài đặt riêng tư trên không gian mạng',
+    title: 'Cài đặt riêng tư trên không gian mạng',
     pin: '1111',
     type: 'Thao tác số'
   },
@@ -136,7 +136,7 @@ export const ROUTES = [
   {
     grade: 4,
     name: '',
-    title: '[Bài mở rộng] Like và share văn minh',
+    title: 'Like và share văn minh',
     pin: '1111',
     type: 'Thao tác số'
   },
@@ -155,25 +155,18 @@ export const ROUTES = [
     type: 'Xử lý tình huống'
   },
   {
-    grade: 4,
-    name: '',
-    title: 'Tôn trọng người khác khi giao tiếp trên internet',
-    pin: '1111',
-    type: 'Xử lý tình huống'
-  },
-  {
     grade: 5,
     name: 'k5/hds02',
-    title: '[Thực hành] An toàn trước click độc hại',
+    title: 'An toàn trước "click" độc hại',
     pin: '1111',
     type: 'Thao tác số'
   },
   {
     grade: 5,
     name: '',
-    title: 'Những thước phim hoạt hình vui nhộn - Stop Motion Studio',
+    title: 'Sao lưu dữ liệu cá nhân ',
     pin: '1111',
-    type: 'Thực hành ứng dụng'
+    type: 'Thao tác số'
   },
   {
     grade: 5,
@@ -185,14 +178,14 @@ export const ROUTES = [
   {
     grade: 5,
     name: '',
-    title: 'Sử dụng internet an toàn',
+    title: 'Giải quyết xung đột trực tuyến',
     pin: '1111',
     type: 'Xử lý tình huống'
   },
   {
     grade: 5,
     name: '',
-    title: '[Bài mở rộng] Phòng chống bắt nạt trực tuyến',
+    title: 'Học nhóm hiệu quả trên không gian mạng',
     pin: '1111',
     type: 'Xử lý tình huống'
   },

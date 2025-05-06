@@ -3,12 +3,19 @@
 import ScanVirusModal from "@/components/scanVirusModal";
 import VirusModal from "@/components/virusModal";
 import { apps } from "@/constant/app";
-import { Image } from "antd";
+import { Image, message } from "antd";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 export default function HDS03Page() {
+  const {push} = useRouter();
+
+  const pathName = usePathname();
+
   const [isVirus, setIsVirus] = useState(true);
 
   const [isScanVirus, setIsScanVirus] = useState(false);
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   const handleScanVirus = () => {
     setIsScanVirus(true);
@@ -20,8 +27,21 @@ export default function HDS03Page() {
     setIsVirus(true);
   };
 
+  const handleFinish = () => {
+    setIsScanVirus(false);
+    setIsVirus(false);
+    messageApi.open({
+      type: "success",
+      content: <span className="text-green-500 font-semibold text-xl">Bạn đã hoàn thành bài tập diệt Virus</span>,
+    });
+    setTimeout(() => {
+      push(pathName + '/finish')
+    }, 3000)
+  }
+
   return (
     <div className="flex justify-between w-full">
+      {contextHolder}
       <div className="grid grid-cols-2 gap-10 w-1/4 py-5">
         {apps.map((app) => (
           <div key={app.id} className="flex flex-col items-center gap-2">
@@ -39,7 +59,7 @@ export default function HDS03Page() {
       {isVirus && <VirusModal />}
       {isVirus && <VirusModal />}
       {isVirus && <VirusModal />}
-      <ScanVirusModal open={isScanVirus} onCancel={handleCancelScanVirus} />
+      <ScanVirusModal open={isScanVirus} onCancel={handleCancelScanVirus} onFinish={handleFinish}/>
     </div>
   );
 }

@@ -53,7 +53,7 @@ export default function Hds02() {
 
   return isBegin ? (
     <div className="flex flex-col gap-5">
-      <Header title="An toàn trước Click độc hại" />
+      <Header title="Bài: An toàn trước Click độc hại" />
 
       <CatConversation>
         <span className="text-orange-400">Yêu cầu: </span>

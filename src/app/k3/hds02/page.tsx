@@ -44,7 +44,7 @@ export default function Hds02() {
         <Button
           className="float-end"
           variant="solid"
-          color="orange"
+          color="green"
           onClick={() => setIsBegin(false)}
         >
           Bắt đầu thôi
@@ -70,7 +70,7 @@ export default function Hds02() {
           <Button
             className="float-end"
             variant="solid"
-            color="orange"
+            color="green"
             onClick={() => setIsBegin(false)}
           >
             Bắt đầu thôi
@@ -97,7 +97,7 @@ export default function Hds02() {
     <Button
       className="float-end"
       variant="solid"
-      color="orange"
+      color="green"
       onClick={() => setIsBegin(false)}
     >
       Bắt đầu thôi

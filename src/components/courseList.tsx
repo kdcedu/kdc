@@ -69,7 +69,7 @@ export default function CourseList({ grade, filter }: CourseListProps) {
             }
           >
             <div className="flex flex-col gap-2">
-              <div className="font-semibold text-base">{route.title}</div>
+              <div className="font-semibold text-base">Bài: {route.title}</div>
               <div className="text-gray-400">{route.type}</div>
             </div>
           </Card>
