@@ -1,11 +1,11 @@
 import { Image } from "antd";
 
 export default function GamePage() {
-  return <div className="bg-black flex items-center justify-center min-w-screen min-h-screen">
-    <div className="w-[1250px] h-[780px] bg-[url(/backgrounds/gameBackground.jpg)] bg-cover">
-      <div className="absolute mt-[180px] ml-[150px]">
-        <Image alt="Test" preview={false} width={100} src="/images/grade.jpg"/>
-      </div>
+  return <div className="w-screen h-screen bg-black overflow-x-auto">
+  <div className="w-[1250px] h-[780px] bg-[url('/backgrounds/gameBackground.jpg')] bg-cover relative m-auto">
+    <div className="absolute top-[250px] left-[200px]">
+      <Image alt="Test" width={100} preview={false} src="/images/grade.jpg" />
     </div>
-  </div> 
+  </div>
+</div>
 }
