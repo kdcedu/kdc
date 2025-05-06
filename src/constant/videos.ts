@@ -10,7 +10,7 @@ export const videos = [
     imageUrl: "https://i.postimg.cc/pT3043Pg/Hinh2.png",
     title: "Phim kinh dị",
     id: '2',
-    link: 'https://www.youtube.com/embed/ErBb2wH07VQ?si=XRgwUna6QEuSOuYK',
+    link: 'https://www.youtube.com/embed/s7zoX9MGMbk?si=70MUQTYA9ZvOrv_s',
     isGood: false
   },
   {
