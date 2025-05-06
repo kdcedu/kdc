@@ -36,6 +36,9 @@ export default function HDS03Page() {
         </div>
       </div>
       {isVirus && <VirusModal />}
+      {isVirus && <VirusModal />}
+      {isVirus && <VirusModal />}
+      {isVirus && <VirusModal />}
       <ScanVirusModal open={isScanVirus} onCancel={handleCancelScanVirus} />
     </div>
   );

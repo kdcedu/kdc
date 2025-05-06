@@ -1,9 +1,8 @@
 "use client";
 
-import { CloseOutlined, SettingFilled } from "@ant-design/icons";
-import { Button, Modal } from "antd";
-import { useEffect, useState } from "react";
-import ScanningProgress from "./scanningProgress";
+import { CloseOutlined, SearchOutlined, SettingFilled } from "@ant-design/icons";
+import { Modal } from "antd";
+import { useEffect } from "react";
 
 interface ScanVirusModalProps {
   open: boolean;
@@ -12,11 +11,11 @@ interface ScanVirusModalProps {
 
 export default function ScanVirusModal({ open, onCancel }: ScanVirusModalProps) {
 
-  const [isScanning, setIsScanning] = useState(false);
+  // const [isScanning, setIsScanning] = useState(false);
 
   useEffect(() => {
     if (open) {
-      setIsScanning(false);
+      // setIsScanning(false);
     }
   }, [open]);
 
@@ -35,10 +34,18 @@ export default function ScanVirusModal({ open, onCancel }: ScanVirusModalProps) 
     </div>
     <CloseOutlined onClick={onCancel}/>
   </div>}>
-    <div className="flex flex-col gap-5 min-h-96">
-      <span className="text-lg font-bold text-center">Chào mừng bạn đến với ứng dụng quét và diệt Virus</span>
-      <div className="flex items-center justify-center h-full">
+    <div className="flex flex-col gap-5 min-h-96 items-center">
+      <div className="flex flex-col gap-2 items-center justify-center w-[120px] h-[120px] bg-orange-400 text-white text-lg font-semibold rounded-full active:opacity-80 hover:cursor-pointer" >
+        <SearchOutlined />
+        <div>Quét ngay</div>
+      </div>
+      {/* <div className="flex items-center justify-center h-full">
         {isScanning ? <ScanningProgress /> : <Button type="primary" onClick={() => setIsScanning(true)}>Bắt đầu quét</Button>}
+      </div> */}
+      <div>
+        <div className="">
+
+        </div>
       </div>
     </div>
   </Modal> 

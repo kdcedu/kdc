@@ -72,7 +72,7 @@ export default function Hds02() {
             <Image
               alt="Guide"
               preview={false}
-              width={250}
+              width={350}
               src="/images/guide_k5_hds02_1.png"
             />
           </div>
@@ -85,7 +85,7 @@ export default function Hds02() {
             <Image
               alt="Guide"
               preview={false}
-              width={250}
+              width={180}
               src="/images/guide_k5_hds02_2.png"
             />
           </div>

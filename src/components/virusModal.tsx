@@ -3,6 +3,7 @@
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 
+
 export default function VirusModal() {
 
   const [open, setOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function VirusModal() {
   };
 
   return (
-    <Modal open={open} onCancel={onCancel} footer={null}>
+    <Modal open={open} onCancel={onCancel} footer={null} >
       <h1>Virus Modal</h1>
     </Modal>
   );
