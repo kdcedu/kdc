@@ -3,12 +3,12 @@
   "short_name": "KDC",
   "icons": [
     {
-      "src": "/icons/cat2.png",
+      "src": "/components/logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/icons/cat.png",
+      "src": "/components/logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }
