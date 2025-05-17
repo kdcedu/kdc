@@ -16,3 +16,14 @@ export interface IProfile {
   birth: Dayjs;
   avatar?: string;
 }
+
+export const friendList = [
+  {
+    name: 'Nguyễn A',
+    avatar: '/avatars/animal_14.svg'
+  },
+  {
+    name: 'Nguyễn B',
+    avatar: '/avatars/animal_15.svg'
+  }
+]

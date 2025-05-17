@@ -3,7 +3,11 @@ import { CameraFilled } from "@ant-design/icons";
 import { Image, message, Modal } from "antd";
 import { useEffect, useState } from "react";
 
-export default function AvatarPicker() {
+interface AvatarPickerProps {
+  isView?: boolean
+}
+
+export default function AvatarPicker({isView} : AvatarPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const [avatar, setAvatar] = useState('/icons/Bin.svg');
@@ -32,12 +36,12 @@ export default function AvatarPicker() {
   }
 
   return (
-    <>
+    <div className="relative w-fit">
     {contextHolder}
-      <div className=" bg-white w-32 h-32 flex justify-center p-2 rounded-full cursor-pointer" onClick={() => {setIsOpen(true)}}>
+      <div className=" bg-white w-48 flex justify-center p-2 rounded-full cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
         <Image alt="Avatar" preview={false} src={avatar} />
       </div>
-      <div className="relative right-8 top-10 font-semibold text-xl bg-gray-200 w-8 h-8 flex justify-center items-center rounded-full active:opacity-60 cursor-pointer" onClick={() => {setIsOpen(true)}}>
+      <div className="absolute top-36 left-32 bg-gray-200 w-10 h-10 text-xl flex justify-center items-center rounded-full active:opacity-60 cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
         <CameraFilled />
       </div>
       <Modal
@@ -50,6 +54,6 @@ export default function AvatarPicker() {
           {avatars.map(avatar => <Image key={avatar} preview={false} alt="Avatar" className="cursor-pointer active:scale-95" src={`/avatars/${avatar}.svg`} onClick={() => handleChangeAvatar(avatar)}/>)}
         </div>
       </Modal>
-    </>
+    </div>
   );
 }

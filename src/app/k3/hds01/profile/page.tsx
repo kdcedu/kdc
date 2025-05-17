@@ -62,7 +62,7 @@ export default function Profile() {
               />
             </div>
 
-            <div className="relative -top-10 flex items-center px-10">
+            <div className="relative -top-10 flex items-center gap-10 px-10">
               <AvatarPicker />
 
               <div className="mt-5 flex justify-between gap-10">
