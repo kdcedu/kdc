@@ -25,5 +25,13 @@ export const friendList = [
   {
     name: 'Nguyễn B',
     avatar: '/avatars/animal_15.svg'
+  },
+  {
+    name: 'Nguyễn C',
+    avatar: '/avatars/animal_13.svg'
+  },
+  {
+    name: 'Nguyễn D',
+    avatar: '/avatars/animal_12.svg'
   }
 ]

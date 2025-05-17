@@ -13,18 +13,23 @@ import { PostType } from "@/constant/post";
 export type PrivacyType = "public" | "friend" | "custom" | "only";
 
 export interface PostProps {
-  post: PostType
+  post: PostType;
   isView?: boolean;
-  setPrivacy: (value: PrivacyType) => void
+  setPrivacy: (value: PrivacyType) => void;
+  setBlockList: (value: string[]) => void;
+  blockList: string[];
 }
 
-export default function Post({ post, isView, setPrivacy }: PostProps) {
-
-  const currentIcon = <Image
-  alt="global"
-  preview={false}
-  src={`/icons/${post.privacy}.png`}
-/>
+export default function Post({
+  post,
+  isView,
+  setPrivacy,
+  setBlockList,
+  blockList,
+}: PostProps) {
+  const currentIcon = (
+    <Image alt="global" preview={false} src={`/icons/${post.privacy}.png`} />
+  );
 
   return (
     <>
@@ -44,11 +49,17 @@ export default function Post({ post, isView, setPrivacy }: PostProps) {
                 <span className="text-xs text-gray-300">{post.time}</span>
               </div>
 
-              {isView ? currentIcon : <PrivacyModal
-                initialValue={post.privacy}
-                onOk={setPrivacy}
-                icon={currentIcon}
-              />}
+              {isView ? (
+                currentIcon
+              ) : (
+                <PrivacyModal
+                  blockList={blockList}
+                  setBlockList={setBlockList}
+                  initialValue={post.privacy}
+                  onOk={setPrivacy}
+                  icon={currentIcon}
+                />
+              )}
             </div>
 
             <EllipsisOutlined />

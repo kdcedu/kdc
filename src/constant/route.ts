@@ -121,7 +121,7 @@ export const ROUTES = [
   },
   {
     grade: 4,
-    name: 'https://new-t-t-s-k4-t-h-caidatriengtutren-k-g-m-zc969z.flutterflow.app/',
+    name: 'k4/hds01',
     title: 'Cài đặt riêng tư trên không gian mạng',
     pin: '1111',
     type: 'Thao tác số'

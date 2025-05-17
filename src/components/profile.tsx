@@ -3,20 +3,38 @@ import AvatarPicker from "./avatarPicker";
 import { DownOutlined, EditFilled, PlusOutlined } from "@ant-design/icons";
 import Post, { PrivacyType } from "./post";
 import { friendList } from "@/constant/profile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PostType } from "@/constant/post";
+import { usePathname, useRouter } from "next/navigation";
 
 interface ProfileComponentProps {
   isView?: boolean;
   post: PostType[];
   setPost: (value: PostType[]) => void;
+  blockList: string[];
+  setBlockList: (value: string[]) => void;
+  finishRole?: boolean;
+  setFinishRole?: (value: boolean) => void;
+  finishPrivacy?: boolean;
+  setFinishPrivacy?: (value: boolean) => void;
 }
 
 export default function ProfileComponent({
   isView,
   post,
   setPost,
+  blockList,
+  setBlockList,
+  finishRole,
+  setFinishRole,
+  finishPrivacy,
+  setFinishPrivacy
+  
 }: ProfileComponentProps) {
+  const {push} = useRouter();
+
+  const pathName = usePathname();
+
   const selectOptions = [
     {
       label: "Người lạ",
@@ -31,7 +49,21 @@ export default function ProfileComponent({
 
   const [role, setRole] = useState("Người lạ");
 
+  const [roleList, setRoleList] = useState<string[]>(['Người lạ']);
+
+  const [privacyList, setPrivacyList] = useState<PrivacyType[]>(['public'])
+
+  useEffect(() => {
+    if(roleList.length === selectOptions.length) setFinishRole?.(true)
+  }, [roleList, setFinishRole, selectOptions.length])
+
+  useEffect(() => {
+    if(privacyList.length === 4) setFinishPrivacy?.(true)
+  }, [privacyList, setFinishPrivacy])
+
   const PostComponent = ({p} : {p: PostType}) => <Post
+  blockList={blockList}
+  setBlockList={setBlockList}
   setPrivacy={(value: PrivacyType) => {
     if (!isView)
       setPost(
@@ -40,6 +72,7 @@ export default function ProfileComponent({
           else return cur;
         })
       );
+      if(!privacyList.includes(value)) setPrivacyList([...privacyList, value])
   }}
   isView={isView}
   post={p}
@@ -56,7 +89,10 @@ export default function ProfileComponent({
             className="flex flex-1"
             options={selectOptions}
             defaultValue={role}
-            onChange={(value) => setRole(value)}
+            onChange={(value) => {
+              setRole(value)
+              if(!roleList.includes(value)) setRoleList([...roleList, value])
+            }}
           />
         </div>
       )}
@@ -102,12 +138,20 @@ export default function ProfileComponent({
               if(role !== 'Người lạ') {
                 return <PostComponent key={p.content} p={p}/>
               }
-            } 
+            } else if (p.privacy === 'custom') {
+              if(!blockList.includes(role) && role !== 'Người lạ') return <PostComponent key={p.content} p={p}/>
+            }
           } else {
             return <PostComponent key={p.content} p={p}/>
           }
         })}
       </div>
+
+      {isView && finishRole && finishPrivacy && (
+        <div className="flex w-1/2 justify-end absolute bottom-0 z-10 px-5 py-2 bg-orange-100">
+          <Button variant="solid" color="orange" onClick={() => push(pathName + '/finish')}>Hoàn thành</Button>
+        </div>
+      )}
     </div>
   );
 }
