@@ -111,7 +111,7 @@ export default function ProfileComponent({
 
         <div className="mt-2 flex justify-center">
           <div className="flex flex-col gap-2 items-center">
-            <div className="text-3xl font-semibold">Nguyễn Bin</div>
+            <div className="text-3xl font-semibold">Bin Béo</div>
             <div className="text-sm text-gray-500">50 người bạn</div>
           </div>
         </div>

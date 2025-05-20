@@ -9,6 +9,7 @@ import {
 import { Image, Input } from "antd";
 import PrivacyModal from "./privacyModal";
 import { PostType } from "@/constant/post";
+import { useState } from "react";
 
 export type PrivacyType = "public" | "friend" | "custom" | "only";
 
@@ -27,9 +28,13 @@ export default function Post({
   setBlockList,
   blockList,
 }: PostProps) {
+  const [isLike, setIsLike] = useState<boolean>(false);
+
   const currentIcon = (
     <Image alt="global" preview={false} src={`/icons/${post.privacy}.png`} />
   );
+
+  
 
   return (
     <>
@@ -41,7 +46,7 @@ export default function Post({
                 <Image
                   alt="avatar"
                   preview={false}
-                  src="/avatars/animal_1.svg"
+                  src="/icons/Bin.svg"
                 />
               </div>
               <div className="flex flex-col">
@@ -86,8 +91,8 @@ export default function Post({
         </div>
 
         <div className="flex justify-evenly items-center py-2 border-y border-gray-300">
-          <div className="flex items-center gap-2 text-gray-400">
-            <LikeOutlined />
+          <div className={`flex items-center gap-2 cursor-pointer ${isLike ? 'text-blue-400' : 'text-gray-400'}`} onClick={() => setIsLike(!isLike)}>
+            {isLike ? <LikeFilled /> : <LikeOutlined />}
             Thích
           </div>
 
@@ -104,7 +109,7 @@ export default function Post({
 
         <div className="flex gap-3 px-3 mt-3">
           <div className="w-10">
-            <Image alt="avatar" preview={false} src="/avatars/animal_1.svg" />
+            <Image alt="avatar" preview={false} src={isView ? "/avatars/animal_1.svg": "/icons/Bin.svg"} />
           </div>
           <Input
             readOnly
