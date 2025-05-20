@@ -16,25 +16,19 @@ export type PrivacyType = "public" | "friend" | "custom" | "only";
 export interface PostProps {
   post: PostType;
   isView?: boolean;
-  setPrivacy: (value: PrivacyType) => void;
-  setBlockList: (value: string[]) => void;
-  blockList: string[];
+  setPrivacy: (value: PrivacyType, blockList?: string[]) => void;
 }
 
 export default function Post({
   post,
   isView,
   setPrivacy,
-  setBlockList,
-  blockList,
 }: PostProps) {
   const [isLike, setIsLike] = useState<boolean>(false);
 
   const currentIcon = (
     <Image alt="global" preview={false} src={`/icons/${post.privacy}.png`} />
   );
-
-  
 
   return (
     <>
@@ -58,8 +52,7 @@ export default function Post({
                 currentIcon
               ) : (
                 <PrivacyModal
-                  blockList={blockList}
-                  setBlockList={setBlockList}
+                  blockList={post.blockList}
                   initialValue={post.privacy}
                   onOk={setPrivacy}
                   icon={currentIcon}
@@ -83,7 +76,7 @@ export default function Post({
               <LikeFilled />
             </span>
             <span className="text-sm text-gray-400">
-              Long, Vũ và 50 người khác
+              {isLike && 'Bạn, '}Long, Vũ và 50 người khác
             </span>
           </div>
 

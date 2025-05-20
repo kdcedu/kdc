@@ -3,12 +3,12 @@ import { useState } from "react";
 import { PrivacyType } from "./post";
 import { friendList } from "@/constant/profile";
 import { MinusCircleFilled, MinusCircleOutlined } from "@ant-design/icons";
+import { defaultPrivacyList } from "@/constant/post";
 interface PrivacyModalProps {
-  onOk: (value: PrivacyType) => void;
+  onOk: (value: PrivacyType, blockList?: string[]) => void;
   icon: React.ReactNode;
   initialValue: PrivacyType;
   blockList: string[];
-  setBlockList: (value: string[]) => void
 }
 
 export default function PrivacyModal({
@@ -16,7 +16,6 @@ export default function PrivacyModal({
   icon,
   initialValue,
   blockList,
-  setBlockList
 }: PrivacyModalProps) {
   const [open, setOpen] = useState(false);
 
@@ -25,29 +24,6 @@ export default function PrivacyModal({
   const [currentBlockList, setCurrentBlockList] = useState(blockList)
 
   const [currentValue, setCurrentValue] = useState<PrivacyType>(initialValue);
-
-  const privacyList = [
-    {
-      title: "Công khai",
-      description: "Bất kỳ ai ở trên hoặc ngoài Facebook",
-      value: "public",
-    },
-    {
-      title: "Bạn bè",
-      description: "Bạn bè của bạn trên Facebook",
-      value: "friend",
-    },
-    {
-      title: "Bạn bè ngoại trừ...",
-      description: "Bạn bè của bạn ngoài trừ người bạn này",
-      value: "custom",
-    },
-    {
-      title: "Chỉ mình tôi",
-      description: "Chỉ có bạn mới xem được nội dung này",
-      value: "only",
-    },
-  ];
 
   const contentList = [
     <div key={1} className="w-96">
@@ -61,7 +37,7 @@ export default function PrivacyModal({
       </div>
       <Radio.Group value={currentValue}>
         <div className="flex flex-col mb-3">
-          {privacyList.map((privacy) => (
+          {defaultPrivacyList.map((privacy) => (
             <Radio
               key={privacy.title}
               value={privacy.value}
@@ -163,8 +139,8 @@ export default function PrivacyModal({
         <Button
           type="primary"
           onClick={() => {
-            onOk(currentValue);
-            setBlockList(currentBlockList)
+            onOk(currentValue, currentBlockList);
+            setCurrentBlockList([])
             setOpen(false);
           }}
         >

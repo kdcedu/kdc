@@ -3,16 +3,15 @@ import AvatarPicker from "./avatarPicker";
 import { DownOutlined, EditFilled, PlusOutlined } from "@ant-design/icons";
 import Post, { PrivacyType } from "./post";
 import { friendList } from "@/constant/profile";
-import { useEffect, useState } from "react";
-import { PostType } from "@/constant/post";
+import { useEffect, useMemo, useState } from "react";
+import { defaultPrivacyList, PostType } from "@/constant/post";
 import { usePathname, useRouter } from "next/navigation";
+import CheckListButton from "./checklistButton";
 
 interface ProfileComponentProps {
   isView?: boolean;
   post: PostType[];
   setPost: (value: PostType[]) => void;
-  blockList: string[];
-  setBlockList: (value: string[]) => void;
   finishRole?: boolean;
   setFinishRole?: (value: boolean) => void;
   finishPrivacy?: boolean;
@@ -23,8 +22,6 @@ export default function ProfileComponent({
   isView,
   post,
   setPost,
-  blockList,
-  setBlockList,
   finishRole,
   setFinishRole,
   finishPrivacy,
@@ -35,23 +32,33 @@ export default function ProfileComponent({
 
   const pathName = usePathname();
 
-  const selectOptions = [
+  const selectOptions = useMemo(() => [
     {
       label: "Người lạ",
       value: "Người lạ",
     },
-    {
-      label: "Bạn bè",
-      value: "Bạn bè",
-    },
-    ...friendList.map((friend) => ({ label: friend.name, value: friend.name })),
-  ];
+    ...friendList.map((friend) => ({ label: 'Bạn ' + friend.name, value: friend.name })),
+  ], []);
 
   const [role, setRole] = useState("Người lạ");
 
   const [roleList, setRoleList] = useState<string[]>(['Người lạ']);
 
   const [privacyList, setPrivacyList] = useState<PrivacyType[]>(['public'])
+
+  const roleTask = useMemo(() => {
+    return selectOptions.map(opt => ({
+      name: <span>Xem hồ sơ dưới góc nhìn <span className="font-semibold">{opt.value}</span></span>,
+      isDone: roleList.includes(opt.value)
+    }))
+  }, [selectOptions, roleList])
+
+  const privacyTask = useMemo(() => {
+    return defaultPrivacyList.map(pri => ({
+      name: <span>Cài đặt quyền truy cập <span className="font-semibold">{pri.title}</span></span>,
+      isDone: privacyList.includes(pri.value)
+    }))
+  }, [privacyList])
 
   useEffect(() => {
     if(roleList.length === selectOptions.length) setFinishRole?.(true)
@@ -62,13 +69,11 @@ export default function ProfileComponent({
   }, [privacyList, setFinishPrivacy])
 
   const PostComponent = ({p} : {p: PostType}) => <Post
-  blockList={blockList}
-  setBlockList={setBlockList}
-  setPrivacy={(value: PrivacyType) => {
+  setPrivacy={(value: PrivacyType, blockList?: string[]) => {
     if (!isView)
       setPost(
         post.map((cur) => {
-          if (cur === p) return { ...p, privacy: value };
+          if (cur === p) return { ...p, privacy: value, blockList: blockList || [] };
           else return cur;
         })
       );
@@ -80,29 +85,28 @@ export default function ProfileComponent({
 
   return (
     <div className="w-full flex flex-col justify-center">
-      {isView && (
-        <div className="flex items-center bg-orange-100 w-1/2 gap-5 absolute top-0 z-10 px-5 py-3">
+        <div className="flex w-fit items-center bg-orange-100 gap-5 absolute top-0 z-10 px-5 py-3 rounded-r-xl">
           <span className="text-orange-400 font-semibold">
-            Bạn đang xem hồ sơ dưới góc nhìn:{" "}
+            {isView ? 'Bạn đang xem hồ sơ dưới góc nhìn:' : 'Góc nhìn của bạn'}
           </span>
-          <Select
-            className="flex flex-1"
+          {isView && <Select
+            className="flex w-36"
             options={selectOptions}
             defaultValue={role}
             onChange={(value) => {
               setRole(value)
               if(!roleList.includes(value)) setRoleList([...roleList, value])
             }}
-          />
+          />}
         </div>
-      )}
+      
       <div className="w-full h-56">
         <Image
           alt="Background"
           preview={false}
           width="100%"
           height="100%"
-          src="https://t4.ftcdn.net/jpg/05/42/73/17/360_F_542731787_npIDENXs9NMkl1mtyHKj8De2WBL2vnFW.jpg"
+          src="/backgrounds/backgroundDesktop.jpg"
         />
       </div>
 
@@ -139,7 +143,7 @@ export default function ProfileComponent({
                 return <PostComponent key={p.content} p={p}/>
               }
             } else if (p.privacy === 'custom') {
-              if(!blockList.includes(role) && role !== 'Người lạ') return <PostComponent key={p.content} p={p}/>
+              if(!p.blockList.includes(role) && role !== 'Người lạ') return <PostComponent key={p.content} p={p}/>
             }
           } else {
             return <PostComponent key={p.content} p={p}/>
@@ -152,6 +156,10 @@ export default function ProfileComponent({
           <Button variant="solid" color="orange" onClick={() => push(pathName + '/finish')}>Hoàn thành</Button>
         </div>
       )}
+
+      <div className={`absolute bottom-20 ${isView ? 'right-10' : 'left-10'}`}>
+        <CheckListButton title='Những nhiệm vụ cần thực hiện' taskList={isView ? roleTask : privacyTask}/>
+      </div>
     </div>
   );
 }

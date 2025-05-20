@@ -19,19 +19,15 @@ export interface IProfile {
 
 export const friendList = [
   {
-    name: 'Nguyễn A',
-    avatar: '/avatars/animal_14.svg'
+    name: 'Minh An',
+    avatar: '/avatars/girl_1.svg'
   },
   {
-    name: 'Nguyễn B',
-    avatar: '/avatars/animal_15.svg'
+    name: 'Ngọc Chi',
+    avatar: '/avatars/girl_2.svg'
   },
   {
-    name: 'Nguyễn C',
-    avatar: '/avatars/animal_13.svg'
+    name: 'Thu Trang',
+    avatar: '/avatars/girl_3.svg'
   },
-  {
-    name: 'Nguyễn D',
-    avatar: '/avatars/animal_12.svg'
-  }
 ]
