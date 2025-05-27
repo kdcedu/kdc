@@ -51,7 +51,7 @@ export const ROUTES = [
   },
   {
     grade: 2,
-    name: '',
+    name: '/game',
     title: 'Nhà thiết kế nội thất tương lai',
     pin: '1111',
     type: 'Hoạt động khác'
