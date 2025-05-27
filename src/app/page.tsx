@@ -6,6 +6,7 @@ import {
   SearchOutlined,
   StarOutlined,
 } from "@ant-design/icons";
+import { Button } from "antd";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -30,6 +31,9 @@ export default function Home() {
             <SearchOutlined />
           </div>
         </div>
+        <Button variant="solid" color="orange" onClick={() => window.location.reload()}>
+          Reload App
+        </Button>
       </div>
 
       <div className="bg-orange-100 pt-5 flex">
