@@ -7,22 +7,34 @@ export interface Task {
   isDone: boolean;
 }
 
-interface CheckListButtonProps {
+export interface BigTask {
   title: string;
   taskList: Task[];
 }
 
-export default function CheckListButton({title, taskList} : CheckListButtonProps) {
+interface CheckListButtonProps {
+  title: string;
+  bigTaskList: BigTask[];
+}
+
+export default function CheckListButton({title, bigTaskList} : CheckListButtonProps) {
   const isFinish = useMemo(() => {
-    return !taskList.some(item => item.isDone === false)
-  }, [taskList])
+    return !bigTaskList.some(item => item.taskList.some(task => task.isDone === false))
+  }, [bigTaskList])
 
   const CheckListContent = () => {
     return (
-      taskList.map((task, index) => <div key={index} className={`flex gap-3 p-2 ${task.isDone ? 'text-green-500' : 'text-red-500'}`}>
-        <span>{task.isDone ? <CheckOutlined /> : <CloseOutlined />}</span>
-        <span>{task.name}</span>
-      </div>)
+      bigTaskList.map((task) => {
+        return <div key={task.title}>
+          <div className="font-semibold w-full">{task.title}</div>
+          {task.taskList.map((subTask, subIndex) => {
+            return <div key={subIndex} className={`flex gap-3 p-2 ${subTask.isDone ? 'text-green-500' : 'text-red-500'}`}>
+              <span>{subTask.isDone ? <CheckOutlined /> : <CloseOutlined />}</span>
+            <span>{subTask.name}</span>
+          </div>
+        })}
+      </div>
+      })
     )
   }
 
