@@ -11,7 +11,7 @@ export default function HDS01Layout({
   children: React.ReactNode;
 }>) {
   return (
-      <div className="w-screen min-h-screen bg-[url(/backgrounds/mainBackground.png)]">
+      <div className="w-full min-h-screen bg-[url(/backgrounds/mainBackground.png)]">
         {children}
       </div>
   );

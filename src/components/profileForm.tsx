@@ -56,6 +56,7 @@ export default function ProfileForm( {onFinish, info, onCancel, edit, isVertical
   wrapperCol={{ span: 24 }}
   layout={`${isVertical ? 'vertical' : 'horizontal'}`}
   autoComplete="off"
+  className="w-5/6"
 >
   <Form.Item
     label={<span className="font-semibold text-base">Email</span>}

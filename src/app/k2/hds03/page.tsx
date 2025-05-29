@@ -1,7 +1,7 @@
 "use client";
 
-import ScanVirusModal from "@/components/scanVirusModal";
-import VirusModal from "@/components/virusModal";
+import ScanVirusModal from "@/components/modal/scanVirusModal";
+import VirusModal from "@/components/modal/virusModal";
 import { apps } from "@/constant/app";
 import { Image, message } from "antd";
 import { usePathname, useRouter } from "next/navigation";
@@ -42,7 +42,7 @@ export default function HDS03Page() {
   return (
     <div className="flex justify-between w-full">
       {contextHolder}
-      <div className="grid grid-cols-2 gap-10 w-1/4 py-5">
+      <div className="grid grid-cols-3 gap-10 w-2/5 py-5">
         {apps.map((app) => (
           <div key={app.id} className="flex flex-col items-center gap-2">
             <Image preview={false} src={app.icon} alt={app.name} width={70} />
@@ -51,8 +51,8 @@ export default function HDS03Page() {
         ))}
 
         <div className="flex flex-col items-center gap-2 cursor-pointer active:opacity-50" onClick={handleScanVirus}>
-          <Image preview={false} src="/apps/virus.svg" alt="virus" width={70} />
-          <span className="font-semibold">Virus Scanner</span>
+          <Image preview={false} src="/apps/virus.png" alt="virus" width={70} />
+          <span className="font-semibold text-orange-400">Virus Scanner</span>
         </div>
       </div>
       {isVirus && <VirusModal />}

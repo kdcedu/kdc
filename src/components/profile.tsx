@@ -97,6 +97,7 @@ export default function ProfileComponent({
 
   const PostComponent = ({ p }: { p: PostType }) => (
     <Post
+      avatar={isView ? "/avatars/animal_1.svg" : p.avatar}
       setPrivacy={(value: PrivacyType, blockList?: string[]) => {
         if (!isView) {
           setPost(
@@ -114,8 +115,6 @@ export default function ProfileComponent({
       post={p}
     />
   );
-
-  console.log(privacyList);
 
   return (
     <div className="w-full flex flex-col justify-center">
@@ -201,7 +200,7 @@ export default function ProfileComponent({
       )}
 
       {isView && (
-        <div className="absolute bottom-20 right-10">
+        <div className="absolute bottom-10 right-5">
           <CheckListButton
             title="Những nhiệm vụ cần thực hiện"
             bigTaskList={bigTaskList}

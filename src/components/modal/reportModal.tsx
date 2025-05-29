@@ -3,7 +3,7 @@
 import { message, Modal } from "antd";
 
 import { Button } from "antd";
-import CustomCheckBox from "./customCheckBox";
+import CustomCheckBox from "../customCheckBox";
 import { useState } from "react";
 
 interface ReportModalProps {

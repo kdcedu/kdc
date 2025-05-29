@@ -34,8 +34,10 @@ export default function Menu() {
           ))}
         </div>
 
-        <div className="flex items-center">
-          <Image width={600} preview={false} src="/icons/cat.png" alt="Cat"/>
+        <div className="flex items-center gap-5">
+          <div className="w-48">
+            <Image preview={false} src="/icons/robot.gif" alt="Cat"/>
+          </div>
 
           <CatConversation icon={<AudioPlayer src="/audios/welcome.mp3"/>}>
             Chào các bạn, mình là <span className="font-semibold text-emerald-400">DigiMeo</span>, hôm nay chúng mình cùng xem video nhé! Có 3 video ở phía trên , bạn muốn xem video nào trước? Hãy nhấn vào video bạn muốn xem.

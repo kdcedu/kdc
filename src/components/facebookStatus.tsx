@@ -11,19 +11,19 @@ export default function FacebookStatus() {
     </div>
 
     <div className="flex pt-3">
-      <div className="flex flex-1 justify-center gap-2">
+      <div className="flex flex-1 justify-center items-center gap-2">
         <span className="text-orange-400"><VideoCameraFilled /></span>
-        <span>Video trực tiếp</span>
+        <span className="text-xs">Video trực tiếp</span>
       </div>
 
-      <div className="flex flex-1 justify-center gap-2">
+      <div className="flex flex-1 justify-center items-center gap-2">
         <span className="text-orange-400"><PictureFilled /></span>
-        <span>Ảnh/video</span>
+        <span className="text-xs">Ảnh/video</span>
       </div>
 
-      <div className="flex flex-1 justify-center gap-2">
+      <div className="flex flex-1 justify-center items-center gap-2">
         <span className="text-orange-400"><SmileFilled /></span>
-        <span>Cảm xúc/hoạt động</span>
+        <span className="text-xs">Cảm xúc</span>
       </div>
     </div>
   </div>

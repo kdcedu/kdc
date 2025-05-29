@@ -35,7 +35,9 @@ export default function SharePage() {
       </div>
         <div className={`flex ${video?.isGood ? 'justify-between' : 'justify-end'} items-end pl-14 mb-20`}>
           {video?.isGood && <HeartGiven />}
-          <Image alt="Cat" preview={false} width={200} src="/icons/cat2.png"/>
+          <div className="w-32">
+            <Image alt="Cat" preview={false} src="/icons/robot.gif"/>
+          </div>
         </div>
         
 
@@ -46,8 +48,8 @@ export default function SharePage() {
 
                   <PrimaryButton icon={<HomeFilled />} onClick={() => router.replace('/k1/hds05')}>
                     Trang chủ
-                  </PrimaryButton>
-                </div>
+           </PrimaryButton>
+          </div>
       </div>
     </div>
   </>

@@ -1,5 +1,5 @@
 'use client'
-import GameModal, { GameThings } from "@/components/gameModal";
+import GameModal, { GameThings } from "@/components/modal/gameModal";
 import { PlusCircleFilled } from "@ant-design/icons";
 import { Image } from "antd";
 import { Dispatch, SetStateAction, useState } from "react";

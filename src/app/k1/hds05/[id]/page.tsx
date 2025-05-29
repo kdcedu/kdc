@@ -63,7 +63,7 @@ export default function VideoPage() {
         {!isReact ? (
           <>
             <ReactionBar setIsReaction={handleReact} />
-            <div className="flex items-center">
+            <div className="flex items-center gap-5">
               <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/reaction.mp3"/>}>
                 Các bạn hãy{" "}
                 <span className="text-emerald-400 font-semibold">
@@ -75,14 +75,17 @@ export default function VideoPage() {
                 </span>{" "}
                 với mình nhé!
               </CatConversation>
-
-              <Image alt="Cat" width={250} preview={false} src="/icons/cat2.png" />
+              <div className="w-40">
+                <Image alt="Cat" preview={false} src="/icons/robot.gif" />
+              </div>
             </div>
           </>
         ) : (
           <>
             <div className="flex gap-6 w-3/5 items-center">
-              <Image alt="Cat" width={350} preview={false} src="/icons/cat.png" />
+            <div className="w-52">
+              <Image alt="Cat" preview={false} src="/icons/robot.gif" />
+            </div>
                 {!isNoShare && <CatConversation icon={<AudioPlayer onClick={handlePause} src="/audios/share.mp3"/>}>
                   Mình rất vui vì bạn đã chia sẻ cảm xúc với mình. Vậy bạn có muốn chia sẻ video này đến bạn bè không?
                 </CatConversation>}

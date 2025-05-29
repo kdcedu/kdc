@@ -87,10 +87,10 @@ export default function Password() {
   return <>
     {contextHolder}
 
-      <div className="text-orange-500 text-xl font-semibold text-center mb-5 w-2/3 mx-auto">Bạn hãy thực hành tạo mật khẩu nhé</div>
+      <div className="text-orange-500 text-xl font-semibold text-center mb-5 w-full md:w-2/3 mx-auto">Bạn hãy thực hành tạo mật khẩu nhé</div>
 
       <div className="flex justify-center items-center mb-5">
-        <div className="w-1/4 font-semibold text-lg">Mật khẩu:</div>
+        <div className="w-1/3 md:w-1/4 font-semibold text-lg">Mật khẩu:</div>
         <Input.Password placeholder="Nhập mật khẩu" onChange={handleChange}/>
       </div>
 

@@ -3,7 +3,7 @@
 import CatConversation from "@/components/catConversation";
 import GroupChatBox from "@/components/groupChatBox";
 import Header from "@/components/header";
-import BlockModal from "@/components/blockModal";
+import BlockModal from "@/components/modal/blockModal";
 import { animals } from "@/constant/avatar";
 import { chatContent, filterUsers } from "@/constant/chatContent";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
@@ -190,8 +190,8 @@ export default function Hds02() {
           </div>
         </>
       ) : (
-        <div className="flex flex-1 px-2 gap-3 overflow-auto">
-          <div className="flex flex-col gap-5 bg-white rounded-lg p-2 shadow-xl overflow-auto">
+        <div className="flex flex-1 px-5 gap-5 overflow-auto">
+          {!canBlock && <div className="flex-col gap-5 bg-white rounded-lg p-2 shadow-xl overflow-auto md:flex hidden">
             <div className="bg-gray-300 rounded-lg p-2">
               <Image
                 alt="People"
@@ -205,9 +205,9 @@ export default function Hds02() {
                 <Avatar size={50} src={`/avatars/${animal}.svg`} />
               </div>
             ))}
-          </div>
+          </div>}
 
-          <div className="flex flex-col flex-1 h-full bg-white rounded-lg p-2 shadow-xl">
+          <div className={`${canBlock ? "hidden md:flex" : "flex"} flex-col flex-1 h-full bg-white rounded-lg p-2 shadow-xl`}>
             <GroupChatBox
               setCanReport={setCanReport}
               canReport={canReport}
@@ -216,18 +216,18 @@ export default function Hds02() {
               chatContent={chatContent}
               name="Nhóm chat lớp 3A"
               imgSrc="/images/people.png"
-              haveCheckBox={!canBlock}
+              haveCheckBox={step === 0}
               redirect={(guide) => {
                 setIsBegin(true);
                 setConversation(guide);
-                setCanBlock(true);
+                if(step === 1) setCanBlock(true);
                 setStep(step + 1);
               }}
             />
           </div>
 
           {canBlock && (
-            <div className="w-1/3 flex flex-col overflow-auto bg-white rounded-lg py-2 px-5 shadow-xl relative">
+            <div className="w-full md:w-1/3 flex flex-col overflow-auto bg-white rounded-lg py-2 px-5 shadow-xl relative">
               <div className="flex justify-center rounded-lg p-2 mb-2">
                 <Image
                   alt="People"

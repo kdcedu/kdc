@@ -47,7 +47,7 @@ export default function Profile() {
   return (
     <>
       {contextHolder}
-      <div>
+      <div className="pb-10">
         <Header title="Hồ sơ cá nhân của bạn"/>
 
         <div className="border-6 border-sky-300 w-5/6 rounded-3xl bg-white mx-auto">
@@ -62,12 +62,12 @@ export default function Profile() {
               />
             </div>
 
-            <div className="relative -top-10 flex items-center gap-10 px-10">
+            <div className="relative -top-10 flex items-center gap-5 px-5">
               <AvatarPicker />
 
               <div className="mt-5 flex justify-between gap-10">
                 <div>
-                  <div className="text-2xl font-semibold">{info?.fullName}</div>
+                  <div className="text-lg md:text-2xl font-semibold">{info?.fullName}</div>
                   <div className="text-xs font-light text-gray-500">
                     50 người bạn
                   </div>
@@ -85,7 +85,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="px-12">
+          <div className="flex justify-center">
             {info && <ProfileForm onFinish={onFinish} onCancel={onCancel} info={info} edit={edit}/>}
           </div>
         </div>

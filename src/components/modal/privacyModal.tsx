@@ -1,6 +1,6 @@
 import { Button, Image, Popover, Radio } from "antd";
 import { useState } from "react";
-import { PrivacyType } from "./post";
+import { PrivacyType } from "../post";
 import { friendList } from "@/constant/profile";
 import { MinusCircleFilled, MinusCircleOutlined } from "@ant-design/icons";
 import { defaultPrivacyList } from "@/constant/post";

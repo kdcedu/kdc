@@ -3,7 +3,7 @@
 import CatConversation from "@/components/catConversation";
 import GroupChatBox from "@/components/groupChatBox";
 import Header from "@/components/header";
-import NotificationModal from "@/components/notificationModal";
+import NotificationModal from "@/components/modal/notificationModal";
 import { apps } from "@/constant/app";
 import { clickChatContent } from "@/constant/chatContent";
 import { Avatar, Button, Image, message } from "antd";
@@ -114,9 +114,14 @@ export default function Hds02() {
         onCancel={handleCancel}
         isTrue={isTrue}
         handleNext={() =>
-          chatOrder < listChat.length - 1
-            ? setChatOrder(chatOrder + 1)
-            : push(pathname + "/finish")
+        {
+          if(chatOrder < listChat.length - 1)
+            setChatOrder(chatOrder + 1)
+          else
+            push(pathname + "/finish")
+
+          setOpen(false)
+        }
         }
       />
       <div className="flex justify-between w-full">

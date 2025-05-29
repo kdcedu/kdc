@@ -59,7 +59,7 @@ export default function Draw() {
   return (
     <>
     {contextHolder}
-      <div className="text-orange-500 text-xl font-semibold text-center mb-5 w-2/3 mx-auto">Bạn hãy thực hành tạo mật khẩu hình vẽ nhé</div>
+      <div className="text-orange-500 text-xl font-semibold text-center mb-5 w-full md:w-2/3 mx-auto">Bạn hãy thực hành tạo mật khẩu hình vẽ nhé</div>
       <div className="flex justify-center items-center mb-5">
       <ReactCanvasPatternLock
         onComplete={handleChange}

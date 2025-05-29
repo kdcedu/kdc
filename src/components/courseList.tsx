@@ -39,7 +39,7 @@ export default function CourseList({ grade, filter }: CourseListProps) {
         </div>
       </div>
 
-      <div className="flex gap-5">
+      <div className="flex gap-5 flex-wrap">
         {ROUTES.filter((item) => {
           const gradeCheck = item.grade === grade;
           if (filter === "Tất cả") return gradeCheck;
@@ -52,7 +52,7 @@ export default function CourseList({ grade, filter }: CourseListProps) {
             }}
             key={index}
             hoverable
-            className="w-[15%]"
+            className="w-[30%]"
             styles={{
               body: {
                 padding: 10,

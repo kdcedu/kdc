@@ -24,8 +24,8 @@ export default function NotificationModal({
   falseContent
 }: NotificationModalProps) {
   const TrueContent = (
-    <div className="flex flex-col items-center gap-2 ">
-      <div className="flex items-center gap-2 text-xl font-semibold text-green-500">
+    <div className="w-full flex flex-col items-center gap-2 ">
+      <div className="flex items-center justify-center w-full p-2 rounded-lg bg-green-100 gap-2 text-xl font-semibold text-green-500">
         Chúc mừng bạn đã đưa ra lựa chọn đúng
       </div>
       <div className="w-1/2">
@@ -39,7 +39,7 @@ export default function NotificationModal({
 
   const FalseContent = (
     <div className="w-full flex flex-col items-center gap-2">
-      <div className="flex items-center gap-2 w-full justify-center bg-red-100 p-2 rounded-lg text-red-500 text-2xl font-semibold">
+      <div className="flex items-center gap-2 w-full justify-center bg-red-100 p-2 rounded-lg text-red-500 text-xl font-semibold">
         Tiếc quá bạn đã đưa ra lựa chọn sai
       </div>
       <div className="w-1/2">
@@ -62,10 +62,7 @@ export default function NotificationModal({
           <Button
             variant="solid"
             color="green"
-            onClick={() => {
-              handleNext();
-              onCancel();
-            }}
+            onClick={handleNext}
           >
             {isEnd ? "Hoàn thành" : "Bài tiếp theo"}
           </Button>

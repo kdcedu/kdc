@@ -26,7 +26,7 @@ export default function Home() {
           KDC PLAY&LEARN STATION
         </span>
         <div className="flex gap-10">
-          <div className="bg-orange-100 text-orange-400 w-72 flex items-center justify-between px-5 py-2 rounded-full">
+          <div className="hidden md:flex bg-orange-100 text-orange-400 w-72 items-center justify-between px-5 py-2 rounded-full">
             <MenuOutlined />
             <SearchOutlined />
           </div>
@@ -37,7 +37,7 @@ export default function Home() {
       </div>
 
       <div className="bg-orange-100 pt-5 flex">
-        <div className="w-[8%] flex flex-col gap-5 items-center">
+        <div className="md:flex hidden w-[8%] flex-col gap-5 items-center">
           <MenuOutlined />
 
           {menus.map((menu) => (

@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
-import ScanningProgress from "./scanningProgress";
+import ScanningProgress from "../scanningProgress";
 
 interface ScanVirusModalProps {
   open: boolean;
@@ -91,7 +91,7 @@ export default function ScanVirusModal({
           )}
         </div>
         <div className="w-full flex justify-end">
-          <span className="text-gray-400">Version: 1.1.0</span>
+          <span className="text-gray-400">Phiên bản: 1.1.0</span>
         </div>
       </div>
     </Modal>

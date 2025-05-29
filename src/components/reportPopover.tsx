@@ -1,6 +1,6 @@
 import { MoreOutlined } from "@ant-design/icons";
 import { Button, Popover } from "antd";
-import ReportModal from "./reportModal";
+import ReportModal from "./modal/reportModal";
 import { useState } from "react";
 
 interface ReportPopoverProps {

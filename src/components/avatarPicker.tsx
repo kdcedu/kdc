@@ -38,10 +38,10 @@ export default function AvatarPicker({isView} : AvatarPickerProps) {
   return (
     <div className="relative w-fit">
     {contextHolder}
-      <div className=" bg-white w-48 flex justify-center p-2 rounded-full cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
+      <div className=" bg-white w-32 md:w-48 flex justify-center items-center p-2 rounded-full cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
         <Image alt="Avatar" preview={false} src={avatar} />
       </div>
-      <div className="absolute top-36 left-32 bg-gray-200 w-10 h-10 text-xl flex justify-center items-center rounded-full active:opacity-60 cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
+      <div className="absolute md:top-36 md:left-32 top-20 left-24 bg-gray-200 md:w-10 md:h-10 w-8 h-8 text-base md:text-xl flex justify-center items-center rounded-full active:opacity-60 cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
         <CameraFilled />
       </div>
       <Modal

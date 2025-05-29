@@ -121,7 +121,7 @@ export default function GroupChatBox({
             <div
               className={`flex ${
                 self !== item.id ? "items-start" : "justify-end"
-              } gap-3 ${isFull ? "w-2/5" : "w-2/3"}`}
+              } gap-3 ${isFull ? "w-2/3 md:w-2/5" : "w-2/3"}`}
             >
               {self !== item.id && (
                 <div>

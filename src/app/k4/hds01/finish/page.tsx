@@ -2,7 +2,7 @@ import CheckItem from "@/components/checkItem";
 import Header from "@/components/header";
 
 export default function FinishK4HDS01() {
-  return <div className="bg- w-screen h-screen bg-[url('/backgrounds/mainBackground.png')]">
+  return <div className="bg- w-screen min-h-screen bg-[url('/backgrounds/mainBackground.png')]">
     <Header title="Cài đặt riêng tư trên không gian mạng"/>
 
 <div className="px-5 border-6 border-sky-300 rounded-xl mx-10 p-5 bg-white">

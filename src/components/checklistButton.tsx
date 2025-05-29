@@ -28,7 +28,7 @@ export default function CheckListButton({title, bigTaskList} : CheckListButtonPr
         return <div key={task.title}>
           <div className="font-semibold w-full">{task.title}</div>
           {task.taskList.map((subTask, subIndex) => {
-            return <div key={subIndex} className={`flex gap-3 p-2 ${subTask.isDone ? 'text-green-500' : 'text-red-500'}`}>
+            return <div key={subIndex} className={`flex gap-3 p-1 ${subTask.isDone ? 'text-green-500' : 'text-red-500'}`}>
               <span>{subTask.isDone ? <CheckOutlined /> : <CloseOutlined />}</span>
             <span>{subTask.name}</span>
           </div>

@@ -5,18 +5,18 @@ export const ROUTES = [
     name: 'https://k1-cachanhvikhongantoantren-internet-fhgafk.flutterflow.app/',
     title: 'Các hành vi không an toàn trên internet',
     pin: '1111',
-    type: 'Thao tác số'
+    type: 'Xử lý tình huống'
   },
   {
     grade: 1,
-    name: '',
+    name: 'k1/hds02',
     title: 'Các nội dung an toàn trên internet',
     pin: '1111',
     type: 'Thao tác số'
   },
   {
     grade: 1,
-    name: '',
+    name: 'k1/hds03',
     title: 'Truy cập và sử dụng ứng dụng an toàn',
     pin: '1111',
     type: 'Thao tác số'
@@ -33,7 +33,7 @@ export const ROUTES = [
     name: 'k1/hds05',
     title: 'Lan tỏa niềm vui trên không gian mạng',
     pin: '1111',
-    type: 'Xử lý tình huống'
+    type: 'Thao tác số'
   },
   {
     grade: 1,
@@ -135,7 +135,7 @@ export const ROUTES = [
   },
   {
     grade: 4,
-    name: '',
+    name: 'k4/hds03',
     title: 'Like và share văn minh',
     pin: '1111',
     type: 'Thao tác số'
