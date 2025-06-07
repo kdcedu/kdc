@@ -18,7 +18,7 @@ export default function K4HDS03() {
         <FacebookSidebar />
       </div>
       <div className="w-full flex items-center justify-center pb-5">
-        <div className="w-5/6 md:w-2/5 flex flex-col gap-5">
+        <div className="w-full px-4 md:px-0 md:w-2/5 flex flex-col gap-5">
           <FacebookStatus />
           {likeSharePostContent.map(post => <Post canLike canShare isView avatar="/icons/Bin.svg" key={post.content} post={post}setPrivacy={() => {}}/>)}
         </div>

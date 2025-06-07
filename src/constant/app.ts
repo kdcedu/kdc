@@ -44,50 +44,66 @@ export const apps = [
 export const lessonApps = [
   {
     id: 1,
-    name: 'Instagram (true)',
-    icon: '/apps/instagram.svg',
-    isTrue: true
+    name: 'Messenger Kids',
+    icon: '/apps/messenger_kids.svg',
+    isTrue: true,
+    trueContent: 'App này giúp em nhắn tin và gọi video cho gia đình, bạn bè như gọi điện thoại cho ông bà. App này phù hợp vì không có quảng cáo mà còn có những hình dán vui.',
+    trueImage: '/images/k1_hds03/true_messenger_kids.png',
   },
   {
     id: 2,
-    name: 'Messenger (true)',
-    icon: '/apps/messenger.svg',
-    isTrue: true
+    name: 'Monkey Junior',
+    icon: '/apps/monkey_junior.png',
+    isTrue: true,
+    trueContent: 'Đây là app giúp em học từ mới tiếng Anh qua hình ảnh, video và trò chơi vui, giúp em nhớ từ dễ ơi là dễ! Bài học trong app rất hay, có hình đẹp, tiếng vui tai, không có quảng cáo, có bài học rõ ràng.',
+    trueImage: '/images/k1_hds03/true_monkey_junior.png',
   },
   {
     id: 3,
-    name: 'Youtube (true)',
-    icon: '/apps/youtube.svg',
-    isTrue: true
+    name: 'Kids Doodle',
+    icon: '/apps/kids_doodle.png',
+    isTrue: true,
+    trueContent: 'Đây là app giúp em vẽ tranh và tô màu thật vui! Em có thể dùng nhiều bút màu và hình dán ngộ nghĩnh để tạo ra bức tranh của riêng mình.',
+    trueImage: '/images/k1_hds03/true_kids_doodle.png',
   },
   {
     id: 4,
-    name: 'Thư mục (false)',
-    icon: '/apps/folder.svg',
-    isTrue: false
+    name: 'PBS Kids Games',
+    icon: '/apps/pbs_game.png',
+    isTrue: true,
+    trueContent: 'Đây là app có nhiều trò chơi vui từ các bạn nhân vật hoạt hình mà em thích! Em vừa chơi vừa học được toán, khoa học và đọc chữ nữa.',
+    trueImage: '/images/k1_hds03/true_pbs_game.png',
   },
   {
     id: 5,
-    name: 'TikTok (false)',
-    icon: '/apps/tiktok.svg',
-    isTrue: false
+    name: 'Youtube Kids',
+    icon: '/apps/youtube_kids.png',
+    isTrue: true,
+    trueContent: 'Đây là YouTube cho các bạn nhỏ như em! Trong này có nhiều video vui và học hay lắm, đã được chọn sẵn rồi. App này còn giúp bỏ đi những video không tốt nữa.',
+    trueImage: '/images/k1_hds03/true_youtube_kids.png',
   },
   {
     id: 6,
-    name: 'Snapchat (false)',
-    icon: '/apps/snapchat.svg',
-    isTrue: false
+    name: 'Tóp tóp',
+    icon: '/apps/tiktok.svg',
+    isTrue: false,
+    falseImage: '/images/k1_hds03/false_tiktok.png',
+    falseContent: 'Đây là app có nhiều video ngắn, nhưng trên này cũng có nhiều video không phù hợp cho em xem đâu, có thể có đánh nhau, nói bậy, hoặc thử thách nguy hiểm.',
   },
   {
     id: 7,
-    name: 'Trình duyệt (false)',
-    icon: '/apps/browser.svg',
-    isTrue: false
+    name: 'Poker Online',
+    icon: '/apps/poker.png',
+    isTrue: false,
+    falseImage: '/images/k1_hds03/false_poker.png',
+    falseContent: 'App này có thể trông giống một trò chơi vui, nhưng thực ra đây là trò chơi cờ bạc của người lớn. Những trò chơi này không dành cho các bạn nhỏ đâu.',
   },
   {
     id: 8,
-    name: 'Spotify (false)',
-    icon: '/apps/spotify.svg',
-    isTrue: false
+    name: 'Fi fai',
+    icon: '/apps/free_fire.png',
+    isTrue: false,
+    falseImage: '/images/k1_hds03/false_free_fire.png',
+    falseContent: 'Đây là trò chơi bắn súng, có nhiều cảnh đánh nhau, không tốt cho em. Em có thể nói chuyện với người lạ trong game và dễ bị nghiện chơi game, không học bài được.',
   }
 ]

@@ -80,9 +80,9 @@ export default function Post({
           <span>{post.content}</span>
         </div>
 
-        <div className="w-full">
+        {post.image && <div className="w-full">
           <Image alt="content" width="100%" preview={false} src={post.image} />
-        </div>
+        </div>}
 
         <div className="flex justify-between items-center py-1 px-3">
           <div className="flex gap-2 items-center">

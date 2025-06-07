@@ -156,14 +156,14 @@ export const ROUTES = [
   },
   {
     grade: 5,
-    name: 'k5/hds02',
+    name: 'k5/hds01',
     title: 'An toàn trước "click" độc hại',
     pin: '1111',
     type: 'Thao tác số'
   },
   {
     grade: 5,
-    name: '',
+    name: 'k5/hds02',
     title: 'Sao lưu dữ liệu cá nhân ',
     pin: '1111',
     type: 'Thao tác số'

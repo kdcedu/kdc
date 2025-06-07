@@ -28,7 +28,7 @@ export default function NotificationModal({
       <div className="flex items-center justify-center w-full p-2 rounded-lg bg-green-100 gap-2 text-xl font-semibold text-green-500">
         Chúc mừng bạn đã đưa ra lựa chọn đúng
       </div>
-      <div className="w-1/2">
+      <div className="w-full">
         <Image preview={false} alt="Result" src={trueResult} />
       </div>
       <div className="font-semibold text-center">
@@ -42,10 +42,9 @@ export default function NotificationModal({
       <div className="flex items-center gap-2 w-full justify-center bg-red-100 p-2 rounded-lg text-red-500 text-xl font-semibold">
         Tiếc quá bạn đã đưa ra lựa chọn sai
       </div>
-      <div className="w-1/2">
+      <div className="w-full">
         <Image preview={false} alt="Result" src={falseResult} />
       </div>
-      
       <div className="font-semibold text-center">
           {falseContent}
         </div>
