@@ -1,8 +1,8 @@
 "use client";
 
-import VideoPage from "../../hds02/[id]/page";
+import VideoPageComponent from "@/components/videoPageComponent";
 
 export default function HDS05VideoPage() {
 
-  return <VideoPage isLesson />;
+  return <VideoPageComponent isLesson />;
 }
