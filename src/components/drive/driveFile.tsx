@@ -8,7 +8,7 @@ interface DriveFileProps {
 
 export default function DriveFile({ file }: DriveFileProps) {
     return (
-        <div className="bg-gray-100 rounded-lg p-3 flex flex-col gap-2">
+        <div className="bg-gray-100 rounded-lg p-3 flex flex-col gap-2 cursor-pointer active:bg-gray-200">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <FileImageFilled />

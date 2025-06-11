@@ -2,7 +2,7 @@ export const ROUTES = [
   
   {
     grade: 1,
-    name: 'https://k1-cachanhvikhongantoantren-internet-fhgafk.flutterflow.app/',
+    name: '',
     title: 'Các hành vi không an toàn trên internet',
     pin: '1111',
     type: 'Xử lý tình huống'
@@ -23,7 +23,7 @@ export const ROUTES = [
   },
   {
     grade: 1,
-    name: 'https://x-l-t-h-k1-embaovethietbiso-8e2vjk.flutterflow.app/',
+    name: '',
     title: 'Em bảo vệ thiết bị số',
     pin: '1111',
     type: 'Xử lý tình huống'
@@ -37,7 +37,7 @@ export const ROUTES = [
   },
   {
     grade: 1,
-    name: 'https://x-l-t-h-k2-ungxuvanminhtrenkgm-0n8ly9.flutterflow.app/',
+    name: '',
     title: 'Ứng xử văn minh trên không gian mạng',
     pin: '1111',
     type: 'Xử lý tình huống'
@@ -100,14 +100,14 @@ export const ROUTES = [
   },
   {
     grade: 3,
-    name: 'https://k3hds04.flutterflow.app/',
+    name: '',
     title: 'Nhận diện hành vi bắt nạt trên không gian mạng',
     pin: '1111',
     type: 'Xử lý tình huống'
   },
   {
     grade: 3,
-    name: 'https://x-l-t-h-k3-ungxuvoibinhluantieucuc-zglja3.flutterflow.app/',
+    name: '',
     title: 'Ứng xử với bình luận tiêu cực',
     pin: '1111',
     type: 'Xử lý tình huống'
@@ -142,7 +142,7 @@ export const ROUTES = [
   },
   {
     grade: 4,
-    name: 'https://x-l-t-h-k4-xacdinhthongtindangtincaytren-k-g-m-4g048w.flutterflow.app/',
+    name: '',
     title: 'Xác định thông tin đáng tin cậy trên không gian mạng',
     pin: '1111',
     type: 'Xử lý tình huống'

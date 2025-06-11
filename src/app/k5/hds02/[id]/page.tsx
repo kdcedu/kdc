@@ -2,7 +2,7 @@
 
 import DriveMain from "@/components/drive/driveMain";
 
-export default function Hds02() {
+export default function DriveFolderDetail() {
     return (
         <DriveMain />
     )

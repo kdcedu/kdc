@@ -13,6 +13,8 @@ export default function Home() {
   useEffect(() => {
     localStorage.removeItem("user");
     localStorage.removeItem("avatar");
+    localStorage.removeItem("folders");
+    localStorage.removeItem("files");
   }, []);
 
   const menus = ["Tất cả", "Thao tác số", "Xử lý tình huống"];

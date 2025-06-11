@@ -1,55 +1,53 @@
-import { ClockCircleOutlined, CloudOutlined, DeleteOutlined, FolderOutlined, HomeFilled, ShareAltOutlined, StarOutlined } from "@ant-design/icons";
+import { ClockCircleOutlined, CloudOutlined, DeleteOutlined, FolderFilled, HomeOutlined, ShareAltOutlined, StarOutlined } from "@ant-design/icons";
 import DriveAddButton from "./driveAddButton";
 import { Progress } from "antd";
-import { Folder } from "@/constant/drive/folder";
-import { File } from "@/constant/drive/file";
 
 const siderMenu = [
     {
-        icon: <HomeFilled />,
+        id: 1,
+        icon: <HomeOutlined />,
         title: 'Trang chủ'
     },
     {
-        icon: <FolderOutlined />,
+        id: 2,
+        icon: <FolderFilled />,
         title: 'Drive của tôi'
     },
     {
+        id: 3,
         icon: <ShareAltOutlined />,
         title: 'Chia sẻ'
     },
     {
+        id: 4,
         icon: <ClockCircleOutlined />,
         title: 'Gần đây'
     },
     {
+        id: 5,
         icon: <StarOutlined />,
         title: 'Gắn dấu sao'
     },
     {
+        id: 6,
         icon: <DeleteOutlined />,
         title: 'Thùng rác'
     },
     {
+        id: 7,
         icon: <CloudOutlined />,
         title: 'Bộ nhớ (đã dùng 60%)'
     }
 ]
 
-interface DriveSiderProps {
-    currentFolders: Folder[];
-    setCurrentFolders: React.Dispatch<React.SetStateAction<Folder[]>>;
-    currentFiles: File[];
-    setCurrentFiles: React.Dispatch<React.SetStateAction<File[]>>;
-}
-
-export default function DriveSider({ currentFolders, setCurrentFolders, currentFiles, setCurrentFiles }: DriveSiderProps) {
+export default function DriveSider() {
     return (
-        <div className="w-[15%] flex flex-col items-start">
+        <div className="w-[15%] flex-col items-start hidden md:flex">
             <div className="mb-5">
-                <DriveAddButton currentFolders={currentFolders} setCurrentFolders={setCurrentFolders} currentFiles={currentFiles} setCurrentFiles={setCurrentFiles} />
+                <DriveAddButton />
             </div>
-            {siderMenu.map((item, index) => (
-                <div key={index} className="w-full py-2 px-4 rounded-lg flex items-center justify-start gap-4 hover:bg-gray-200 cursor-pointer">
+            {siderMenu.map((item) => (
+                <div key={item.id} className={`${item.id === 2 && 'bg-blue-100 text-blue-600'} w-full py-2 px-4 rounded-lg flex items-center justify-start gap-4 hover:bg-gray-200 cursor-pointer`}>
                     {item.icon}
                     <span className="text-sm">{item.title}</span>
                 </div>
