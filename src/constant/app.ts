@@ -45,7 +45,7 @@ export const lessonApps = [
   {
     id: 1,
     name: 'Messenger Kids',
-    icon: '/apps/messenger_kids.svg',
+    icon: '/apps/messenger_kids.png',
     isTrue: true,
     trueContent: 'App này giúp em nhắn tin và gọi video cho gia đình, bạn bè như gọi điện thoại cho ông bà. App này phù hợp vì không có quảng cáo mà còn có những hình dán vui.',
     trueImage: '/images/k1_hds03/true_messenger_kids.png',

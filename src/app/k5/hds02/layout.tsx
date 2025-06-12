@@ -4,7 +4,7 @@ import DriveSider from "@/components/drive/driveSider";
 import { folders } from "@/constant/drive/folder";
 import { files } from "@/constant/drive/file";
 import { useEffect } from "react";
-import { DriveProvider } from "@/app/context/driveContext";
+import { DriveProvider } from "@/context/driveContext";
 
 interface DriveLayoutProps {
   children: React.ReactNode;

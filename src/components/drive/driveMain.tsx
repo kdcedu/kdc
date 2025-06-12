@@ -1,7 +1,7 @@
 import { CaretDownFilled, CaretDownOutlined, RightOutlined } from "@ant-design/icons";
 import DriveFolder from "./driveFolder";
 import DriveFile from "./driveFile";
-import { useDrive } from "@/app/context/driveContext";
+import { useDrive } from "@/context/driveContext";
 import { useParams } from "next/navigation";
 import { Image } from "antd";
 

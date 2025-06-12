@@ -5,5 +5,5 @@ export default function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="p-5 bg-[url(/backgrounds/mainBackground.png)]">{children}</div>;
+  return <div className="p-5 min-h-screen bg-[url(/backgrounds/mainBackground.png)]">{children}</div>;
 }

@@ -13,7 +13,6 @@ export const hasAtLeastTwoTurns = (pattern: number[]): boolean => {
 
   for (let i = 1; i < pattern.length - 1; i++) {
     const currDir = getDirection(pattern[i], pattern[i + 1]);
-    // So sánh vector hiện tại với vector trước đó
     if (currDir[0] !== prevDir[0] || currDir[1] !== prevDir[1]) {
       turns++;
     }

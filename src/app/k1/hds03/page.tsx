@@ -3,9 +3,10 @@
 import CatConversation from "@/components/catConversation";
 import NotificationModal from "@/components/modal/notificationModal";
 import { lessonApps } from "@/constant/app";
+import { shuffleArray } from "@/utils/randomApps";
 import { AudioOutlined, CalendarFilled, CameraOutlined, CloudFilled, EnvironmentFilled, GoogleOutlined, SunFilled } from "@ant-design/icons";
 import { Image, Input } from "antd";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function K1HDS03() {
   const [openNotification, setOpenNotification] = useState<boolean>(false);
@@ -19,6 +20,8 @@ export default function K1HDS03() {
   const [falseContent, setFalseContent] = useState<string>('');
 
   const [falseImage, setFalseImage] = useState<string>('');
+
+  const apps = useMemo(() => shuffleArray(lessonApps), []);
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center gap-10 bg-[url(/backgrounds/backgroundDesktop.jpg)] pt-10">
@@ -35,9 +38,9 @@ export default function K1HDS03() {
       />
 
       <div className="w-full flex justify-center items-center gap-5">
-      <div className="flex flex-col items-center justify-center">
-        <span className="text-8xl text-center text-white">10:00</span>
-        <span className="text-white flex items-center gap-3">
+      <div className="flex flex-col items-center justify-center text-gray-500">
+        <span className="text-8xl text-center">10:00</span>
+        <span className="flex items-center gap-3">
           <CalendarFilled />
           <span>Thứ ba, ngày 03 tháng 06</span>
         </span>
@@ -48,15 +51,15 @@ export default function K1HDS03() {
           <span className="text-orange-400 text-2xl">
             <SunFilled />
           </span>
-          <span className="text-xl text-white font-semibold">36°</span>
+          <span className="text-xl text-gray-500 font-semibold">36°</span>
         </div>
-        <div className="flex items-center gap-2 text-white">
-          <span className="text-xl">
+        <div className="flex items-center gap-2 text-gray-500">
+          <span className="text-xl text-white">
             <CloudFilled />
           </span>
           <span className="text-lg">Trời nhiều mây</span>
         </div>
-        <div className="flex items-center gap-2 text-white">
+        <div className="flex items-center gap-2 text-gray-500">
           <span>
             <EnvironmentFilled />
           </span>
@@ -65,16 +68,16 @@ export default function K1HDS03() {
       </div>
       </div>
 
-      <div className="w-3/4 flex justify-center">
-        <Input className="!rounded-full" prefix={<GoogleOutlined />} suffix={<div className="flex gap-2">
+      <div className="w-1/2 flex justify-center">
+        <Input size="large" className="!rounded-full" prefix={<GoogleOutlined />} suffix={<div className="flex gap-2">
           <AudioOutlined />
           <CameraOutlined />
         </div>} variant="underlined"/>
       </div>
       
 
-      <div className="grid grid-cols-4 gap-20 w-full">
-        {lessonApps.map((app) => (
+      <div className="grid grid-cols-4 gap-20 w-full px-40">
+        {apps.map((app) => (
           <div
             key={app.id}
             className="flex flex-col items-center gap-2"
@@ -87,8 +90,8 @@ export default function K1HDS03() {
               setOpenNotification(true);
             }}
           >
-            <Image preview={false} src={app.icon} alt={app.name} width={50} />
-            <span className="text-white">{app.name}</span>
+            <Image preview={false} src={app.icon} alt={app.name} width={70} />
+            <span>{app.name}</span>
           </div>
         ))}
       </div>

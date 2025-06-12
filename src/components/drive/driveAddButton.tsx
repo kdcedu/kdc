@@ -1,11 +1,11 @@
 'use client'
 
-import { FileAddOutlined, FolderAddOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
+import { FolderAddOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { Button, Popover } from "antd";
 import { useState } from "react";
 import DriveAddFolderModal from "./driveAddFolderModal";
-import { useDrive } from "@/app/context/driveContext";
-// import ChooseFileModal from "./chooseFileModal";
+import { useDrive } from "@/context/driveContext";
+import ChooseFileModal from "./chooseFileModal";
 import { useParams } from "next/navigation";
 
 
@@ -13,7 +13,9 @@ export default function DriveAddButton() {
     const [open, setOpen] = useState(false);
     const [openModalFolder, setOpenModalFolder] = useState(false);
 
-    // const [openChooseFile, setOpenChooseFile] = useState(false);
+    const [openChooseFile, setOpenChooseFile] = useState(false);
+
+    
 
     const {id} = useParams();
 
@@ -26,21 +28,15 @@ export default function DriveAddButton() {
         setOpen(false)
     }
 
-    // const handleAddFolder = (name: string) => {
-    //     console.log(name)
-    //     setOpen(false)
-    //     setOpenModalFolder(false)
-    // }
-
     const handleAddFile = () => {
-        // setOpenChooseFile(true)
+        setOpenChooseFile(true)
         setOpen(false)
         setOpenModalFolder(false)
     }
 
     return (
         <>
-            {/* <ChooseFileModal open={true} onClose={() => setOpenChooseFile(false)} /> */}
+            <ChooseFileModal open={openChooseFile} onClose={() => setOpenChooseFile(false)} />
             <DriveAddFolderModal open={openModalFolder} onClose={() => setOpenModalFolder(false)} onFinish={handleCreateFolder} />
             <Popover
                 title={null}
@@ -51,8 +47,7 @@ export default function DriveAddButton() {
                 content={
                     <div className="flex flex-col gap-2">
                         <Button className="flex items-center !justify-start gap-2 !bg-white hover:!bg-gray-200" icon={<FolderAddOutlined />} variant="filled" color="default" onClick={() => {setOpenModalFolder(true); setOpen(false)}}>Thư mục mới</Button>
-                        <Button className="flex items-center !justify-start gap-2 !bg-white hover:!bg-gray-200" icon={<FileAddOutlined />} variant="filled" color="default" onClick={handleAddFile}>Tệp mới</Button>
-                        <Button className="flex items-center !justify-start gap-2 !bg-white hover:!bg-gray-200" icon={<UploadOutlined />} variant="filled" color="default">Tải thư mục lên</Button>
+                        <Button className="flex items-center !justify-start gap-2 !bg-white hover:!bg-gray-200" icon={<UploadOutlined />} variant="filled" color="default" onClick={handleAddFile}>Tải tệp lên</Button>
                     </div>
                 }
             >
