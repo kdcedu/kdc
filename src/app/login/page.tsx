@@ -9,7 +9,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleFinish = () => {
-    console.log(username, password);
+    console.log('username', username);
+    console.log('password', password);
   };
 
   return (
