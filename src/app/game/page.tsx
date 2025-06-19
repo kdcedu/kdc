@@ -85,7 +85,7 @@ export default function GamePage() {
         </div>
       </div>
 
-      <div className="w-[10%] h-[18%] absolute flex items-end top-[60%] left-[79%] transform -translate-x-1/2 -translate-y-1/3 object-contain object-bottom">
+      <div className={`${shelf === "mine" ? "w-[8%]" : "w-[10%]"} h-[18%] absolute flex items-end top-[60%] left-[79%] transform -translate-x-1/2 -translate-y-1/3 object-contain object-bottom`}>
         <Image onClick={() => {
           handleItemClick("shelf");
         }} src={`/games/${shelf}_shelf.png`} alt="Shelf" preview={false}/>

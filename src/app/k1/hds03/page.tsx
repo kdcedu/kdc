@@ -4,7 +4,7 @@ import CatConversation from "@/components/catConversation";
 import NotificationModal from "@/components/modal/notificationModal";
 import { lessonApps } from "@/constant/app";
 import { shuffleArray } from "@/utils/randomApps";
-import { AudioOutlined, CalendarFilled, CameraOutlined, CloudFilled, EnvironmentFilled, GoogleOutlined, SunFilled } from "@ant-design/icons";
+import { CalendarFilled, CloudFilled, EnvironmentFilled, SunFilled } from "@ant-design/icons";
 import { Image, Input } from "antd";
 import { useMemo, useState } from "react";
 
@@ -69,9 +69,9 @@ export default function K1HDS03() {
       </div>
 
       <div className="w-1/2 flex justify-center">
-        <Input size="large" className="!rounded-full" prefix={<GoogleOutlined />} suffix={<div className="flex gap-2">
-          <AudioOutlined />
-          <CameraOutlined />
+        <Input size="large" className="!rounded-full" prefix={<Image preview={false} src="/icons/google_logo.png" alt="google" width={20}/>} suffix={<div className="flex gap-2">
+          <Image preview={false} src="/icons/google_voice.png" alt="google" width={25}/>
+          <Image preview={false} src="/icons/google_scan.png" alt="google" width={30}/>
         </div>} variant="underlined"/>
       </div>
       

@@ -107,3 +107,26 @@ export const lessonApps = [
     falseContent: 'Đây là trò chơi bắn súng, có nhiều cảnh đánh nhau, không tốt cho em. Em có thể nói chuyện với người lạ trong game và dễ bị nghiện chơi game, không học bài được.',
   }
 ]
+
+export const bottomApps = [
+  {
+    id: 1,
+    name: 'Phone',
+    icon: '/apps/phone.svg',
+  },
+  {
+    id: 2,
+    name: 'Camera',
+    icon: '/apps/camera.svg',
+  },
+  {
+    id: 3,
+    name: 'Photo',
+    icon: '/apps/photo.svg',
+  },
+  {
+    id: 4,
+    name: 'Mail',
+    icon: '/apps/mail.svg',
+  }
+]

@@ -9,7 +9,7 @@ interface GameModalProps {
     choseFunction: (thing: GameThings, itemSrc: string) => void
 }
 
-const genres = ['green', 'pink', 'wibu'];
+const genres = ['green', 'pink', 'wibu', 'mine'];
 
 export default function GameModal({open, setOpenModal, currentThing, choseFunction}: GameModalProps) {
   return <Drawer open={open} onClose={() => setOpenModal(false)} placement="bottom" closable={false} styles={{body: {padding: 20}}}>

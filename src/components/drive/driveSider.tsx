@@ -1,6 +1,7 @@
 import { ClockCircleOutlined, CloudOutlined, DeleteOutlined, FolderFilled, HomeOutlined, ShareAltOutlined, StarOutlined } from "@ant-design/icons";
 import DriveAddButton from "./driveAddButton";
 import { Progress } from "antd";
+import { useRouter } from "next/navigation";
 
 const siderMenu = [
     {
@@ -41,13 +42,16 @@ const siderMenu = [
 ]
 
 export default function DriveSider() {
+    const router = useRouter()
     return (
         <div className="w-[15%] flex-col items-start hidden md:flex">
             <div className="mb-5">
                 <DriveAddButton />
             </div>
             {siderMenu.map((item) => (
-                <div key={item.id} className={`${item.id === 2 && 'bg-blue-100 text-blue-600'} w-full py-2 px-4 rounded-lg flex items-center justify-start gap-4 hover:bg-gray-200 cursor-pointer`}>
+                <div onClick={() => {if(item.id === 2) {
+                    router.push('/k5/hds02')
+                }}} key={item.id} className={`${item.id === 2 && 'bg-blue-100 text-blue-600'} w-full py-2 px-4 rounded-lg flex items-center justify-start gap-4 hover:bg-gray-200 cursor-pointer`}>
                     {item.icon}
                     <span className="text-sm">{item.title}</span>
                 </div>

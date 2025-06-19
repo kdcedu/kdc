@@ -189,4 +189,11 @@ export const ROUTES = [
     pin: '1111',
     type: 'Xử lý tình huống'
   },
+  {
+    grade: 7,
+    name: 'k7/hds01',
+    title: 'Bảo vệ tài khoản bằng xác thực hai yếu tố',
+    pin: '1111',
+    type: 'Thao tác số'
+  }
 ]

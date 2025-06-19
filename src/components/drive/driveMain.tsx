@@ -2,12 +2,13 @@ import { CaretDownFilled, CaretDownOutlined, RightOutlined } from "@ant-design/i
 import DriveFolder from "./driveFolder";
 import DriveFile from "./driveFile";
 import { useDrive } from "@/context/driveContext";
-import { useParams } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { Image } from "antd";
 
 export default function DriveMain() {
   const { folders, files } = useDrive();
   const {id} = useParams();
+  const router = useRouter()
 
   const currentFolder = folders?.find((folder) => folder.id === Number(id));
 
@@ -16,7 +17,7 @@ export default function DriveMain() {
 
   return (
     <div className="flex-1 flex flex-col gap-5 bg-white rounded-3xl p-5">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2" onClick={() => {router.push('/k5/hds02')}}>
         <span className="text-2xl">Drive của tôi</span>
         {currentFolder ? <RightOutlined /> : <CaretDownOutlined />}
         {currentFolder && <>

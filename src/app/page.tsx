@@ -16,6 +16,7 @@ export default function Home() {
     localStorage.removeItem("avatar");
     localStorage.removeItem("folders");
     localStorage.removeItem("files");
+    localStorage.removeItem("isAuth");
   }, []);
 
   const menus = ["Tất cả", "Thao tác số", "Xử lý tình huống"];
@@ -68,6 +69,8 @@ export default function Home() {
           <CourseList grade={4} filter={selectedMenu} search={search}/>
 
           <CourseList grade={5} filter={selectedMenu} search={search}/>
+
+          <CourseList grade={7} filter={selectedMenu} search={search}/>
         </div> 
       </div>
     </div>
