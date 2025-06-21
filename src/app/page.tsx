@@ -9,8 +9,11 @@ import {
 } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
+
   useEffect(() => {
     localStorage.removeItem("user");
     localStorage.removeItem("avatar");
@@ -39,6 +42,9 @@ export default function Home() {
         </div>
         <Button variant="solid" color="orange" onClick={() => window.location.reload()}>
           Reload App
+        </Button>
+        <Button variant="solid" color="orange" onClick={() => router.push("/login")}>
+          Đăng nhập
         </Button>
       </div>
 
@@ -69,6 +75,8 @@ export default function Home() {
           <CourseList grade={4} filter={selectedMenu} search={search}/>
 
           <CourseList grade={5} filter={selectedMenu} search={search}/>
+
+          <CourseList grade={6} filter={selectedMenu} search={search}/>
 
           <CourseList grade={7} filter={selectedMenu} search={search}/>
         </div> 

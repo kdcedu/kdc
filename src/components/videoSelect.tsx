@@ -43,7 +43,7 @@ export default function VideoSelect({videos, handleClickVideo}: VideoSelectProps
           </div>
 
           <CatConversation icon={<AudioPlayer src="/audios/welcome.mp3"/>}>
-            Chào các bạn, mình là <span className="font-semibold text-emerald-400">DigiMeo</span>, hôm nay chúng mình cùng xem video nhé! Có 3 video ở phía trên , bạn muốn xem video nào trước? Hãy nhấn vào video bạn muốn xem.
+            Chào các bạn, mình là <span className="font-semibold text-emerald-400">DigiRobot</span>, hôm nay chúng mình cùng xem video nhé! Có 3 video ở phía trên , bạn muốn xem video nào trước? Hãy nhấn vào video bạn muốn xem.
           </CatConversation>
         </div>
       </div>

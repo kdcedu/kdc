@@ -1,7 +1,7 @@
 'use client'
 
-import VideoPageComponent from "@/components/videoPageComponent";
+import ContentPage from "@/components/k1/contentPage";
 
 export default function VideoPage() {
-  return <VideoPageComponent />;
+  return <ContentPage />
 }

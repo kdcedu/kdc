@@ -190,9 +190,30 @@ export const ROUTES = [
     type: 'Xử lý tình huống'
   },
   {
+    grade: 6,
+    name: '',
+    title: 'Like và share văn minh trên mạng xã hội',
+    pin: '1111',
+    type: 'Thao tác số'
+  },
+  {
+    grade: 6,
+    name: '',
+    title: 'Tạo mật khẩu cho thiết bị và các loại tài khoản',
+    pin: '1111',
+    type: 'Thao tác số'
+  },
+  {
     grade: 7,
     name: 'k7/hds01',
     title: 'Bảo vệ tài khoản bằng xác thực hai yếu tố',
+    pin: '1111',
+    type: 'Thao tác số'
+  },
+  {
+    grade: 7,
+    name: '',
+    title: 'Bảo vệ quyền riêng tư trên Internet',
     pin: '1111',
     type: 'Thao tác số'
   }

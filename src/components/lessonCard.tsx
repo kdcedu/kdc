@@ -30,7 +30,7 @@ export default function LessonCard({ grade, name, title, type, setOpen }: Lesson
                 <Image
                   alt="Thumbnail"
                   preview={false}
-                  src={`/images/k${grade < 7 ? grade : 1}.jpg`}
+                  src={`/images/k${grade < 6 ? grade : 1}.jpg`}
                 />
               </div>
             }

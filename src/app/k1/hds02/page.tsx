@@ -1,13 +1,19 @@
 'use client'
 
-import VideoSelect from "@/components/videoSelect";
-import { lessonVideos } from "@/constant/videos";
-import { useRouter } from "next/navigation";
+import CatConversation from "@/components/catConversation";
+import ContentSelect from "@/components/k1/contentSelect";
+import { Image } from "antd";
 
 export default function K1HDS02() {
-  const router = useRouter()
 
-  return <div className="w-full min-h-screen px-5 pb-5 pt-10 bg-[url(/backgrounds/mainBackground.png)]">
-    <VideoSelect videos={lessonVideos} handleClickVideo={(id) => router.push(`/k1/hds02/${id}`)}/>
+  return <div className="w-full min-h-screen flex flex-col justify-between px-5 pb-5 pt-10 bg-[url(/backgrounds/mainBackground.png)]">
+    <ContentSelect/>
+
+    <CatConversation>
+      <div className="flex items-center gap-5">
+        <Image src="/icons/robot.gif" alt="Robot" width={100} preview={false}/>
+        <span>Hãy chọn video, âm thanh hoặc ảnh để xem nhé!</span>
+      </div>
+    </CatConversation>
   </div>
 }
