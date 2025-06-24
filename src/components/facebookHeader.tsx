@@ -2,7 +2,11 @@ import { BellFilled, HomeFilled, MessageFilled, PlaySquareOutlined, SearchOutlin
 import { Image, Input } from "antd";
 import { useRouter } from "next/navigation";
 
-export default function FacebookHeader() {
+interface FacebookHeaderProps {
+  isAdult?: boolean;
+}
+
+export default function FacebookHeader({isAdult}: FacebookHeaderProps) {
   const router = useRouter();
   return <div className="w-full flex items-center justify-evenly bg-white border-b border-gray-300 px-10 shadow-sm">
     <div className="w-1/4 flex items-center gap-2 fixed top-1 left-5">
@@ -26,7 +30,7 @@ export default function FacebookHeader() {
       </div>)}
 
       <div className="w-10">
-        <Image alt="avatar" preview={false} src="/icons/Bin.svg"/>
+        {isAdult ? <Image alt="avatar" preview={false} src="/avatars/Avatar_MinhKhoi.jpg"/> : <Image alt="avatar" preview={false} src="/icons/Bin.svg"/>}
       </div>
     </div>
   </div>

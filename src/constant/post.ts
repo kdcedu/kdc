@@ -117,6 +117,69 @@ export const likeSharePostContent: PostType[] = [
   }
 ]
 
+export const adultLikeSharePostContent: PostType[] = [
+  {
+    time: '15 tháng 5 lúc 10:00',
+    content: 'Cả nhà ơi! Hôm nay mình tham gia buổi tình nguyện dọn dẹp công viên gần nhà. Tuy hơi mệt nhưng nhìn công viên sạch đẹp, ai cũng vui vẻ, mình thấy công sức bỏ ra thật đáng giá! Cùng nhau chung tay bảo vệ môi trường nhé!',
+    image: '/images/k6_hds01/K6HDS01_Post1.jpg',
+    privacy: 'public',
+    blockList: [],
+    name: 'Thu Thảo',
+    avatar: '/avatars/Avatar_ThuThao.jpg',
+    isTrue: true,
+    trueResult: '/images/k6_hds01/KQTichcuc.jpg',
+    trueContent: 'Chúc mừng bạn! Hành động "Like" và "Share" của bạn đã lan tỏa những thông điệp tích cực, khuyến khích bạn bè cùng làm việc tốt và xây dựng một cộng đồng mạng văn minh, nhân ái. Bạn đã góp phần tạo nên một không gian trực tuyến an toàn và bổ ích cho mọi người!',
+  },
+  {
+    time: '12 tháng 5 lúc 10:00',
+    content: 'Vừa hoàn thành dự án Khoa học Tự nhiên về biến đổi khí hậu! Cả nhóm đã thức đêm mấy hôm liền để nghiên cứu và làm mô hình. Thật tự hào vì thành quả của cả đội! Cố gắng hết sức rồi, giờ chỉ chờ kết quả thôi!',
+    image: '/images/k6_hds01/K6HDS01_Post2.jpg',
+    privacy: 'public',
+    blockList: [],
+    name: 'Minh Khôi',
+    avatar: '/avatars/Avatar_MinhKhoi.jpg',
+    isTrue: true,
+    trueResult: '/images/k6_hds01/KQTichcuc.jpg',
+    trueContent: 'Chúc mừng bạn! Hành động "Like" và "Share" của bạn đã lan tỏa những thông điệp tích cực, khuyến khích bạn bè cùng làm việc tốt và xây dựng một cộng đồng mạng văn minh, nhân ái. Bạn đã góp phần tạo nên một không gian trực tuyến an toàn và bổ ích cho mọi người!',
+  },
+  {
+    time: '10 tháng 5 lúc 10:00',
+    content: 'Trời ơi, cái áo thể dục của bạn Nam lớp mình cũ quá, nhìn rách cả một lỗ to tướng ở khuỷu tay! Kiểu này chắc mặc đi học cũng ngại lắm đây, hahaha!',
+    image: '/images/k6_hds01/K6HDS01_Post3.jpg',
+    privacy: 'public',
+    blockList: [],
+    name: 'Bảo An',
+    avatar: '/avatars/Avatar_BaoAn.jpg',
+    isTrue: false,
+    falseResult: '/images/k6_hds01/HQTieucuc1.jpg',
+    falseContent: 'Ôi không! Khi bạn "Like" hoặc "Share" bài viết này, bạn đã vô tình tiếp tay cho hành vi trêu chọc, giễu cợt, làm bạn Nam buồn và tổn thương. Điều này góp phần làm môi trường mạng kém an toàn, thiếu tôn trọng.',
+  },
+  {
+    time: '9 tháng 5 lúc 10:00',
+    content: 'Cả nhà ơi, lớp mình có bạn Lan Anh hoàn cảnh khó khăn lắm. Bố mẹ bạn ấy đau ốm thường xuyên nên việc học của bạn cũng bị ảnh hưởng. Lớp mình đang phát động quyên góp tập sách, dụng cụ học tập và học phí để giúp bạn có thể tiếp tục đến trường. Bạn nào có thể giúp đỡ dù chỉ một chút cũng quý lắm ạ!',
+    image: '/images/k6_hds01/K6HDS01_Post4.jpg',
+    privacy: 'public',
+    blockList: [],
+    name: 'Duy Anh',
+    avatar: '/avatars/Avatar_DuyAnh.jpg',
+    isTrue: true,
+    trueResult: '/images/k6_hds01/KQTichcuc.jpg',
+    trueContent: 'Chúc mừng bạn! Hành động "Like" và "Share" của bạn đã lan tỏa những thông điệp tích cực, khuyến khích bạn bè cùng làm việc tốt và xây dựng một cộng đồng mạng văn minh, nhân ái. Bạn đã góp phần tạo nên một không gian trực tuyến an toàn và bổ ích cho mọi người!',
+  },
+  {
+    time: '9 tháng 5 lúc 10:00',
+    content: 'Nghe phong phanh là bạn Hoài lớp 8A vừa chia tay người yêu cũ vì lén lút quen người khác đó! Chuyện này đúng hay không nhỉ? Có ai biết rõ hơn không? Kể nghe với!',
+    image: '',
+    privacy: 'public',
+    blockList: [],
+    name: 'Phương Linh',
+    avatar: '/avatars/Avatar_PhuongLinh.jpg',
+    isTrue: false,
+    falseResult: '/images/k6_hds01/HQTieucuc2.jpg',
+    falseContent: 'Cảnh báo! "Like" hoặc "Share" bài này có thể lan truyền tin đồn, khiến bạn Hoài bị hiểu lầm, xa lánh và ảnh hưởng đến danh dự. Điều này góp phần làm môi trường mạng kém an toàn, thiếu tôn trọng. Hãy xác minh thông tin trước khi chia sẻ để tránh gây hại.',
+  }
+]
+
 interface PrivacyListType {
   title: string
   description: string

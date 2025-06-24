@@ -5,9 +5,10 @@ interface ShareModalProps {
     open: boolean;
     onCancel: () => void;
     onFinish: () => void;
+    isAdult?: boolean;
 }
 
-export default function ShareModal({ open, onCancel, onFinish }: ShareModalProps) {
+export default function ShareModal({ open, onCancel, onFinish, isAdult }: ShareModalProps) {
   return <Modal
   styles={{
     header: {
@@ -27,9 +28,9 @@ export default function ShareModal({ open, onCancel, onFinish }: ShareModalProps
   >
     <div className="flex flex-col gap-5 p-5">
         <div className="flex items-center gap-2">
-                <Image preview={false} src="/icons/Bin.svg" alt="Avatar" width={50} />
+                <Image preview={false} src={isAdult ? "/avatars/Avatar_MinhKhoi.jpg" : "/icons/Bin.svg"} alt="Avatar" width={50} />
                 <div className="flex flex-col gap-2">
-                    <span className="font-semibold">Nguyễn Bin</span>
+                    <span className="font-semibold">{isAdult ? "Minh Khôi" : "Nguyễn Bin"}</span>
                     <div className="flex gap-2">
                         <Button size="small" variant="filled" color="default">Bảng feed</Button>
                         <Button size="small" variant="filled" color="default" icon={<UserOutlined />}>Bạn bè</Button>

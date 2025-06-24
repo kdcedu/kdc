@@ -61,14 +61,14 @@ export default function Pin() {
     {contextHolder}
       <div className="text-orange-500 text-xl font-semibold text-center mb-5 w-2/3 mx-auto">Bạn hãy thực hành tạo mã PIN nhé</div>
 
-      <div className="flex justify-center items-center mb-5">
+      <div className="w-full flex justify-center items-center mb-5">
         <div className="w-1/4 font-semibold text-lg">Mã PIN:</div>
         <Input.OTP type={ isView ? "text" : "password"} length={4} onChange={handleChange} inputMode="numeric"/>
         
         {isView ? <Button variant="filled" color="orange" className="ml-5" onClick={() => setIsView(!isView)}>Ẩn mã PIN</Button> : <Button variant="filled" color="orange" className="ml-5" onClick={() => setIsView(!isView)}>Xem mã PIN</Button>}
       </div>
 
-      <div className="bg-gray-100 p-5 rounded-lg mb-5">
+      <div className="w-full bg-gray-100 p-5 rounded-lg mb-5">
         <div className="mb-5 text-lg font-semibold">
           Những điều kiện mật khẩu cần đảm bảo:
         </div>
@@ -76,7 +76,7 @@ export default function Pin() {
         <CheckItem title="Không chứa dãy 4 chữ số lặp lại" status={repeatError} />
       </div>
 
-      <div className="bg-sky-100 p-5 rounded-lg">
+      <div className="w-full bg-sky-100 p-5 rounded-lg">
         <div className="mb-5 text-lg font-semibold">
           Gợi ý cho bạn:
         </div>

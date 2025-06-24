@@ -31,3 +31,18 @@ export const friendList = [
     avatar: '/avatars/girl_3.svg'
   },
 ]
+
+export const adultFriendList = [
+  {
+    name: 'Thu Thảo',
+    avatar: '/avatars/Avatar_ThuThao.jpg'
+  },
+  {
+    name: 'Duy Anh',
+    avatar: '/avatars/Avatar_DuyAnh.jpg'
+  },
+  {
+    name: 'Phương Linh',
+    avatar: '/avatars/Avatar_PhuongLinh.jpg'
+  },
+]

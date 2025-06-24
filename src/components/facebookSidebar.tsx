@@ -20,13 +20,17 @@ const menuItems = [
   }
 ]
 
-export default function FacebookSidebar() {
+interface FacebookSidebarProps {
+  isAdult?: boolean;
+}
+
+export default function FacebookSidebar({isAdult}: FacebookSidebarProps) {
   return <div className="flex flex-col w-full">
     <div className="flex items-center gap-10 p-3 cursor-pointer hover:bg-gray-200 rounded-lg">
-      <div className="w-8">
-        <Image alt="avatar" src='/icons/Bin.svg' preview={false}/>
+      <div className="w-12 h-12 flex items-center justify-center rounded-full overflow-hidden">
+        {isAdult ? <Image width={50} alt="avatar" src='/avatars/Avatar_MinhKhoi.jpg' preview={false}/> : <Image width={40} alt="avatar" src='/icons/Bin.svg' preview={false}/>}
       </div>
-      <span className="font-semibold">Bin Béo</span>
+      <span className="font-semibold">{isAdult ? 'Minh Khôi' : 'Bin Béo'}</span>
     
 
     </div>

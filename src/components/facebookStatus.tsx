@@ -1,11 +1,15 @@
 import { PictureFilled, SmileFilled, VideoCameraFilled } from "@ant-design/icons";
 import { Image, Input } from "antd";
 
-export default function FacebookStatus() {
+interface FacebookStatusProps {
+  isAdult?: boolean;
+}
+
+export default function FacebookStatus({isAdult}: FacebookStatusProps) {
   return <div className="w-full bg-white rounded-xl shadow-lg p-5">
     <div className="flex gap-5 border-b border-gray-200 pb-3">
       <div className="w-8">
-        <Image preview={false} alt="Avatar" src='/icons/Bin.svg'/>
+        {isAdult ? <Image preview={false} alt="Avatar" src='/avatars/Avatar_MinhKhoi.jpg'/> : <Image preview={false} alt="Avatar" src='/icons/Bin.svg'/>}
       </div>
       <Input color="gray" placeholder="Bạn đang nghĩ gì thế?"/>
     </div>

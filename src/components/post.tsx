@@ -45,7 +45,7 @@ export default function Post({
   return (
     <>
     <NotificationModal open={openNotification} onCancel={() => {setOpenNotification(false); setIsLike(false)}} isTrue={post.isTrue ?? true} handleNext={() => setOpenNotification(false)} isEnd={true} trueResult={post.trueResult} falseResult={post.falseResult} trueContent={post.trueContent} falseContent={post.falseContent}/>
-    <ShareModal open={openShare} onCancel={() => setOpenShare(false)} onFinish={() => {setOpenShare(false); setOpenNotification(true)}}/>
+    <ShareModal isAdult={avatar !== "/icons/Bin.svg"} open={openShare} onCancel={() => setOpenShare(false)} onFinish={() => {setOpenShare(false); setOpenNotification(true)}}/>
       <div className="w-full bg-white shadow-lg rounded-xl py-3">
         <div className="px-3 mb-3">
           <div className="flex items-center justify-between">
@@ -90,7 +90,7 @@ export default function Post({
               <LikeFilled />
             </span>
             <span className="text-sm text-gray-400">
-              {isLike && 'Bạn, '}Long, Vũ và 50 người khác
+              {isLike && 'Bạn, '}Toàn, Long và 50 người khác
             </span>
           </div>
 

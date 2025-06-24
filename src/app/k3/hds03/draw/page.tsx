@@ -67,7 +67,7 @@ export default function Draw() {
       </div>
       
 
-      <div className="bg-gray-100 p-5 rounded-lg mb-5">
+      <div className="w-full bg-gray-100 p-5 rounded-lg mb-5">
         <div className="mb-5 text-lg font-semibold">
           Những điều kiện mật khẩu cần đảm bảo:
         </div>

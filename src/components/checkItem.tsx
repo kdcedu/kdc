@@ -9,7 +9,7 @@ interface CheckItemProps {
 
 export default function CheckItem({ title, status }: CheckItemProps) {
   return (
-    <div className="flex items-center mb-2">
+    <div className="w-full flex items-center mb-2">
       {status === "normal" && <CheckOutlined className="!text-gray-500" />}
       {status === "error" && <CloseOutlined className="!text-red-500" />}
       {status === "success" && <CheckOutlined className="!text-green-500" />}

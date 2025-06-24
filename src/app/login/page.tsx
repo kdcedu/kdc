@@ -1,5 +1,6 @@
 'use client'
 
+import { login } from "@/services/auth";
 import { Button, Image, Input } from "antd";
 import { useState } from "react";
 
@@ -9,8 +10,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleFinish = () => {
-    console.log('username', username);
-    console.log('password', password);
+    console.log(process.env.NEXT_PUBLIC_API_URL);
+    login({ username, password });
   };
 
   return (

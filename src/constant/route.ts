@@ -3,14 +3,14 @@ export const ROUTES = [
   {
     grade: 1,
     name: '',
-    title: 'Các hành vi không an toàn trên internet',
+    title: 'Các hành vi không an toàn trên Internet',
     pin: '1111',
     type: 'Xử lý tình huống'
   },
   {
     grade: 1,
     name: 'k1/hds02',
-    title: 'Các nội dung an toàn trên internet',
+    title: 'Những điều an toàn trên Internet',
     pin: '1111',
     type: 'Thao tác số'
   },
@@ -191,14 +191,14 @@ export const ROUTES = [
   },
   {
     grade: 6,
-    name: '',
+    name: 'k6/hds01',
     title: 'Like và share văn minh trên mạng xã hội',
     pin: '1111',
     type: 'Thao tác số'
   },
   {
     grade: 6,
-    name: '',
+    name: 'k6/hds02',
     title: 'Tạo mật khẩu cho thiết bị và các loại tài khoản',
     pin: '1111',
     type: 'Thao tác số'

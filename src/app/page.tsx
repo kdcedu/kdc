@@ -10,6 +10,8 @@ import {
 import { Button, Input } from "antd";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/authContext";
+import { logout } from "@/services/auth";
 
 export default function Home() {
   const router = useRouter();
@@ -30,6 +32,8 @@ export default function Home() {
 
   const [open, setOpen] = useState(false);
 
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="max-w-screen min-h-screen">
       <UndoneModal open={open} setOpen={setOpen}/>
@@ -43,9 +47,11 @@ export default function Home() {
         <Button variant="solid" color="orange" onClick={() => window.location.reload()}>
           Reload App
         </Button>
-        <Button variant="solid" color="orange" onClick={() => router.push("/login")}>
+        {isAuthenticated ? <Button variant="solid" color="orange" onClick={logout}>
+          Đăng xuất
+        </Button> : <Button variant="solid" color="orange" onClick={() => router.push("/login")}>
           Đăng nhập
-        </Button>
+        </Button>}
       </div>
 
       <div className="min-h-screen bg-orange-100 pt-5 flex">
