@@ -22,6 +22,7 @@ export default function Home() {
     localStorage.removeItem("folders");
     localStorage.removeItem("files");
     localStorage.removeItem("isAuth");
+    localStorage.removeItem("cart");
   }, []);
 
   const menus = ["Tất cả", "Thao tác số", "Xử lý tình huống"];
@@ -39,7 +40,7 @@ export default function Home() {
       <UndoneModal open={open} setOpen={setOpen}/>
       <div className="flex justify-between items-center bg-white border-b border-b-gray-200 py-3 px-20">
         <span className="text-orange-400 font-bold text-2xl">
-          KDC PLAY&LEARN STATION
+          KDC PLAY & LEARN STATION
         </span>
         <div className="flex gap-10 items-center w-1/2">
           <Input value={search} onChange={(e) => setSearch(e.target.value)} className="!bg-orange-100 !text-orange-400 !border-orange-400 !rounded-full" placeholder="Tìm kiếm" size="large" prefix={<SearchOutlined />} />

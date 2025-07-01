@@ -3,7 +3,7 @@ export const ROUTES = [
   {
     grade: 1,
     name: 'k1/hds01',
-    title: 'Các hành vi không an toàn trên Internet',
+    title: 'Quan tâm người khác với thiết bị số',
     pin: '1111',
     type: 'Xử lý tình huống'
   },

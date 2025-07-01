@@ -1,6 +1,9 @@
+import { useShop } from "@/context/shopContext";
+import { convertPrice } from "@/utils/convertPrice";
 import { Button, Image } from "antd";
 
 export interface CartItemProps {
+    id: string;
     title: string;
     price: number;
     size: string;
@@ -9,7 +12,14 @@ export interface CartItemProps {
     image: string;
 }
 
-export default function CartItem({title, price, size, color, quantity, image}: CartItemProps) {
+export default function CartItem({id, title, price, size, color, quantity, image}: CartItemProps) {
+    const { cart, setCart } = useShop();
+    
+    const handleDelete = () => {
+        const newCart = cart.filter((item) => item.id !== id);
+        setCart(newCart);
+    }
+    
     return <div className="w-full flex items-center justify-between">
         <div className="w-full flex items-start gap-5">
             <div className="w-1/3">
@@ -18,7 +28,7 @@ export default function CartItem({title, price, size, color, quantity, image}: C
             <div className="flex flex-1 flex-col gap-5">
                 <div className="flex flex-col items-start gap-1">
                     <span className="text-xl">{title}</span>
-                    <span className="text-lg">{price}</span>
+                    <span className="text-lg">{convertPrice(price)}</span>
                 </div>
                 <div className="flex flex-col items-center gap-5">
                    <div className="flex items-center justify-between w-full">
@@ -34,7 +44,7 @@ export default function CartItem({title, price, size, color, quantity, image}: C
                     <span>{quantity}</span>
                    </div>
 
-                   <Button className="w-full" variant="filled" color="default">Xóa</Button>
+                   <Button onClick={handleDelete} className="w-full" variant="filled" color="default">Xóa</Button>
                 </div>
             </div>
         </div>

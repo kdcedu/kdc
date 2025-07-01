@@ -1,48 +1,94 @@
-import { Button, Drawer } from "antd";
+import { Badge, Button, Drawer, Image } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import CartItem from "./cartItem";
-import { shirts } from "@/constant/shop/shirt";
 import { redirect } from "next/navigation";
 import { useCallback } from "react";
+import { useShop } from "@/context/shopContext";
 
 export default function CartDrawer() {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { cart } = useShop();
+  const handleCheckout = useCallback(() => {
+    setOpen(false);
+    redirect("/k8/hds02/shipping");
+  }, [setOpen]);
 
-    const handleCheckout = useCallback(() => {
-        setOpen(false); 
-        redirect('/k8/hds02/shipping');
-    }, [setOpen]);
-
-    return <>
-    <Button onClick={() => setOpen(true)} type="text" icon={<span className="text-xl"><ShoppingCartOutlined /></span>}/>
-    <Drawer
-    closable={false}
-    onClose={() => setOpen(false)}
-    open={open}
-    height={120}
-    size="large"
-    placement="right"
-    styles={
-        {
-            body: {
-                padding: 0
-            }
-        }
-    }
-    >
+  return (
+    <>
+      <Badge count={cart.length}>
+        <Button
+          onClick={() => setOpen(true)}
+          type="text"
+          icon={
+            <span className="text-xl">
+              <ShoppingCartOutlined />
+            </span>
+          }
+        />
+      </Badge>
+      <Drawer
+        closable={false}
+        onClose={() => setOpen(false)}
+        open={open}
+        height={120}
+        size="large"
+        placement="right"
+        styles={{
+          body: {
+            padding: 0,
+          },
+        }}
+      >
         <div className="flex flex-col relative h-screen">
-            <div className="flex flex-col py-6 w-full items-center justify-center border-b border-black">
-                <span className="text-xl"><ShoppingCartOutlined /></span>
-                <span className="text-lg">Giỏ hàng của bạn</span>
-            </div>
+          <div className="flex flex-col py-6 w-full items-center justify-center border-b border-black">
+            <span className="text-xl">
+              <ShoppingCartOutlined />
+            </span>
+            <span className="text-lg">Giỏ hàng của bạn</span>
+          </div>
+          {cart.length > 0 ? (
             <div className="w-full flex flex-col gap-5 py-3 px-5 h-[calc(100%-150px)] overflow-auto">
-            {shirts.map((shirt) => (<CartItem key={shirt.id} title="Levents® Blink Blink XL Logo Oversized Tee/ Black" price={500000} size="XL" color="Black" quantity={1} image="//levents.asia/cdn/shop/files/Black_LTSOVCOA218UD0100SS25_1.jpg?v=1750497485&width=300"/>) )}
+              {cart.map((item) => (
+                <CartItem
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  price={item.price}
+                  size={item.size}
+                  color={Array.isArray(item.color) ? item.color[0] : item.color}
+                  quantity={item.quantity}
+                  image={item.image}
+                />
+              ))}
             </div>
+          ) : (
+            <div className="w-full flex flex-col items-center justify-center gap-5 py-3 px-5 h-[calc(100%-150px)] overflow-auto">
+              <Image
+                src="/images/k8/empty-cart.png"
+                alt="empty cart"
+                preview={false}
+                width={200}
+              />
+              <span className="text-lg">Giỏ hàng của bạn đang trống</span>
+              <Button onClick={() => setOpen(false)} className="w-2/3 !rounded-none !h-14 !text-lg" size="large" variant="solid" color="default">Tiếp tục mua sắm</Button>
+            </div>
+          )}
+          {cart.length > 0 && (
             <div className="w-full px-5 py-3 bg-white border-t border-t-gray-200 absolute bottom-0">
-                <Button onClick={handleCheckout} className="w-full !rounded-none !h-14 !text-lg" size="large" variant="solid" color="default">Thanh toán</Button>
+              <Button
+                onClick={handleCheckout}
+                className="w-full !rounded-none !h-14 !text-lg"
+                size="large"
+                variant="solid"
+                color="default"
+              >
+                Thanh toán
+              </Button>
             </div>
-        </div>        
-    </Drawer>
+          )}
+        </div>
+      </Drawer>
     </>
+  );
 }

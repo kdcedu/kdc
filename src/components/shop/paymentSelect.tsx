@@ -14,7 +14,7 @@ const paymentMethods = [
 ]
 
 export default function PaymentSelect() {
-    const [paymentMethod, setPaymentMethod] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState('2');
 
     return <div className="w-full flex flex-col gap-3">
         <span className="font-bold text-lg">Phương thức thanh toán</span>

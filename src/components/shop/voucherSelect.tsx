@@ -1,34 +1,30 @@
 "use client"
 import { Radio } from "antd";
 import VoucherCard from "./voucherCard";
-
-const vouchers = [
-    {
-        id: '1',
-        voucher: "KDC2025FREESHIP",
-        description: "VOUCHER GIÁM 25K PHÍ SHIP"
-    },
-    {
-        id: '2',
-        voucher: "KDC15FREESHIP",
-        description: "VOUCHER GIÁM 15K PHÍ SHIP"
-    },
-    {
-        id: '3',
-        voucher: "KDC10FREESHIP",
-        description: "VOUCHER GIÁM 10K PHÍ SHIP"
-    },
-]
+import { Voucher, systemVoucher } from "@/constant/shop/voucher";
+import { useShop } from "@/context/shopContext";
 
 export default function VoucherSelect() {
+    const {voucher: currentVoucher, setVoucher} = useShop();
+
+    const handleSetVoucher = (voucher: Voucher) => {
+        const shippingVoucher = currentVoucher.find((voucher) => voucher.type === 'shipping');
+        let newVoucher = [...currentVoucher];
+        if (shippingVoucher) {
+            newVoucher = newVoucher.filter((voucher) => voucher.type !== 'shipping');
+        }
+        newVoucher.push(voucher);
+        setVoucher(newVoucher);
+    }
+
     return <div className="w-full flex flex-col gap-5">
         <span className="font-bold text-lg">Voucher</span>
         
         <div className="flex flex-col">
             <Radio.Group defaultValue="" className="flex flex-col">
-            {vouchers.map((voucher) => (
-                <Radio className="w-full border border-gray-200 !p-2 rounded-lg !mb-2" value={voucher.id} key={voucher.id}>
-                    <VoucherCard voucher={voucher.voucher} description={voucher.description} />
+            {systemVoucher.filter((voucher) => voucher.type === 'shipping').map((voucher) => (
+                <Radio onChange={(e) => handleSetVoucher(e.target.value)} className="w-full border border-gray-200 !p-2 rounded-lg !mb-2" value={voucher} key={voucher.code}>
+                    <VoucherCard voucher={voucher.code} description={voucher.name} />
                 </Radio>
             ))}
             </Radio.Group>

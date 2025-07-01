@@ -1,7 +1,8 @@
 "use client";
+import { useShop } from "@/context/shopContext";
 import { convertPrice } from "@/utils/convertPrice";
 import { Radio } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const shippingMethods = [
     {
@@ -17,7 +18,11 @@ const shippingMethods = [
 ]
 
 export default function ShippingSelect() {
-    const [shippingMethod, setShippingMethod] = useState('');
+    const [shippingMethod, setShippingMethod] = useState('1');
+    const {setShipping} = useShop();
+    useEffect(() => {
+        setShipping(shippingMethods.find((method) => method.id === shippingMethod)?.price || 0)
+    }, [shippingMethod, setShipping])
 
     return <div className="w-full flex flex-col gap-3">
         <span className="font-bold text-lg">Phương thức vận chuyển</span>

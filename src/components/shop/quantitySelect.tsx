@@ -1,16 +1,21 @@
 import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 export default function QuantitySelect() {
     const [quantity, setQuantity] = useState(1);
 
+    const { setValue } = useFormContext();
+
     const handleMinus = () => {
         setQuantity(quantity - 1);
+        setValue('quantity', quantity - 1);
     }
 
     const handlePlus = () => {
         setQuantity(quantity + 1);
+        setValue('quantity', quantity + 1);
     }
 
     return <div className="flex items-center justify-between">

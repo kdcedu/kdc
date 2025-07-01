@@ -1,4 +1,3 @@
-// app/k1/hds01/page.tsx
 'use client';
 
 const h5pContentHtml = `
