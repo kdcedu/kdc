@@ -85,6 +85,8 @@ export default function Home() {
           <CourseList grade={6} filter={selectedMenu} search={search}/>
 
           <CourseList grade={7} filter={selectedMenu} search={search}/>
+
+          <CourseList grade={8} filter={selectedMenu} search={search}/>
         </div> 
       </div>
     </div>
