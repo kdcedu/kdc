@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 interface District {
     id: string;
     name: string;
+    full_name: string;
 }
 
 export const useGetDistricts = (id: string | null) => {

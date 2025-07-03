@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/authContext";
+import { GlobalMessageProvider } from "@/context/globalMessageContext";
 // import AuthGuard from "@/components/authGuard";
 
 const geistSans = Geist({
@@ -35,9 +36,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
         <AuthProvider>
-          {/* <AuthGuard> */}
-            {children}
-          {/* </AuthGuard> */}
+          <GlobalMessageProvider>
+            {/* <AuthGuard> */}
+              {children}
+            {/* </AuthGuard> */}
+          </GlobalMessageProvider>
         </AuthProvider>
       </body>
     </html>

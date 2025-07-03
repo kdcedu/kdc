@@ -7,21 +7,36 @@ import { useGetWards } from "@/hooks/useGetWards";
 import { useState } from "react";
 import TextArea from "antd/es/input/TextArea";
 import { useRouter } from "next/navigation";
+import { useShop } from "@/context/shopContext";
 
 export default function ShippingForm() {
   const router = useRouter();
+  const { setAddress } = useShop();
   const [province, setProvince] = useState<string | null>(null);
   const [district, setDistrict] = useState<string | null>(null);
   const [ward, setWard] = useState<string | null>(null);
 
-  const provinces = useGetProvinces();
-  const districts = useGetDistricts(province);
-  const wards = useGetWards(district);
-
   const [form] = Form.useForm();
 
+  const provinces = useGetProvinces();
+  const districts = useGetDistricts(form.getFieldValue("province"));
+  const wards = useGetWards(form.getFieldValue("district"));
+
   const onFinish = () => {
-    router.push("/k8/hds02/checkout")
+    router.push("/k8/hds02/checkout");
+    setAddress(
+      form.getFieldValue("firstName") +
+        " " +
+        form.getFieldValue("lastName") +
+        "/" +
+        form.getFieldValue("address") +
+        ", " +
+        ward +
+        ", " +
+        district +
+        ", " +
+        province
+    );
   };
 
   return (
@@ -73,7 +88,11 @@ export default function ShippingForm() {
                 <Select
                   className="flex-1"
                   value={province}
-                  onChange={(value) => setProvince(value)}
+                  onChange={(value) => {
+                    const provinceName = provinces?.find((province) => province.id === value)?.full_name;
+                    setProvince(provinceName || '');
+                    form.setFieldsValue({ district: null, ward: null });
+                  }}
                   size="large"
                   placeholder="Tỉnh/Thành phố"
                   options={provinces?.map((province) => ({
@@ -85,15 +104,17 @@ export default function ShippingForm() {
               <Form.Item
                 className="flex-1"
                 name="district"
-                rules={[
-                  { required: true, message: "Chưa chọn quận/huyện" },
-                ]}
+                rules={[{ required: true, message: "Chưa chọn quận/huyện" }]}
               >
                 <Select
                   disabled={!province}
                   className="flex-1"
                   value={district}
-                  onChange={(value) => setDistrict(value)}
+                  onChange={(value) => {
+                    const districtName = districts?.find((district) => district.id === value)?.full_name;
+                    setDistrict(districtName || '');
+                    setWard(null)
+                  }}
                   size="large"
                   placeholder="Quận/Huyện"
                   options={districts?.map((district) => ({
@@ -111,7 +132,10 @@ export default function ShippingForm() {
                   disabled={!district}
                   className="flex-1"
                   value={ward}
-                  onChange={(value) => setWard(value)}
+                  onChange={(value) => {
+                    const wardName = wards?.find((ward) => ward.id === value)?.full_name;
+                    setWard(wardName || '');
+                  }}
                   size="large"
                   placeholder="Phường/Xã"
                   options={wards?.map((ward) => ({
@@ -132,27 +156,25 @@ export default function ShippingForm() {
         </div>
 
         <div className="flex items-center justify-between mt-10">
-        <Button
-          onClick={() => router.push("/k8/hds02/")}
-          size="large"
-          variant="link"
-          color="default"
-        >
-          Thoát
-        </Button>
-        <Button
-          htmlType="submit"
-          size="large"
-          className="w-1/2 !rounded-none !h-16 !text-lg"
-          variant="solid"
-          color="default"
-        >
-          Tiếp tục tới trang thanh toán
-        </Button>
-      </div>
+          <Button
+            onClick={() => router.push("/k8/hds02/")}
+            size="large"
+            variant="link"
+            color="default"
+          >
+            Thoát
+          </Button>
+          <Button
+            htmlType="submit"
+            size="large"
+            className="w-1/2 !rounded-none !h-16 !text-lg"
+            variant="solid"
+            color="default"
+          >
+            Tiếp tục tới trang thanh toán
+          </Button>
+        </div>
       </Form>
-
-      
     </div>
   );
 }

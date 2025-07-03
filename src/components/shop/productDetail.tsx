@@ -8,6 +8,7 @@ import InformationCard from "./informationCard";
 import { useShop } from "@/context/shopContext";
 import { FormProvider, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { useGlobalMessage } from "@/context/globalMessageContext";
 
 interface ProductDetailProps {
   product?: CartItem;
@@ -16,8 +17,11 @@ export default function ProductDetail({ product }: ProductDetailProps) {
   const { setCart, cart } = useShop();
   const router = useRouter();
 
+  const { createSuccessMessage, createErrorMessage } = useGlobalMessage();
+
   const formInstance = useForm<CartItem>({
     defaultValues: {
+      uniqueId: cart.length + 1,
       id: product?.id || '',
       title: product?.title || '',
       price: product?.price || 0,
@@ -25,16 +29,22 @@ export default function ProductDetail({ product }: ProductDetailProps) {
       size: '',
       quantity: 1,
       image: product?.image || '',
+      discount: product?.discount || 0,
     },
   });
 
   const onAddToCart = (data: CartItem) => {
+    if(data.color === '' || data.size === '') {
+      createErrorMessage('Vui lòng chọn màu sắc và kích thước');
+      return;
+    }
     const newCart = [...cart];
-    const existingItem = newCart.find((item) => item.id === product?.id);
+    const existingItem = newCart.find((item) => (item.id === product?.id && item.color === data?.color && item.size === data?.size));
     if (existingItem) {
       existingItem.quantity += data.quantity;
     } else {
       newCart.push({
+        uniqueId: newCart.length + 1,
         id: product?.id || '',
         title: product?.title || '',
         price: product?.price || 0,
@@ -42,14 +52,20 @@ export default function ProductDetail({ product }: ProductDetailProps) {
         size: data.size,
         quantity: data.quantity,
         image: product?.image || '',
+        discount: product?.discount || 0,
       });
     }
     setCart(newCart);
+    createSuccessMessage('Thêm vào giỏ hàng thành công');
   };
 
   const onBuyNow = (data: CartItem) => {
+    if(data.color === '' || data.size === '') {
+      createErrorMessage('Vui lòng chọn màu sắc và kích thước');
+      return;
+    }
     onAddToCart(data);
-    router.push('/shipping');
+    router.push('shipping');
   }
 
   return (
@@ -66,10 +82,15 @@ export default function ProductDetail({ product }: ProductDetailProps) {
 
         <div className="w-1/2 h-full bg-gray-100 flex flex-col items-start justify-between px-20 py-10">
           <div className="flex flex-col gap-5">
-            <span className="text-2xl">{product?.title}</span>
-            <span className="text-2xl text-red-500">
-              {convertPrice(product?.price || 0)}
+            <span className="text-2xl">
+              {product?.title}
             </span>
+            <div className="flex items-center gap-2">
+              {product?.discount && <span className="text-2xl text-red-500">
+                {convertPrice((product?.price || 0) * (product?.discount ? (1 - product?.discount / 100) : 1))}
+              </span>}
+              <span className={`${product?.discount ? 'line-through' : 'text-lg'} font-semibold text-gray-500`}>{convertPrice(product?.price || 0)}</span>
+            </div>
 
             <ColorSelect colors={product?.color || []} />
 

@@ -1,14 +1,15 @@
 "use client"
-import CheckoutCard from "./checkoutCard";
 import { useShop } from "@/context/shopContext";
+import CheckoutCard from "./checkoutCard";
 
-export default function CheckoutList() {
-    const { cart } = useShop();
-    return <div className="w-full flex flex-col gap-3">
-        <span className="font-bold text-lg">Danh sách sản phẩm</span>
+export default function BillList() {
+    const { order } = useShop();     
+    return <div>
+        <span className="font-bold">Danh sách sản phẩm</span>
         <div className="w-full flex flex-col gap-3">
-            {cart.map((item) => (
+            {order.map((item) => (
                 <CheckoutCard
+                    isFinish
                     discount={item.discount || 0}
                     key={item.uniqueId}
                     title={item.title}
