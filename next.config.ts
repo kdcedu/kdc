@@ -20,6 +20,14 @@ const nextConfig = {
   experimental: {
     appDir: true,            // Bắt buộc với App Router
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*', 
+        destination: 'https://wp.dongtrantd.io.vn/:path*',
+      },
+    ]
+  },
 };
 
 module.exports = withPWA(nextConfig);

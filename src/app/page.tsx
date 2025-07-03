@@ -8,16 +8,17 @@ import { MenuOutlined, SearchOutlined, StarOutlined } from "@ant-design/icons";
 import { Button, Input, Spin } from "antd";
 import SectionDisplay from "@/components/sectionDisplay";
 
-// Định nghĩa kiểu dữ liệu (giữ nguyên)
 interface CourseItem {
   id: number;
   title: string;
   type: string;
-  slug: string;
+  content: string;
+  render_type: string;
 }
 interface CourseSection {
   section_name: string;
   items: CourseItem[];
+  grade: number
 }
 interface CourseData {
   id: number;
@@ -27,7 +28,6 @@ interface CourseData {
 
 export default function Home() {
   const router = useRouter();
-  // 1. LẤY ĐẦY ĐỦ STATE VÀ HÀM TỪ AUTHCONTEXT
   const { isAuthenticated, loading: authLoading, logout } = useAuth();
 
   useEffect(() => {
@@ -41,14 +41,13 @@ export default function Home() {
 
   const menus = ["Tất cả", "Thao tác số", "Xử lý tình huống"];
 
-  // State cho dữ liệu khóa học và bộ lọc (giữ nguyên)
   const [courseData, setCourseData] = useState<CourseData | null>(null);
-  const [dataLoading, setDataLoading] = useState(true); // Đổi tên để tránh nhầm lẫn
+  const [dataLoading, setDataLoading] = useState(true);
   const [selectedMenu, setSelectedMenu] = useState("Tất cả");
   const [search, setSearch] = useState('');
   const [open, setOpen] = useState(false);
   
-  // 2. BẢO VỆ ROUTE: Kiểm tra trạng thái đăng nhập
+  // Kiểm tra trạng thái đăng nhập
   useEffect(() => {
     // Chỉ thực hiện khi context đã kiểm tra xong (authLoading === false)
     if (!authLoading && !isAuthenticated) {
@@ -56,30 +55,25 @@ export default function Home() {
     }
   }, [isAuthenticated, authLoading, router]);
 
-  // 3. GỌI API VỚI TOKEN XÁC THỰC
+  // GỌI API VỚI TOKEN XÁC THỰC
   useEffect(() => {
-    // Chỉ gọi API nếu người dùng đã được xác thực
     if (isAuthenticated) {
       const fetchCourseData = async () => {
         setDataLoading(true);
         
-        // Lấy token từ localStorage
+        // Lấy token
         const token = localStorage.getItem('kdc_token');
         if (!token) {
-          logout(); // Nếu không có token, logout và chuyển về trang login
+          logout();
           return;
         }
 
         try {
-          const response = await fetch("https://wp.dongtrantd.io.vn/wp-json/lp-custom/v1/course/16", {
-            headers: {
-              // Gắn token vào header
-              'Authorization': `Bearer ${token}`
-            }
+          const response = await fetch("/api/wp-json/lp-custom/v1/course/16", {
+            headers: {'Authorization': `Bearer ${token}` }
           });
 
           if (!response.ok) {
-            // Nếu token hết hạn hoặc không hợp lệ (lỗi 403), tự động đăng xuất
             if (response.status === 403) {
               logout();
             }
@@ -95,14 +89,12 @@ export default function Home() {
       };
       fetchCourseData();
     }
-  }, [isAuthenticated, logout]); // Chạy lại khi trạng thái đăng nhập thay đổi
+  }, [isAuthenticated, logout]); 
 
-  // 4. CẬP NHẬT HÀM ĐĂNG XUẤT
   const handleLogout = () => {
-    logout(); // Gọi hàm logout từ context
+    logout(); 
   };
   
-  // Lọc dữ liệu (giữ nguyên)
   const filteredCurriculum = courseData?.curriculum.map(section => {
     const filteredItems = section.items.filter(item => {
       const typeCheck = selectedMenu === "Tất cả" || item.type === selectedMenu;
@@ -112,8 +104,6 @@ export default function Home() {
     return { ...section, items: filteredItems };
   }).filter(section => section.items.length > 0);
 
-  // 5. HIỂN THỊ SPINNER TRONG KHI CHỜ XÁC THỰC
-  // Giao diện sẽ không hiển thị gì cho đến khi việc kiểm tra auth hoàn tất
   if (authLoading || !isAuthenticated) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -122,7 +112,6 @@ export default function Home() {
     );
   }
 
-  // Giao diện chính của trang
   return (
     <div className="max-w-screen min-h-screen">
       <UndoneModal open={open} setOpen={setOpen} />
@@ -145,7 +134,7 @@ export default function Home() {
         {/* Sidebar menu */}
         <div className="md:flex hidden w-[8%] flex-col gap-5 items-center">
           <MenuOutlined />
-          {["Tất cả", "lesson", "h5p"].map((menu) => (
+          {menus.map((menu) => (
             <div onClick={() => setSelectedMenu(menu)} key={menu}
               className={`w-full flex flex-col gap-2 items-center justify-center hover:bg-orange-200 cursor-pointer py-2 ${
                 menu === selectedMenu && "text-orange-400 bg-orange-200"
@@ -156,18 +145,18 @@ export default function Home() {
           ))}
         </div>
         
-        {/* Nội dung chính */}
+        {/* Main Content */}
         <div className="bg-white flex flex-col flex-1">
-          {dataLoading ? ( // Dùng state loading của data
+          {dataLoading ? (
             <div className="flex justify-center items-center h-full">
               <Spin size="large" tip="Đang tải dữ liệu khóa học..." />
             </div>
           ) : (
             filteredCurriculum?.map((section) => (
-              <SectionDisplay key={section.section_name} section={section} />
+              <SectionDisplay key={section.section_name} section={section} setOpenAction={setOpen} />
             ))
           )}
-        </div>
+        </div>D
       </div>
     </div>
   );

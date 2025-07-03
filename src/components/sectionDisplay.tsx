@@ -1,31 +1,26 @@
 "use client";
-
-import { useRouter } from 'next/navigation';
 import { StarOutlined } from '@ant-design/icons';
+import LessonCard from './lessonCard';
 
-// Nhận lại các kiểu dữ liệu từ component cha
 interface CourseItem {
   id: number;
   title: string;
-  slug: string;
-  // ...
+  content: string;
+  render_type: string;
 }
 
 interface CourseSection {
   section_name: string;
   items: CourseItem[];
+  grade: number;
 }
 
-export default function SectionDisplay({ section }: { section: CourseSection }) {
-  const router = useRouter();
+interface SectionDisplayProps {
+  section: CourseSection ;
+  setOpenAction: (open: boolean) => void;
+}
 
-  // Chuyển đến trang chi tiết của khóa học, và có thể thêm hash để cuộn đến item
-  const handleItemClick = (itemId: number) => {
-    // URL sẽ là /course/16#item-43
-    // Hoặc nếu bạn có trang riêng cho mỗi item: /course/item/43
-    router.push(`/course/16#item-${itemId}`);
-  };
-
+export default function SectionDisplay({ section, setOpenAction }: SectionDisplayProps) {
   return (
     <div className="pb-5 px-5">
       <div className="flex justify-between items-center py-5">
@@ -35,15 +30,8 @@ export default function SectionDisplay({ section }: { section: CourseSection }) 
         </div>
       </div>
       <div className="flex gap-5 flex-wrap">
-        {section.items.map((item) => (
-          <div
-            key={item.id}
-            className="w-full md:w-1/4 p-4 border rounded-lg shadow-sm hover:shadow-lg transition-shadow cursor-pointer"
-            onClick={() => handleItemClick(item.id)}
-          >
-            {/* Có thể thêm ảnh đại diện cho item ở đây */}
-            <h3 className="font-semibold text-lg">{item.title}</h3>
-          </div>
+        {section.items.map((item, index) => (
+          <LessonCard key={index} grade={section.grade} name={item.content} title={item.title} type={""} render_type={item.render_type} setOpen={setOpenAction}/>
         ))}
       </div>
     </div>

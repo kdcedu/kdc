@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import { login } from "@/services/auth";
-import { Button, Image, Input, message, Spin } from "antd";
+import { Button, Image, Input, message } from "antd";
 
 export default function Login() {
-  // --- State quản lý ---
+  // --- State ---
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // --- Hàm xử lý chính khi nhấn nút Đăng nhập ---
-  // Logic đã được đơn giản hóa rất nhiều
+  // --- Khi nhấn nút Đăng nhập ---
   const handleFinish = async () => {
     // 1. Kiểm tra đầu vào
     if (!username || !password) {
@@ -22,29 +21,17 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // 2. Gọi service login.
-      // Hàm login sẽ tự động chuyển hướng nếu thành công.
-      // Chúng ta chỉ cần chờ nó thực hiện xong.
-      await login({ username, password });
-
-      // Code sẽ không chạy đến đây nếu login thành công vì đã bị redirect.
-      // Dòng này chỉ chạy nếu redirect không hoạt động vì một lý do nào đó.
-      // Trong trường hợp đó, ta có thể không cần làm gì.
-      
+      //  Gọi service login.
+      await login({ username, password });      
     } catch (err) {
-      // 3. Xử lý khi có lỗi từ Axios
-      // Lỗi từ Axios thường nằm trong error.response.data
-      // const errorMessage = error.response?.data?.data?.message || error.message || "Tên đăng nhập hoặc mật khẩu không chính xác.";
-      // message.error(errorMessage);
+      // Xử lý lỗi khi sai mật khẩu
       console.log(err);
       
     } finally {
-      // 4. Luôn tắt loading sau khi hoàn tất
       setLoading(false);
     }
   };
 
-  // --- Giao diện (giữ nguyên 100%) ---
   return (
     <div className="w-full h-screen flex items-center justify-center bg-gray-200">
       <div className="w-full md:w-[500px] flex flex-col items-center gap-5 h-full bg-white relative">
