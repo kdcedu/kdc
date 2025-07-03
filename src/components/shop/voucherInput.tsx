@@ -21,6 +21,10 @@ export default function VoucherInput() {
                     createErrorMessage('Mã giảm giá đã được áp dụng');
                     return;
                 }
+                if(findVoucher.type === 'shipping' && voucher.find((v) => v.type === 'shipping')) {
+                    createErrorMessage('Mã giảm giá cho phí vận chuyển đã được áp dụng');
+                    return;
+                }
                 setVoucher([...voucher, findVoucher]);
                 createSuccessMessage('Áp dụng mã giảm giá thành công');
             } else {

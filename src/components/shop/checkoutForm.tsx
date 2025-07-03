@@ -9,7 +9,7 @@ import { useShop } from "@/context/shopContext";
 
 export default function CheckoutForm() {
     const { createErrorMessage } = useGlobalMessage();
-    const {setAddress, address, setBalance, balance, total, setOrder, cart, setCart} = useShop();
+    const {setAddress, address, setBalance, balance, total, setOrder, cart} = useShop();
     const router = useRouter();
     const [phone, setPhone] = useState('');
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,6 @@ export default function CheckoutForm() {
         }
         setBalance(balance - total);
         setOrder(cart);
-        setCart([]);
         setAddress(address + '/' + phone);
         router.push('/k8/hds02/finish');
     }

@@ -13,6 +13,8 @@ interface CheckoutCardProps {
 }
 
 export default function CheckoutCard({ title, price, size, color, quantity, image, discount, isFinish }: CheckoutCardProps) {
+    const showDiscount = discount && discount !== 0;
+    
     return <div className="w-full flex justify-between">
         <div className="flex gap-4"> 
             <Badge count={isFinish ? 0 : quantity}>
@@ -24,8 +26,8 @@ export default function CheckoutCard({ title, price, size, color, quantity, imag
             </div>
         </div>
         <div className="flex flex-col items-center text-sm">
-            {discount && discount !== 0 && <span className="text-red-500">{convertPrice(price * quantity * (discount ? (1 - discount / 100) : 1))}</span>}
-            <span className={`${discount && discount !== 0 ? 'line-through text-gray-500' : 'text-gray-500'}`}>{convertPrice(price * quantity)}</span>
+            {showDiscount ? <span className="text-red-500">{convertPrice(price * quantity * (1 - discount / 100))}</span> : null}
+            <span className={`${showDiscount ? 'line-through' : ''} text-gray-500`}>{convertPrice(price * quantity)}</span>
         </div>
     </div>
 }

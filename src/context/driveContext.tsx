@@ -1,5 +1,5 @@
-import { File } from "@/constant/drive/file";
-import { Folder } from "@/constant/drive/folder";
+import { File, files as filesData } from "@/constant/drive/file";
+import { Folder, folders as foldersData } from "@/constant/drive/folder";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type DriveContextType = {
@@ -15,8 +15,8 @@ const DriveContext = createContext<DriveContextType | undefined>(undefined);
 
 export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
 
-  const [folders, setFolders] = useState<Folder[]>([]);
-  const [files, setFiles] = useState<File[]>([])
+  const [folders, setFolders] = useState<Folder[]>([...foldersData]);
+  const [files, setFiles] = useState<File[]>([...filesData])
 
   useEffect(() => {
     const storedFolders = localStorage.getItem("folders");
