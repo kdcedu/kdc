@@ -1,4 +1,5 @@
 export type CartItem = {
+    uniqueId?: number;
     id: string;
     title: string;
     price: number;
@@ -7,6 +8,7 @@ export type CartItem = {
     quantity: number;
     image: string;
     description?: string;
+    discount?: number;
 }
 
 export const shirts: CartItem[] = [
@@ -18,7 +20,8 @@ export const shirts: CartItem[] = [
         color: "Black",
         quantity: 1,
         image: "//levents.asia/cdn/shop/files/Black_LTSOVCOA218UD0100SS25_1.jpg?v=1750497485&width=300",
-        description: "Levents® Blink Blink XL Logo Oversized Tee/ Black"
+        description: "Levents® Blink Blink XL Logo Oversized Tee/ Black",
+        discount: 10
     },
     {
         id: "2",
@@ -28,7 +31,8 @@ export const shirts: CartItem[] = [
         color: "Yellow",
         quantity: 1,
         image: "//levents.asia/cdn/shop/files/Black_LTSSOCOA124UD0101SS25_1.jpg?v=1749542987&width=300",
-        description: "Levents® Classic Triple Star Semi-Oversized Tee"
+        description: "Levents® Classic Triple Star Semi-Oversized Tee",
+        discount: 10
     },
     {
         id: "3",
@@ -48,6 +52,7 @@ export const shirts: CartItem[] = [
         color: ["Black", "Red"],
         quantity: 1,
         image: "https://levents.asia/cdn/shop/files/Black_LTSSOCOA124UD0101SS25_1.jpg?v=1749542987&width=300",
-        description: "Levents® Classic Triple Star Semi-Oversized Tee"
+        description: "Levents® Classic Triple Star Semi-Oversized Tee",
+        discount: 30
     }
 ]

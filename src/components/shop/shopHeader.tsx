@@ -14,7 +14,7 @@ export default function ShopHeader() {
   const router = useRouter();
 
   const pathName = usePathname();
-  const isShipping = pathName.includes('shipping') || pathName.includes('checkout');
+  const isShipping = pathName.includes('shipping') || pathName.includes('checkout') || pathName.includes('finish');
 
   useEffect(() => {
     const interval = setInterval(() => {

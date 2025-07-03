@@ -1,8 +1,10 @@
 import { useShop } from "@/context/shopContext";
 import { convertPrice } from "@/utils/convertPrice";
 import { Button, Image } from "antd";
+import { useGlobalMessage } from "@/context/globalMessageContext";
 
 export interface CartItemProps {
+    uniqueId?: number;
     id: string;
     title: string;
     price: number;
@@ -10,14 +12,18 @@ export interface CartItemProps {
     color: string;
     quantity: number;
     image: string;
+    discount?: number;
 }
 
-export default function CartItem({id, title, price, size, color, quantity, image}: CartItemProps) {
+export default function CartItem({uniqueId, title, price, size, color, quantity, image, discount}: CartItemProps) {
     const { cart, setCart } = useShop();
+
+    const { createSuccessMessage } = useGlobalMessage();
     
     const handleDelete = () => {
-        const newCart = cart.filter((item) => item.id !== id);
+        const newCart = cart.filter((item) => item.uniqueId !== uniqueId);
         setCart(newCart);
+        createSuccessMessage('Xóa sản phẩm thành công');
     }
     
     return <div className="w-full flex items-center justify-between">
@@ -28,7 +34,10 @@ export default function CartItem({id, title, price, size, color, quantity, image
             <div className="flex flex-1 flex-col gap-5">
                 <div className="flex flex-col items-start gap-1">
                     <span className="text-xl">{title}</span>
-                    <span className="text-lg">{convertPrice(price)}</span>
+                    <div className="flex items-center gap-2">
+                        {discount && <span className="text-lg text-red-500">{convertPrice(price - (price * discount / 100))}</span>}
+                        <span className={`${discount ? 'line-through' : 'text-lg'}`}>{convertPrice(price)}</span>
+                    </div>
                 </div>
                 <div className="flex flex-col items-center gap-5">
                    <div className="flex items-center justify-between w-full">

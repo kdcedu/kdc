@@ -5,10 +5,11 @@ import CartItem from "./cartItem";
 import { redirect } from "next/navigation";
 import { useCallback } from "react";
 import { useShop } from "@/context/shopContext";
+import { convertPrice } from "@/utils/convertPrice";
 
 export default function CartDrawer() {
   const [open, setOpen] = useState(false);
-  const { cart } = useShop();
+  const { cart, total } = useShop();
   const handleCheckout = useCallback(() => {
     setOpen(false);
     redirect("/k8/hds02/shipping");
@@ -51,7 +52,8 @@ export default function CartDrawer() {
             <div className="w-full flex flex-col gap-5 py-3 px-5 h-[calc(100%-150px)] overflow-auto">
               {cart.map((item) => (
                 <CartItem
-                  key={item.id}
+                  uniqueId={item.uniqueId}
+                  key={item.uniqueId}
                   id={item.id}
                   title={item.title}
                   price={item.price}
@@ -59,6 +61,7 @@ export default function CartDrawer() {
                   color={Array.isArray(item.color) ? item.color[0] : item.color}
                   quantity={item.quantity}
                   image={item.image}
+                  discount={item.discount}
                 />
               ))}
             </div>
@@ -83,7 +86,7 @@ export default function CartDrawer() {
                 variant="solid"
                 color="default"
               >
-                Thanh toán
+                Thanh toán {convertPrice(total)}
               </Button>
             </div>
           )}

@@ -1,10 +1,13 @@
 "use client";
 
+// import CourseList from "@/components/courseList";
+import UndoneModal from "@/components/modal/undoneModal";
+import { MenuOutlined, SearchOutlined, StarOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
-import UndoneModal from "@/components/modal/undoneModal";
-import { MenuOutlined, SearchOutlined, StarOutlined } from "@ant-design/icons";
+import { logout } from "@/services/auth";
+import Footer from "@/components/footer";
 import { Button, Input, Spin } from "antd";
 import SectionDisplay from "@/components/sectionDisplay";
 
@@ -31,12 +34,23 @@ export default function Home() {
   const { isAuthenticated, loading: authLoading, logout } = useAuth();
 
   useEffect(() => {
+    // Profile context
     localStorage.removeItem("user");
     localStorage.removeItem("avatar");
+
+    // Drive context
     localStorage.removeItem("folders");
     localStorage.removeItem("files");
+
+    // Auth context
     localStorage.removeItem("isAuth");
+
+    // Shop context
     localStorage.removeItem("cart");
+    localStorage.removeItem("address");
+    localStorage.removeItem("balance");
+    localStorage.removeItem("order");
+    localStorage.removeItem("voucher");
   }, []);
 
   const menus = ["Tất cả", "Thao tác số", "Xử lý tình huống"];
@@ -121,17 +135,31 @@ export default function Home() {
           KDC PLAY & LEARN STATION
         </span>
         <div className="flex gap-10 items-center w-1/2">
-          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm kiếm bài học..." size="large" prefix={<SearchOutlined />} />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="!bg-orange-100 !text-orange-400 !border-orange-400 !rounded-full"
+            placeholder="Tìm kiếm"
+            size="large"
+            prefix={<SearchOutlined />}
+          />
         </div>
         {isAuthenticated ? (
-          <Button type="primary" danger onClick={handleLogout}>Đăng xuất</Button>
+          <Button variant="solid" color="orange" onClick={logout}>
+            Đăng xuất
+          </Button>
         ) : (
-          <Button type="primary" onClick={() => router.push("/login")}>Đăng nhập</Button>
+          <Button
+            variant="solid"
+            color="orange"
+            onClick={() => router.push("/login")}
+          >
+            Đăng nhập
+          </Button>
         )}
       </div>
-      {/* Body */}
-      <div className="min-h-screen bg-orange-100 pt-5 flex">
-        {/* Sidebar menu */}
+	  {/* Body */}
+      <div className="min-h-screen bg-orange-100 py-5 flex">
         <div className="md:flex hidden w-[8%] flex-col gap-5 items-center">
           <MenuOutlined />
           {menus.map((menu) => (
@@ -143,6 +171,14 @@ export default function Home() {
               <span className="text-sm text-center capitalize">{menu}</span>
             </div>
           ))}
+
+          <Button
+            variant="solid"
+            color="orange"
+            onClick={() => window.location.reload()}
+          >
+            Reload App
+          </Button>
         </div>
         
         {/* Main Content */}
@@ -158,6 +194,8 @@ export default function Home() {
           )}
         </div>D
       </div>
+
+      <Footer/>
     </div>
   );
 }
