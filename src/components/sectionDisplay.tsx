@@ -1,22 +1,10 @@
 "use client";
 import { StarOutlined } from '@ant-design/icons';
 import LessonCard from './lessonCard';
-
-interface CourseItem {
-  id: number;
-  title: string;
-  content: string;
-  render_type: string;
-}
-
-interface CourseSection {
-  section_name: string;
-  items: CourseItem[];
-  grade: number;
-}
+import { CourseSectionAPIResponse } from '@/services/course'; 
 
 interface SectionDisplayProps {
-  section: CourseSection ;
+  section: CourseSectionAPIResponse;
   setOpenAction: (open: boolean) => void;
 }
 
