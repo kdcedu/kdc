@@ -164,7 +164,7 @@ export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
           },
         }}
         open={open}
-        onClose={onClose}
+        // onClose={onClose}
         footer={
           <div className="flex gap-5 justify-end border-t border-gray-200 py-2 px-5">
             <Button variant="outlined" color="default" onClick={onClose}>
