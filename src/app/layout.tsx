@@ -37,9 +37,7 @@ export default function RootLayout({
       >
         <AuthProvider>
           <GlobalMessageProvider>
-            {/* <AuthGuard> */}
               {children}
-            {/* </AuthGuard> */}
           </GlobalMessageProvider>
         </AuthProvider>
       </body>
