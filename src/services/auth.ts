@@ -12,10 +12,11 @@ interface LoginResponse {
   token?: string;
 }
 
+const API_PROXY_PATH = '/api';
 
 export async function login(payload: LoginPayload): Promise<LoginResponse> {
   try {
-    const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/wp-json/kdc-api/v1/auth', {
+    const response = await axios.post(`${API_PROXY_PATH}/wp-json/kdc-api/v1/auth`, {
       username: payload.username,
       password: payload.password,
       AUTH_KEY: process.env.NEXT_PUBLIC_AUTH_KEY,

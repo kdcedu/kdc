@@ -27,6 +27,8 @@ export interface CourseDataAPIResponse {
     curriculum: CourseSectionAPIResponse[];
 }
 
+const API_PROXY_PATH = '/api';
+
 /**
  * Lấy dữ liệu khóa học từ API.
  * @param courseId ID của khóa học.
@@ -38,16 +40,16 @@ export async function fetchCourseData(
   courseId: number,
   token: string
 ): Promise<CourseDataAPIResponse> {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
   if (!API_BASE_URL) {
-    console.error("Lỗi cấu hình: NEXT_PUBLIC_API_BASE_URL không được định nghĩa.");
+    console.error("Lỗi cấu hình: NEXT_PUBLIC_API_URL không được định nghĩa.");
     throw new Error("Lỗi cấu hình ứng dụng.");
   }
 
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/wp-json/lp-custom/v1/course/${courseId}`,
+      `${API_PROXY_PATH}/wp-json/lp-custom/v1/course/${courseId}`,
       {
         headers: {
           'Authorization': `Bearer ${token}`

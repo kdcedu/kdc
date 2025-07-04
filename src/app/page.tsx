@@ -95,7 +95,7 @@ export default function Home() {
 
  if (authLoading || (isAuthenticated && dataLoading)) {
     return (
-      <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="flex justify-center items-center h-screen">
         <Spin size="large" tip={authLoading ? "Đang kiểm tra xác thực..." : "Đang tải dữ liệu khóa học..."}>
           <div style={{ height: '100px', width: '100px', background: 'white' }}></div>
         </Spin>
