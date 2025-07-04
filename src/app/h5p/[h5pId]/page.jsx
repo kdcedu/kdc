@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import H5PViewer from '@/components/h5p/H5PViewer';
+import H5PViewer from '@/components/h5p/h5pViewer';
 import { useParams } from 'next/navigation';
 
 export default function H5PDisplayPage() {
