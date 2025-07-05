@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 export default function K4HDS01() {
   const isAdult = usePathname().includes("k10");
 
-  const [post, setPost] = useState(isAdult ? adultLikeSharePostContent : postContent);
+  const [post, setPost] = useState(isAdult ? adultLikeSharePostContent.filter(post => post.isTrue).map(post => ({ ...post, avatar: "/avatars/Avatar_MinhKhoi.jpg", name: "Minh Khôi" })) : postContent);
 
   const [finishRole, setFinishRole] = useState(false);
 
