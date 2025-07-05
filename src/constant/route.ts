@@ -223,5 +223,12 @@ export const ROUTES = [
     title: 'Mua sắm trực tuyến',
     pin: '1111',
     type: 'Thao tác số'
-  }
+  },
+  {
+    grade: 10,
+    name: 'k10/hds01',
+    title: 'Bảo vệ quyền riêng tư trên Internet và mạng xã hội',
+    pin: '1111',
+    type: 'Thao tác số'
+  },
 ]

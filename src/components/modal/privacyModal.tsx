@@ -1,9 +1,10 @@
 import { Button, Image, Popover, Radio } from "antd";
 import { useState } from "react";
 import { PrivacyType } from "../post";
-import { friendList } from "@/constant/profile";
+import { adultFriendList, friendList } from "@/constant/profile";
 import { MinusCircleFilled, MinusCircleOutlined } from "@ant-design/icons";
 import { defaultPrivacyList } from "@/constant/post";
+import { usePathname } from "next/navigation";
 interface PrivacyModalProps {
   onOk: (value: PrivacyType, blockList?: string[]) => void;
   icon: React.ReactNode;
@@ -24,6 +25,10 @@ export default function PrivacyModal({
   const [currentBlockList, setCurrentBlockList] = useState(blockList)
 
   const [currentValue, setCurrentValue] = useState<PrivacyType>(initialValue);
+
+  const isAdult = usePathname().includes("k10");
+
+  const fList = isAdult ? adultFriendList : friendList;
 
   const contentList = [
     <div key={1} className="w-96">
@@ -93,7 +98,7 @@ export default function PrivacyModal({
       <span className="block mb-2">
         Những người bạn sẽ không nhìn thấy bài viết này:
       </span>
-      {friendList.map((friend) => (
+      {fList.map((friend) => (
         <div
           key={friend.name}
           className="flex items-center justify-between px-5 py-2 hover:bg-gray-100 cursor-pointer"

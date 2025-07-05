@@ -1,7 +1,7 @@
 "use client"
 import { useShop } from "@/context/shopContext";
 import { convertPrice } from "@/utils/convertPrice";
-import { TagOutlined } from "@ant-design/icons";
+import { StarFilled, TagOutlined } from "@ant-design/icons";
 
 interface TotalPriceProps {
     isFinish?: boolean;
@@ -48,5 +48,13 @@ export default function TotalPrice({ isFinish }: TotalPriceProps) {
             <span>Tổng</span>
             <span>{convertPrice(orderTotal + shipping - voucherDiscount)}</span>
         </div>
+
+        {!isFinish && <div className="flex justify-between text-lg text-green-500">
+            <div className="flex items-center gap-2">
+                <StarFilled />
+                <span>Bạn đã tiết kiệm</span>
+            </div>
+            <span>{convertPrice(discount + voucherDiscount)}</span>
+        </div>}
     </div>
 }

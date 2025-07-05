@@ -92,13 +92,15 @@ export default function Home() {
             </div>
           ))}
 
-          <Button
+          <div className="w-full flex justify-center px-5">
+            <Button
             variant="solid"
             color="orange"
             onClick={() => window.location.reload()}
-          >
-            Reload App
-          </Button>
+            >
+              Reload
+            </Button>
+          </div>
         </div>
         <div className="bg-white flex flex-col flex-1">
           <CourseList grade={1} filter={selectedMenu} search={search} />
@@ -116,6 +118,8 @@ export default function Home() {
           <CourseList grade={7} filter={selectedMenu} search={search} />
 
           <CourseList grade={8} filter={selectedMenu} search={search} />
+
+          <CourseList grade={10} filter={selectedMenu} search={search} />
         </div>
       </div>
 

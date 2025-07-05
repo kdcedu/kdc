@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 
 interface AvatarPickerProps {
   isView?: boolean
+  isAdult?: boolean
 }
 
-export default function AvatarPicker({isView} : AvatarPickerProps) {
+export default function AvatarPicker({isView, isAdult} : AvatarPickerProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [avatar, setAvatar] = useState('/icons/Bin.svg');
+  const [avatar, setAvatar] = useState(isAdult ? '/avatars/Avatar_MinhKhoi.jpg' : '/icons/Bin.svg');
 
   useEffect(() => {
     const stored = localStorage.getItem("avatar");
@@ -38,7 +39,7 @@ export default function AvatarPicker({isView} : AvatarPickerProps) {
   return (
     <div className="relative w-fit">
     {contextHolder}
-      <div className=" bg-white w-32 md:w-48 flex justify-center items-center p-2 rounded-full cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
+      <div className=" bg-white w-32 md:w-48 flex justify-center items-center p-2 rounded-full cursor-pointer overflow-hidden" onClick={() => {if(isView) return; setIsOpen(true)}}>
         <Image alt="Avatar" preview={false} src={avatar} />
       </div>
       <div className="absolute md:top-36 md:left-32 top-20 left-24 bg-gray-200 md:w-10 md:h-10 w-8 h-8 text-base md:text-xl flex justify-center items-center rounded-full active:opacity-60 cursor-pointer" onClick={() => {if(isView) return; setIsOpen(true)}}>
