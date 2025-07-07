@@ -1,6 +1,5 @@
 "use client";
 
-// import CourseList from "@/components/courseList";
 import '@ant-design/v5-patch-for-react-19';
 import UndoneModal from "@/components/modal/undoneModal";
 import { MenuOutlined, SearchOutlined, StarOutlined } from "@ant-design/icons";
@@ -10,14 +9,16 @@ import { useAuth } from "@/context/authContext";
 import Footer from "@/components/footer";
 import { Button, Input, Spin } from "antd";
 import SectionDisplay from "@/components/sectionDisplay";
+import { useMemo } from 'react';
 
-// Import hàm fetchCourseData từ services
-import { fetchCourseData as getCourseData, CourseDataAPIResponse } from '@/services/course'; 
+
+import { fetchCourseData as getCourseData, CourseDataAPIResponse } from '@/services/course';
 
 export default function Home() {
   const router = useRouter();
   const { isAuthenticated, loading: authLoading, logout } = useAuth();
 
+  // remove later
   useEffect(() => {
     // Profile context
     localStorage.removeItem("user");
@@ -40,7 +41,7 @@ export default function Home() {
 
   const menus = ["Tất cả", "Thao tác số", "Xử lý tình huống"];
 
-  const [courseData, setCourseData] = useState<CourseDataAPIResponse  | null>(null);
+  const [courseData, setCourseData] = useState<CourseDataAPIResponse | null>(null);
   const [dataLoading, setDataLoading] = useState(true);
   const [selectedMenu, setSelectedMenu] = useState("Tất cả");
   const [search, setSearch] = useState('');
@@ -55,26 +56,19 @@ export default function Home() {
   }, [isAuthenticated, authLoading, router]);
 
   // GỌI API VỚI TOKEN XÁC THỰC
-   useEffect(() => {
+  useEffect(() => {
     // Chỉ gọi API nếu đã xác thực và không trong quá trình authLoading
-    if (isAuthenticated && !authLoading) { 
+    if (isAuthenticated && !authLoading) {
       const fetchInitialCourseData = async () => {
         setDataLoading(true);
-
-        const token = localStorage.getItem('kdc_token');
-        if (!token) {
-          logout();
-          setDataLoading(false);
-          return;
-        }
-
         try {
-          const data = await getCourseData(16, token);
+          const courseId = 16;
+          const data = await getCourseData(courseId);
           setCourseData(data);
         } catch (error) {
           console.error("Error fetching course data:", error);
           if (error instanceof Error && error.message.includes("403")) {
-             logout();
+            logout();
           }
         } finally {
           setDataLoading(false);
@@ -82,26 +76,33 @@ export default function Home() {
       };
       fetchInitialCourseData();
     }
-  }, [isAuthenticated, authLoading, logout]); 
+  }, [isAuthenticated, authLoading, logout]);
 
-  const filteredCurriculum = courseData?.curriculum.map(section => {
-    const filteredItems = section.items.filter(item => {
-      const typeCheck = selectedMenu === "Tất cả" || item.type === selectedMenu;
-      const searchCheck = item.title.toLowerCase().includes(search.toLowerCase());
-      return typeCheck && searchCheck;
-    });
-    return { ...section, items: filteredItems };
-  }).filter(section => section.items.length > 0);
+  const filteredCurriculum = useMemo(() => {
+    if (!courseData) return [];
 
- if (authLoading || (isAuthenticated && dataLoading)) {
+    return courseData.curriculum.map(section => {
+      const filteredItems = section.items.filter(item => {
+        const typeCheck = selectedMenu === "Tất cả" || item.type === selectedMenu;
+        const searchCheck = item.title.toLowerCase().includes(search.toLowerCase());
+        return typeCheck && searchCheck;
+      });
+      return { ...section, items: filteredItems };
+    }).filter(section => section.items.length > 0);
+  }, [courseData, selectedMenu, search]);
+
+  if (authLoading || (isAuthenticated && dataLoading)) {
+    const tipMessage = authLoading ? "Đang kiểm tra xác thực..." : "Đang tải dữ liệu khóa học...";
     return (
       <div className="flex justify-center items-center h-screen">
-        <Spin size="large" tip={authLoading ? "Đang kiểm tra xác thực..." : "Đang tải dữ liệu khóa học..."}>
+        <Spin size="large" tip={tipMessage}>
           <div style={{ height: '100px', width: '100px', background: 'white' }}></div>
         </Spin>
       </div>
     );
   }
+
+  if (!isAuthenticated) return null;
 
   return (
     <div className="max-w-screen min-h-screen">
@@ -159,27 +160,16 @@ export default function Home() {
 
         {/* Main Content */}
         <div className="bg-white flex flex-col flex-1">
-          {dataLoading ? (
-            <div className="bg-white flex flex-col flex-1 relative mt-10">
-              <Spin spinning={dataLoading} size="large" tip="Đang tải dữ liệu khóa học...">
-                <div className="h-full">
-                  {dataLoading ? (
-                    <div className="flex justify-center items-center h-full">
-                    </div>
-                  ) : (
-                    filteredCurriculum?.map((section) => (
-                      <SectionDisplay key={section.section_name} section={section} setOpenAction={setOpen} />
-                    ))
-                  )}
-                </div>
-              </Spin>
-            </div>
-          ) : (
-            filteredCurriculum?.map((section) => (
+          {filteredCurriculum.length > 0 ? (
+            filteredCurriculum.map((section) => (
               <SectionDisplay key={section.section_name} section={section} setOpenAction={setOpen} />
             ))
+          ) : (
+            <div className="flex justify-center items-center h-full">
+              <span>Không tìm thấy nội dung phù hợp.</span>
+            </div>
           )}
-        </div>D
+        </div>
       </div>
 
       <Footer />

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
+import { apiClient } from '@/lib/axios';
 import axios from 'axios';
 export interface LoginPayload {
   username: string;
@@ -12,46 +14,36 @@ interface LoginResponse {
   token?: string;
 }
 
-const API_PROXY_PATH = '/api';
+const AUTH_LOGIN_ENDPOINT = `/wp-json/kdc-api/v1/auth`;
+
+const JWT_TOKEN_KEY = 'kdc_token';
+
+export const storeToken = (token: string) => localStorage.setItem(JWT_TOKEN_KEY, token);
+export const getToken = (): string | null => localStorage.getItem(JWT_TOKEN_KEY);
+export const clearToken = () => localStorage.removeItem(JWT_TOKEN_KEY);
 
 export async function login(payload: LoginPayload): Promise<LoginResponse> {
-  try {
-    const response = await axios.post(`${API_PROXY_PATH}/wp-json/kdc-api/v1/auth`, {
-      username: payload.username,
-      password: payload.password,
-      AUTH_KEY: process.env.NEXT_PUBLIC_AUTH_KEY,
-    });
+ try {
+    const response = await apiClient.post(AUTH_LOGIN_ENDPOINT, payload);
 
     if (response.data && response.data.success) {
-      return { success: true, token: response.data.data.jwt };
+      const token = response.data.data.jwt;
+      storeToken(token);
+      return { success: true, token: token };
     } else {
-      // API trả về lỗi hoặc đăng nhập không thành công
       return { success: false, message: response.data.message || 'Đăng nhập thất bại.' };
     }
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  }  catch (error: unknown) { // THAY any BẰNG unknown
+  } catch (error: any) {
     let errorMessage = 'Đã xảy ra lỗi trong quá trình đăng nhập.';
-    let apiResponseData: any = null; 
-
-    // Kiểm tra nếu lỗi là AxiosError (từ thư viện Axios)
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        apiResponseData = error.response.data; 
-        errorMessage = apiResponseData?.message || error.message;
-      } else if (error.request) {
-        errorMessage = 'Không nhận được phản hồi từ máy chủ. Vui lòng kiểm tra kết nối mạng.';
-      } else {
-        errorMessage = 'Lỗi thiết lập yêu cầu: ' + error.message;
-      }
-    } else if (error instanceof Error) {
-      errorMessage = error.message;
+    if (axios.isAxiosError(error) || error.response) {
+        errorMessage = error.response?.data?.message || error.response?.data?.data?.message || error.message;
     }
-
-    console.error('Lỗi khi gọi API đăng nhập:', apiResponseData || error); 
+    console.error('Lỗi khi gọi API đăng nhập:', error);
+    clearToken();
     return { success: false, message: errorMessage };
   }
 }
 
 export async function logout(): Promise<void> {
-  localStorage.removeItem('kdc_token');
+  clearToken();
 }

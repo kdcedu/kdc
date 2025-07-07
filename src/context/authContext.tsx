@@ -1,67 +1,90 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { logout as logoutService } from '@/services/auth';
-import { useRouter } from 'next/navigation';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import {
+  login as authLoginService,
+  logout as authLogoutService,
+  getToken,
+  clearToken,
+  LoginPayload
+} from '@/services/auth';
+import { useRouter, usePathname } from 'next/navigation';
+import { setAuthErrorCallback, apiClient } from '@/lib/axios';
+
 
 interface AuthContextType {
   isAuthenticated: boolean;
   loading: boolean;
-  login: (token: string) => void;
+  login: (payload: LoginPayload) => Promise<void>;
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  // Thêm state loading
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
+
+  const checkAuthStatus = useCallback(() => {
+    const token = getToken();
+    setIsAuthenticated(!!token);
+  }, []);
+
+  const forceLogoutAndRedirect = useCallback(() => {
+    clearToken();
+    setIsAuthenticated(false);
+    delete apiClient.defaults.headers.common['Authorization'];
+    router.push('/login');
+  }, [router]);
 
   useEffect(() => {
-    const checkAuthStatus = async () => {
-      setLoading(true);
-      try {
-        const token = localStorage.getItem('kdc_token');
-        if (token) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false)
-        }
-      } catch (error) {
-        console.error("Failed to access localStorage or token", error);
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
-      }
+    setAuthErrorCallback(forceLogoutAndRedirect);
+
+    try {
+      const token = getToken();
+      setIsAuthenticated(!!token);
+    } catch (error) {
+      console.error("Lỗi khi kiểm tra token:", error);
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
     }
 
-    checkAuthStatus()
-
-    // lắng nghe sự kiện storage để phản ứng khi token thay đổi ở tab khác
     const handleStorageChange = () => {
       checkAuthStatus();
     };
     window.addEventListener('storage', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-    };
+    return () => window.removeEventListener('storage', handleStorageChange);
 
-  }, []);
+  }, [forceLogoutAndRedirect, checkAuthStatus]);
 
   //  hàm login / logout
-  const contextLogin = (token: string) => {
-    localStorage.setItem('kdc_token', token); 
-    setIsAuthenticated(true); 
-    router.push('/');
-  };
+  const contextLogin = useCallback(async (payload: LoginPayload) => {
+    const response = await authLoginService(payload);
+    if (response.success && response.token) {
+      setIsAuthenticated(true);
+      router.push('/');
+    } else {
+      throw new Error(response.message || 'Đăng nhập thất bại.');
+    }
+  }, [router]);
 
-   const contextLogout = async () => {
-    await logoutService(); 
-    setIsAuthenticated(false); 
+  const contextLogout = useCallback(async () => {
+    await authLogoutService();
+    setIsAuthenticated(false);
     router.push('/login');
-  };
+  }, [router]);
+
+  useEffect(() => {
+    if (!loading && !isAuthenticated && pathname !== '/login') {
+      router.push('/login');
+    }
+    if (!loading && isAuthenticated && pathname === '/login') {
+      router.push('/');
+    }
+  }, [isAuthenticated, loading, router, pathname]);
 
   const value = {
     isAuthenticated,
