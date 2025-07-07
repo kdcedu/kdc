@@ -2,7 +2,7 @@ import { Card, Image } from "antd";
 import { useRouter } from "next/navigation";
 
 interface LessonCardProps {
-  grade: number;
+  grade: number | 1;
   name: string;
   title: string;
   type: string;
@@ -12,7 +12,7 @@ interface LessonCardProps {
 
 export default function LessonCard({ grade, name, title, type, setOpen, render_type }: LessonCardProps) {
   const router = useRouter();
-
+  if (!grade) grade = 1;
   return (
     <Card
       onClick={() => {
@@ -48,7 +48,7 @@ export default function LessonCard({ grade, name, title, type, setOpen, render_t
           <Image
             alt="Thumbnail"
             preview={false}
-            src={`/images/k${grade < 6 ? grade : 1}.jpg`}
+            src={`/images/k${grade <= 5 ? grade : 1}.jpg`}
           />
         </div>
       }
