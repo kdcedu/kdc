@@ -10,9 +10,7 @@ import Footer from "@/components/footer";
 import { Button, Input, Spin } from "antd";
 import SectionDisplay from "@/components/sectionDisplay";
 import { useMemo } from 'react';
-
-
-import { fetchCourseData as getCourseData, CourseDataAPIResponse } from '@/services/course';
+import { CourseDataAPIResponse, fetchAllCourseDetails } from '@/services/course';
 
 export default function Home() {
   const router = useRouter();
@@ -41,7 +39,7 @@ export default function Home() {
 
   const menus = ["Tất cả", "Thao tác số", "Xử lý tình huống"];
 
-  const [courseData, setCourseData] = useState<CourseDataAPIResponse | null>(null);
+  const [coursesData, setCoursesData] = useState<CourseDataAPIResponse[]>([]);
   const [dataLoading, setDataLoading] = useState(true);
   const [selectedMenu, setSelectedMenu] = useState("Tất cả");
   const [search, setSearch] = useState('');
@@ -62,9 +60,8 @@ export default function Home() {
       const fetchInitialCourseData = async () => {
         setDataLoading(true);
         try {
-          const courseId = 16;
-          const data = await getCourseData(courseId);
-          setCourseData(data);
+          const data = await fetchAllCourseDetails();
+          setCoursesData(data);
         } catch (error) {
           console.error("Error fetching course data:", error);
           if (error instanceof Error && error.message.includes("403")) {
@@ -78,18 +75,23 @@ export default function Home() {
     }
   }, [isAuthenticated, authLoading, logout]);
 
-  const filteredCurriculum = useMemo(() => {
-    if (!courseData) return [];
+  const filteredCourses = useMemo(() => {
+    if (!coursesData) return [];
 
-    return courseData.curriculum.map(section => {
-      const filteredItems = section.items.filter(item => {
-        const typeCheck = selectedMenu === "Tất cả" || item.type === selectedMenu;
-        const searchCheck = item.title.toLowerCase().includes(search.toLowerCase());
-        return typeCheck && searchCheck;
-      });
-      return { ...section, items: filteredItems };
-    }).filter(section => section.items.length > 0);
-  }, [courseData, selectedMenu, search]);
+    return coursesData.map(course => {
+      // Lọc curriculum bên trong mỗi khóa học
+      const filteredCurriculum = course.curriculum.map(section => {
+        const filteredItems = section.items.filter(item => {
+          const typeCheck = selectedMenu === "Tất cả" || item.type === selectedMenu;
+          const searchCheck = item.title.toLowerCase().includes(search.toLowerCase());
+          return typeCheck && searchCheck;
+        });
+        return { ...section, items: filteredItems };
+      }).filter(section => section.items.length > 0);
+
+      return { ...course, curriculum: filteredCurriculum };
+    }).filter(course => course.curriculum.length > 0);
+  }, [coursesData, selectedMenu, search]);
 
   if (authLoading || (isAuthenticated && dataLoading)) {
     const tipMessage = authLoading ? "Đang kiểm tra xác thực..." : "Đang tải dữ liệu khóa học...";
@@ -159,11 +161,34 @@ export default function Home() {
         </div>
 
         {/* Main Content */}
-        <div className="bg-white flex flex-col flex-1">
-          {filteredCurriculum.length > 0 ? (
-            filteredCurriculum.map((section) => (
-              <SectionDisplay key={section.section_name} section={section} setOpenAction={setOpen} />
-            ))
+        <div className="bg-white flex flex-col flex-1 p-5">
+          {filteredCourses.length > 0 ? (
+            <div className="space-y-1">
+              {filteredCourses.map((course) => (
+                <div key={course.id}>
+                  <div className="flex justify-between items-center py-5">
+                    <div className="flex gap-3 items-center justify-center text-xl font-semibold bg-orange-100 text-orange-400 px-5 py-2 rounded-xl">
+                      <span><StarOutlined /></span>
+                      {/* Hiển thị tên của Khóa học (Khối) */}
+                      <span>{course.title}</span>
+                    </div>
+                  </div>
+
+                  {/* Vùng chứa danh sách các bài học */}
+                  <div className="flex gap-5 flex-wrap">
+                    {course.curriculum.map((section) => (
+                      // SectionDisplay giờ sẽ render trực tiếp các LessonCard
+                      <SectionDisplay
+                        key={section.section_name}
+                        section={section}
+                        grade={course.grade_level}
+                        setOpenAction={setOpen}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="flex justify-center items-center h-full">
               <span>Không tìm thấy nội dung phù hợp.</span>

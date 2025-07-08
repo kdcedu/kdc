@@ -7,15 +7,12 @@ export interface CourseItemAPIResponse {
     id: number;
     title: string;
     type: string;
-    slug: string;
-    description: string;
     content: string;
     render_type: 'frontend' | 'h5p';
 }
 
 export interface CourseSectionAPIResponse {
     section_name: string;
-    grade: number;
     items: CourseItemAPIResponse[];
 }
 
@@ -24,8 +21,16 @@ export interface CourseDataAPIResponse {
     title: string;
     slug: string;
     description: string;
-    status: string;
+    image: string;
+    grade_level: number;
     curriculum: CourseSectionAPIResponse[];
+}
+
+export interface CourseSummaryAPIResponse {
+    id: number;
+    title: string;
+    slug: string;
+    grade_level: number;
 }
 
 /**
@@ -37,11 +42,11 @@ export interface CourseDataAPIResponse {
 export async function fetchCourseData(courseId: number): Promise<CourseDataAPIResponse> {
     try {
         const response = await apiClient.get(
-            `/wp-json/lp-custom/v1/course/${courseId}` // Đường dẫn tương đối với baseURL của apiClient
+            `/wp-json/lp-custom/v1/course/${courseId}`
         );
         return response.data as CourseDataAPIResponse;
     } catch (error: unknown) {
-        if (axios.isAxiosError(error)) { // axios.isAxiosError sẽ hoạt động sau khi import axios
+        if (axios.isAxiosError(error)) {
             if (error.response) {
                 if (error.response.status === 403) {
                     throw new Error("Forbidden: Token hợp lệ nhưng không có đủ quyền truy cập.");
@@ -57,5 +62,32 @@ export async function fetchCourseData(courseId: number): Promise<CourseDataAPIRe
             throw error;
         }
         throw new Error('Đã xảy ra lỗi không xác định khi tải dữ liệu khóa học.');
+    }
+}
+
+/**
+ * Sẽ được dùng ở trang chủ.
+ * @returns Promise<CourseDataAPIResponse[]>
+ */
+export async function fetchAllCourseDetails(): Promise<CourseDataAPIResponse[]> {
+    try {
+        const summaryResponse = await apiClient.get<CourseSummaryAPIResponse[]>('/wp-json/lp-custom/v1/courses');
+        const coursesSummary = summaryResponse.data;
+
+        if (!coursesSummary || coursesSummary.length === 0) {
+            return [];
+        }
+
+        const detailPromises = coursesSummary.map(course =>
+            fetchCourseData(course.id)
+        );
+
+        const allCoursesDetails = await Promise.all(detailPromises);
+        
+        return allCoursesDetails.sort((a, b) => a.grade_level - b.grade_level);
+
+    } catch (error) {
+        console.error("Lỗi khi tải toàn bộ dữ liệu khóa học:", error);
+        throw new Error("Không thể tải được danh sách các khóa học.");
     }
 }
