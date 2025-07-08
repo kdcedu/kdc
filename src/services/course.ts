@@ -9,6 +9,7 @@ export interface CourseItemAPIResponse {
     type: string;
     content: string;
     render_type: 'frontend' | 'h5p';
+    categories: string[];
 }
 
 export interface CourseSectionAPIResponse {
@@ -41,9 +42,7 @@ export interface CourseSummaryAPIResponse {
  */
 export async function fetchCourseData(courseId: number): Promise<CourseDataAPIResponse> {
     try {
-        const response = await apiClient.get(
-            `/wp-json/lp-custom/v1/course/${courseId}`
-        );
+        const response = await apiClient.get(`/wp-json/lp-custom/v1/course/${courseId}`);
         return response.data as CourseDataAPIResponse;
     } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -83,7 +82,7 @@ export async function fetchAllCourseDetails(): Promise<CourseDataAPIResponse[]> 
         );
 
         const allCoursesDetails = await Promise.all(detailPromises);
-        
+
         return allCoursesDetails.sort((a, b) => a.grade_level - b.grade_level);
 
     } catch (error) {

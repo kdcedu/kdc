@@ -5,12 +5,12 @@ interface LessonCardProps {
   grade: number | 1;
   name: string;
   title: string;
-  type: string;
+  categories: string[]; 
   setOpen: (open: boolean) => void;
   render_type: string;
 }
 
-export default function LessonCard({ grade, name, title, type, setOpen, render_type }: LessonCardProps) {
+export default function LessonCard({ grade, name, title, categories, setOpen, render_type }: LessonCardProps) {
   const router = useRouter();
   if (!grade) grade = 1;
   return (
@@ -55,7 +55,18 @@ export default function LessonCard({ grade, name, title, type, setOpen, render_t
     >
       <div className="flex flex-col gap-2">
         <div className="font-semibold text-base">Bài: {title}</div>
-        <div className="text-gray-400">{type}</div>
+        {categories && categories.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <span 
+                key={category} 
+                className="text-gray-400 py-1"
+              >
+                {category}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </Card>
   );

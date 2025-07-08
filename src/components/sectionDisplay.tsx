@@ -17,7 +17,7 @@ export default function SectionDisplay({ section, setOpenAction , grade }: Secti
             grade={grade} 
             name={item.content} 
             title={item.title} 
-            type={item.type} 
+            categories={item.categories} 
             render_type={item.render_type} 
             setOpen={setOpenAction}
         />

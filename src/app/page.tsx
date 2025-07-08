@@ -79,12 +79,11 @@ export default function Home() {
     if (!coursesData) return [];
 
     return coursesData.map(course => {
-      // Lọc curriculum bên trong mỗi khóa học
       const filteredCurriculum = course.curriculum.map(section => {
         const filteredItems = section.items.filter(item => {
-          const typeCheck = selectedMenu === "Tất cả" || item.type === selectedMenu;
           const searchCheck = item.title.toLowerCase().includes(search.toLowerCase());
-          return typeCheck && searchCheck;
+          const categoryCheck = selectedMenu === "Tất cả" || (item.categories && item.categories.includes(selectedMenu));
+          return searchCheck && categoryCheck;
         });
         return { ...section, items: filteredItems };
       }).filter(section => section.items.length > 0);
