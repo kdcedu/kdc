@@ -19,8 +19,10 @@ export default function Home() {
     localStorage.removeItem("avatar");
 
     // Drive context
-    localStorage.removeItem("folders");
-    localStorage.removeItem("files");
+    localStorage.removeItem("k8_folders");
+    localStorage.removeItem("k8_files");
+    localStorage.removeItem("k5_folders");
+    localStorage.removeItem("k5_files");
 
     // Auth context
     localStorage.removeItem("isAuth");

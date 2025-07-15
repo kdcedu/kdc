@@ -213,7 +213,7 @@ export const ROUTES = [
   {
     grade: 7,
     name: '',
-    title: 'Bảo vệ quyền riêng tư trên Internet',
+    title: 'Ứng phó với rác trên internet',
     pin: '1111',
     type: 'Thao tác số'
   },
@@ -221,6 +221,13 @@ export const ROUTES = [
     grade: 8,
     name: 'k8/hds02',
     title: 'Mua sắm trực tuyến',
+    pin: '1111',
+    type: 'Thao tác số'
+  },
+  {
+    grade: 8,
+    name: 'k8/hds03',
+    title: 'Đám mây số - Không gian lưu trữ khổng lồ',
     pin: '1111',
     type: 'Thao tác số'
   },

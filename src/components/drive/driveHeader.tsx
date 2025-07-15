@@ -1,7 +1,11 @@
 import { MenuOutlined, SearchOutlined, SettingOutlined } from "@ant-design/icons";
 import { Image, Input } from "antd";
 
-export default function DriveHeader() {
+interface DriveHeaderProps {
+    isAdult?: boolean;
+}
+
+export default function DriveHeader({isAdult}: DriveHeaderProps) {
     return (
         <div className="w-full flex items-center justify-between gap-10 py-2">
             <div className="flex items-center gap-2 w-[15%]">
@@ -28,7 +32,7 @@ export default function DriveHeader() {
 
             <div className="flex items-center gap-5 w-[10%] justify-end">
                 <SettingOutlined />
-                <Image preview={false} src="/icons/Bin.svg" alt="Avatar" width={35}/>
+                <Image preview={false} src={isAdult ? "/avatars/Avatar_MinhKhoi.jpg" : "/icons/Bin.svg"} alt="Avatar" width={35}/>
             </div>
 
         </div>
