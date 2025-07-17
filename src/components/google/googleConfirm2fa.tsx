@@ -34,8 +34,8 @@ export default function GoogleConfirm2fa({ setStep }: GoogleConfirm2faProps) {
             <div className="flex flex-col items-center gap-2 justify-center">
                 <span className="text-lg text-center w-full block font-semibold">Có phải bạn đang cố đăng nhập?</span>
                 <div className="flex items-center gap-2 justify-center">
-                    <Image preview={false} src="/icons/Bin.svg" alt="Avatar" width={20}/>
-                    <span className="text-sm text-gray-700">nguyenbin@gmail.com</span>
+                    <Image preview={false} src="/avatars/Avatar_MinhKhoi.jpg" alt="Avatar" width={20}/>
+                    <span className="text-sm text-gray-700">minhkhoi@gmail.com</span>
                 </div>
             </div>
 

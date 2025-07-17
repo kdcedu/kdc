@@ -37,7 +37,7 @@ export default function GoogleHeader({isAuth}: GoogleHeaderProps) {
             <div className="flex items-center gap-5 w-[15%] justify-end">
                 <QuestionCircleOutlined />
                 <SettingOutlined />
-                {isAuth ? <Image preview={false} src="/icons/Bin.svg" alt="Avatar" width={35}/> : <Button onClick={() => {router.push('/k7/hds01/login')}} variant="solid" color="blue">Đăng nhập</Button>}
+                {isAuth ? <Image preview={false} src="/avatars/Avatar_MinhKhoi.jpg" alt="Avatar" width={35}/> : <Button onClick={() => {router.push('/k7/hds01/login')}} variant="solid" color="blue">Đăng nhập</Button>}
             </div>
 
         </div>
