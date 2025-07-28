@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import H5PViewer from '@/components/h5p/h5pViewer';
 import { useParams } from 'next/navigation';
 
+const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL;
+
 export default function H5PDisplayPage() {
   const params = useParams();
   const h5pContentId = params.h5pId; 
@@ -19,8 +21,8 @@ export default function H5PDisplayPage() {
       return;
     }
 
-    const h5pEmbedBaseUrl = "https://wp.dongtrantd.io.vn/wp-admin/admin-ajax.php?action=h5p_embed&id=";
-    const h5pResizerScriptUrl = "https://wp.dongtrantd.io.vn/wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js";
+    const h5pEmbedBaseUrl = `${WP_API_URL}wp-admin/admin-ajax.php?action=h5p_embed&id=`;
+    const h5pResizerScriptUrl = `${WP_API_URL}wp-content/plugins/h5p/h5p-php-library/js/h5p-resizer.js`;
 
     const generatedHtml = `
       <iframe src="${h5pEmbedBaseUrl}${h5pContentId}" width="100%" height="100%" frameborder="0" allowfullscreen="allowfullscreen" title="H5P Content"></iframe>
