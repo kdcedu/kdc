@@ -9,11 +9,11 @@ export default function GoogleChooseAccount() {
     <div className="w-1/2 flex flex-col">
         <div onClick={() => {router.push("/k7/hds01/password")}} className="flex items-center relative py-3 border-b border-gray-200 active:bg-gray-200 cursor-pointer">
             <div className="w-20 flex justify-center items-center">
-                <Image preview={false} src="/icons/Bin.svg" alt="Avatar" width={35}/>
+                <Image preview={false} src="/avatars/Avatar_MinhKhoi.jpg" alt="Avatar" width={35}/>
             </div>
             <div className="flex flex-col">
-                <span className="font-semibold">Nguyễn Bin</span>
-                <span className="text-sm text-gray-500">nguyenbin@gmail.com</span>
+                <span className="font-semibold">Minh Khôi</span>
+                <span className="text-sm text-gray-500">minhkhoi@gmail.com</span>
             </div>
             <span className="absolute top-3 right-5 text-xs text-gray-500">Đã đăng xuất</span>
         </div>

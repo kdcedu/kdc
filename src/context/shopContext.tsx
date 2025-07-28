@@ -92,7 +92,7 @@ export const ShopProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <ShopContext.Provider value={{ cart: currentCart, setCart, order, setOrder: setUserOrder, voucher, setVoucher: setUserVoucher, shipping, setShipping, total, address, setAddress: setUserAddress, balance, setBalance: setUserBalance }}>
             {children}
-            <div className="fixed w-fit p-2 bg-black text-white rounded-tl-xl bottom-0 right-0">
+            <div className="fixed w-fit p-2 bg-black text-white rounded-tl-xl bottom-0 right-0 z-20">
                 Số tiền của bạn: {convertPrice(balance)}
             </div>
         </ShopContext.Provider>

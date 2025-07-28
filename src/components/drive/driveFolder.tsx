@@ -4,6 +4,7 @@ import OptionPopover from "./optionPopover";
 import DeletePopup from "./deletePopup";
 import { useState } from "react";
 import { useDrive } from "@/context/driveContext";
+import { usePathname } from "next/navigation";
 
 interface DriveFolderProps {
   name: string;
@@ -13,12 +14,14 @@ interface DriveFolderProps {
 export default function DriveFolder({ name, id }: DriveFolderProps) {
   const router = useRouter();
 
+  const pathName = usePathname();
+
   const [openDeletePopup, setOpenDeletePopup] = useState(false);
 
   const { deleteFolder } = useDrive();
 
   const handleClick = () => {
-    router.push("/k5/hds02/" + id);
+    router.push(pathName + "/" + id);
   };
 
   const handleDelete = (id: string) => {

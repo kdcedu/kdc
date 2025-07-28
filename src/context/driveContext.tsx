@@ -1,5 +1,7 @@
-import { File, files as filesData } from "@/constant/drive/file";
+"use client"
+import { adultFiles, File, files as filesData } from "@/constant/drive/file";
 import { Folder, folders as foldersData } from "@/constant/drive/folder";
+import { usePathname } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type DriveContextType = {
@@ -15,41 +17,45 @@ const DriveContext = createContext<DriveContextType | undefined>(undefined);
 
 export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
 
+  const pathName = usePathname();
+
+  const usingFiles = pathName.includes("k8") ? adultFiles : filesData;
+
   const [folders, setFolders] = useState<Folder[]>([...foldersData]);
-  const [files, setFiles] = useState<File[]>([...filesData])
+  const [files, setFiles] = useState<File[]>([...usingFiles])
 
   useEffect(() => {
-    const storedFolders = localStorage.getItem("folders");
-    const storedFiles = localStorage.getItem("files");
+    const storedFolders = localStorage.getItem(`${pathName.includes('k8') ? 'k8_' : 'k5_'}folders`);
+    const storedFiles = localStorage.getItem(`${pathName.includes('k8') ? 'k8_' : 'k5_'}files`);
     if (storedFolders) {
       setFolders(JSON.parse(storedFolders));
     }
     if (storedFiles) {
       setFiles(JSON.parse(storedFiles))
     }
-  }, [])
+  }, [pathName])
 
   const addFolder = (folder: Folder) => {
     const updated = [...folders, folder];
-    localStorage.setItem("folders", JSON.stringify(updated));
+    localStorage.setItem(`${pathName.includes('k8') ? 'k8_' : 'k5_'}folders`, JSON.stringify(updated));
     setFolders(updated);
   };
 
   const deleteFolder = (id: string) => {
     const updated = folders.filter((folder) => String(folder.id) !== id);
-    localStorage.setItem("folders", JSON.stringify(updated));
+    localStorage.setItem(`${pathName.includes('k8') ? 'k8_' : 'k5_'}folders`, JSON.stringify(updated));
     setFolders(updated);
   }
 
   const addFile = (file: File) => {
     const updated = [...files, file];
-    localStorage.setItem("files", JSON.stringify(updated));
+    localStorage.setItem(`${pathName.includes('k8') ? 'k8_' : 'k5_'}files`, JSON.stringify(updated));
     setFiles(updated);
   }
 
   const deleteFile = (id: string) => {
     const updated = files.filter((file) => String(file.id) !== id);
-    localStorage.setItem("files", JSON.stringify(updated));
+    localStorage.setItem(`${pathName.includes('k8') ? 'k8_' : 'k5_'}files`, JSON.stringify(updated));
     setFiles(updated);
   }
 

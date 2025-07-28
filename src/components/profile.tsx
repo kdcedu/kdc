@@ -2,7 +2,7 @@ import { Button, Image, Select } from "antd";
 import AvatarPicker from "./avatarPicker";
 import { DownOutlined, EditFilled, PlusOutlined } from "@ant-design/icons";
 import Post, { PrivacyType } from "./post";
-import { friendList } from "@/constant/profile";
+import { adultFriendList, friendList } from "@/constant/profile";
 import { useEffect, useMemo, useState } from "react";
 import { defaultPrivacyList, PostType } from "@/constant/post";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,6 +18,7 @@ interface ProfileComponentProps {
   setFinishPrivacy?: (value: boolean) => void;
   privacyList: PrivacyType[];
   setPrivacyList?: (value: PrivacyType[]) => void;
+  isAdult?: boolean;
 }
 
 export default function ProfileComponent({
@@ -30,10 +31,13 @@ export default function ProfileComponent({
   setFinishPrivacy,
   privacyList,
   setPrivacyList,
+  isAdult,
 }: ProfileComponentProps) {
   const { push } = useRouter();
 
   const pathName = usePathname();
+
+  const fList = pathName.includes("k10") ? adultFriendList : friendList;
 
   const selectOptions = useMemo(
     () => [
@@ -41,12 +45,12 @@ export default function ProfileComponent({
         label: "Người lạ",
         value: "Người lạ",
       },
-      ...friendList.map((friend) => ({
+      ...fList.map((friend) => ({
         label: "Bạn " + friend.name,
         value: friend.name,
       })),
     ],
-    []
+    [fList]
   );
 
   const [role, setRole] = useState("Người lạ");
@@ -95,9 +99,11 @@ export default function ProfileComponent({
     if (privacyList?.length === 4) setFinishPrivacy?.(true);
   }, [privacyList, setFinishPrivacy]);
 
+  const viewerAvatar = isAdult ? "/avatars/Avatar_DuyAnh.jpg" : "/avatars/animal_1.svg";
+
   const PostComponent = ({ p }: { p: PostType }) => (
     <Post
-      avatar={isView ? "/avatars/animal_1.svg" : p.avatar}
+      avatar={isView ? viewerAvatar : p.avatar}
       setPrivacy={(value: PrivacyType, blockList?: string[]) => {
         if (!isView) {
           setPost(
@@ -146,11 +152,11 @@ export default function ProfileComponent({
       </div>
 
       <div className="relative -top-28 flex flex-col items-center border-b border-gray-300 w-full pb-5">
-        <AvatarPicker isView />
+        <AvatarPicker isView isAdult />
 
         <div className="mt-2 flex justify-center">
           <div className="flex flex-col gap-2 items-center">
-            <div className="text-3xl font-semibold">Bin Béo</div>
+            <div className="text-3xl font-semibold">{isAdult ? "Minh Khôi" : "Bin Béo"}</div>
             <div className="text-sm text-gray-500">50 người bạn</div>
           </div>
         </div>

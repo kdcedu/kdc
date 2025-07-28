@@ -1,4 +1,4 @@
-import { chooseFiles, File } from "@/constant/drive/file";
+import { adultChooseFiles, chooseFiles, File } from "@/constant/drive/file";
 import {
   CloseOutlined,
   CloudOutlined,
@@ -15,7 +15,7 @@ import { Button, Drawer, Modal } from "antd";
 import DriveFileDesktop from "./driveFileDesktop";
 import { useEffect, useState } from "react";
 import { useDrive } from "@/context/driveContext";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import DriveProgressBar from "./driveProgressBar";
 import { renderFileIcon, renderFileIconColor } from "./driveFile";
 
@@ -63,6 +63,10 @@ const siderMenu = [
 ];
 
 export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
+  const pathName = usePathname();
+
+  const fileToChoose = pathName?.includes("k8") ? adultChooseFiles : chooseFiles;
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -200,7 +204,7 @@ export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
 
             <div className="w-3/4 px-5">
               <div className="flex flex-col">
-                {chooseFiles.map((file) => (
+                {fileToChoose.map((file) => (
                   <DriveFileDesktop
                     key={file.id}
                     file={file}

@@ -177,6 +177,18 @@ export const adultLikeSharePostContent: PostType[] = [
     isTrue: false,
     falseResult: '/images/k6_hds01/HQTieucuc2.jpg',
     falseContent: 'Cảnh báo! "Like" hoặc "Share" bài này có thể lan truyền tin đồn, khiến bạn Hoài bị hiểu lầm, xa lánh và ảnh hưởng đến danh dự. Điều này góp phần làm môi trường mạng kém an toàn, thiếu tôn trọng. Hãy xác minh thông tin trước khi chia sẻ để tránh gây hại.',
+  },
+  {
+    time: '9 tháng 5 lúc 10:00',
+    content: 'Mình cần tìm các bạn đang muốn cải thiện môn Toán để học nhóm chuẩn bị cho kỳ thi cuối năm. Nếu có ai muốn tham gia thì hãy liên hệ mình nhé!',
+    image: '',
+    privacy: 'public',
+    blockList: [],
+    name: 'Minh Khôi',
+    avatar: '/avatars/Avatar_MinhKhoi.jpg',
+    isTrue: true,
+    trueResult: '/images/k6_hds01/KQTichcuc.jpg',
+    trueContent: 'Chúc mừng bạn! Hành động "Like" và "Share" của bạn đã lan tỏa những thông điệp tích cực, khuyến khích bạn bè cùng làm việc tốt và xây dựng một cộng đồng mạng văn minh, nhân ái. Bạn đã góp phần tạo nên một không gian trực tuyến an toàn và bổ ích cho mọi người!',
   }
 ]
 

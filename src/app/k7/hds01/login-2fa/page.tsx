@@ -18,10 +18,10 @@ export default function Login2fa() {
 
     const screens = [
         {
-            title: "Nguyễn Bin",
+            title: "Minh Khôi",
             subTitle: <div className="flex items-center gap-2 text-sm text-gray-500 rounded-full border border-gray-400 p-1 active:bg-gray-200 cursor-pointer">
-            <Image preview={false} src="/icons/Bin.svg" alt="Avatar" width={25}/>
-            <span>nguyenbin@gmail.com</span>
+            <Image preview={false} src="/avatars/Avatar_MinhKhoi.jpg" alt="Avatar" width={25}/>
+            <span>minhkhoi@gmail.com</span>
             <span className="text-xs"><CaretDownFilled /></span>
         </div>,
             content: <GooglePassword setStep={setStep} />
@@ -31,8 +31,8 @@ export default function Login2fa() {
             subTitle: <div className="flex flex-col gap-3">
             <span className="text-sm text-gray-500">Để giữ an toàn cho tài khoản của bạn, Google muốn đảm bảo rằng bạn chính là người đang cố đăng nhập</span>
             <div className="flex w-fit items-center gap-2 text-sm text-gray-500 rounded-full border border-gray-400 p-1 active:bg-gray-200 cursor-pointer">
-                <Image preview={false} src="/icons/Bin.svg" alt="Avatar" width={25}/>
-                <span>nguyenbin@gmail.com</span>
+                <Image preview={false} src="/avatars/Avatar_MinhKhoi.jpg" alt="Avatar" width={25}/>
+                <span>minhkhoi@gmail.com</span>
                 <span className="text-xs"><CaretDownFilled /></span>
             </div>
         </div>,

@@ -1,10 +1,11 @@
 import { Carousel, Image } from 'antd';
 
 const images = [
-  '/images/k5_hds02/Post1.jpg',
-  '/images/k5_hds02/Post2.jpg',
-  '/images/k5_hds02/Post3.jpg',
-  '/images/k5_hds02/Post4.jpg',
+  '/images/k8/banner_1.jpg',
+  '/images/k8/banner_2.jpg',
+  '/images/k8/banner_3.jpg',
+  '/images/k8/banner_4.jpg',
+  '/images/k8/banner_5.jpg',
 ];
 
 export default function ShopHomepage() {
