@@ -45,7 +45,7 @@ export default function ZaloPay() {
               className="flex flex-col items-center justify-center bg-white rounded-2xl p-4 hover:scale-105 transition shadow-lg cursor-pointer"
             >
               <Image src={item.icon} alt={item.label} width={60} height={60} />
-              <span className="mt-3 text-md text-center text-[#0032c8] font-semibold">
+              <span className="mt-3 text-2xl text-center text-[#0032c8] font-semibold">
                 {item.label}
               </span>
             </div>
