@@ -1,7 +1,7 @@
 import { ROUTES } from "@/constant/route";
 import { StarOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import LessonCard from "./lessonCard";
+// import LessonCard from "./lessonCard";
 import UndoneModal from "./modal/undoneModal";
 
 interface CourseListProps {
@@ -31,9 +31,9 @@ export default function CourseList({ grade, filter, search }: CourseListProps) {
       </div>}
 
       <div className="flex gap-5 flex-wrap">
-        {lesson.map((route, index) => (
-          <LessonCard key={index} grade={grade} name={route.name} title={route.title} type={route.type} setOpen={setOpen}/>
-        ))}
+        {/* {lesson.map((route, index) => (
+          <LessonCard key={index} grade={grade} name={route.name} title={route.title} type={route.type} setOpen={setOpen} />
+        ))} */}
       </div>
     </div>
   );
