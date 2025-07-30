@@ -1,6 +1,6 @@
 "use client";
 
-import { SendMoneyPopup } from "@/components/payment/sendMoney";
+import { SendMoneyPopup } from "@/components/payment/ZaloPayFeatures/sendMoney";
 import { zaloFeaturesForKid } from "@/constant/payment/zaloFeatures";
 import Image from "next/image";
 import { useState } from "react";

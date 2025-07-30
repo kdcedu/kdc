@@ -67,7 +67,7 @@ export default function PaymentApp() {
           </div>
         ))}
          <div 
-       onClick={()=> handleClickApp("ZaloPay")}
+       onClick={()=> handleClickApp("ZaloPay/auth/login")}
        className="flex flex-col items-center gap-2 cursor-pointer active:opacity-50 hover:bg-white/10 hover:backdrop-blur-sm transition rounded-xl">
           <Image preview={false} src="/apps/ZaloPay.png" alt="virus" width={70} />
           <span className="font-bold text-[#0032c8]">ZaloPay</span>
