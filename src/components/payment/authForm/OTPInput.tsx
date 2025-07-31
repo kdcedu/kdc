@@ -1,52 +1,32 @@
+// components/OTPModal.tsx
 "use client";
-
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+// import { useZalo } from "@/context/ZaloPayContext";
+
 interface OTPInputProps {
   OTP: string;
-  phone:string
+  onVerify: (otp: string) => void;
 }
-export default function OTPInput({ OTP }: OTPInputProps) {
-  const [otp, setOtp] = useState("");
-  const [showNotification, setShowNotification] = useState(false);
-  const router = useRouter();
 
+export default function OTPInput({ OTP, onVerify }: OTPInputProps) {
+  const [input, setInput] = useState<string>("");
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowNotification(true);
-    }, 1000);
-    return () => clearTimeout(timeout);
-  }, []);
-
-  const handleVerify = () => {
-    if (otp === OTP) {
-      const hasPin = localStorage.getItem("mockPin");
-      router.push(hasPin ? "/enter-pin" : "/create-pin");
-    } else {
-      alert("Sai mã OTP");
-    }
-  };
-
+    if (input === OTP) onVerify(input);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input]);
   return (
-    <div className="flex flex-col gap-4 p-6">
-      {showNotification && (
-        <div className="bg-green-100 text-green-800 p-4 rounded shadow">
-          OTP của bạn là: <strong>123456</strong>
-        </div>
-      )}
-      <input
-        type="tel"
-        placeholder="Nhập OTP"
-        className="border rounded px-4 py-2"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
-      />
-      <button
-        className="bg-green-500 text-white px-4 py-2 rounded"
-        onClick={handleVerify}
-      >
-        Xác nhận OTP
-      </button>
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+      <div className="bg-white p-6 rounded space-y-4 shadow-lg">
+        <p>Nhập mã OTP (mặc định: 123456)</p>
+        <input
+          type="text"
+          maxLength={6}
+          value={input}
+          placeholder="Hãy nhập đúng mã OTP đã được gửi nhé "
+          className="border px-3 py-2 w-full"
+          onChange={(e) => setInput(e.target.value.replace(/\D/g, ""))}
+        />
+      </div>
     </div>
   );
 }

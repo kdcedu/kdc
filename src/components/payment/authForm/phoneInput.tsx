@@ -1,42 +1,40 @@
+// components/PhoneInput.tsx
 "use client";
-
-// import { useState } from "react";
-import { loginStepType } from "@/constant/payment/types";
+import { Dispatch, useEffect, useState } from "react";
+import { useZalo } from "@/context/ZaloPayContext";
 
 interface PhoneInputProps {
-  phone: string;
-  setPhone: React.Dispatch<React.SetStateAction<string>>;
-  setStep: React.Dispatch<React.SetStateAction<loginStepType>>;
+  setPhone: Dispatch<React.SetStateAction<string>>;
+  onSuccess: () => void;
 }
 
-export default function PhoneInput({
-  setStep,
-  phone,
-  setPhone,
-}: PhoneInputProps) {
+export default function PhoneInput({ onSuccess, setPhone }: PhoneInputProps) {
+  const [phoneInput, setPhoneInput] = useState("");
+
+  useEffect (()=>{
+    setPhone(phoneInput);
+  },[phoneInput, setPhone])
+
   const handleSubmit = () => {
-    if (/^\d{10}$/.test(phone)) {
-      localStorage.setItem("currentPhone", phone);
-      setStep("otp");
-    } else {
-      alert("Vui lòng nhập đúng định dạng số điện thoại (10 số)");
+    if (phoneInput.trim()) {
+      onSuccess();
     }
   };
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="p-4 space-y-4">
       <input
         type="tel"
         placeholder="Nhập số điện thoại"
-        className="border rounded px-4 py-2"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+        className="border rounded px-3 py-2 w-full"
+        value={phoneInput}
+        onChange={(e) => setPhoneInput(e.target.value.replace(/\D/g, ""))}
       />
       <button
-        className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={handleSubmit}
+        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
       >
-        Gửi OTP
+        Tiếp tục
       </button>
     </div>
   );

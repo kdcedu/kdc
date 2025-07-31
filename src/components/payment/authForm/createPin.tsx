@@ -1,36 +1,35 @@
-'use client';
+// components/CreatePin.tsx
+"use client";
+import { useState } from "react";
+import { useZalo } from "@/context/ZaloPayContext";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+export default function CreatePin({ onCreated }: { onCreated: () => void }) {
+  const [pin, setPin] = useState("");
+  const { createPin } = useZalo();
 
-export default function CreatePin() {
-  const [pin, setPin] = useState('');
-  const router = useRouter();
-
-  const handleCreate = () => {
-    if (/^\d{6}$/.test(pin)) {
-      localStorage.setItem('mockPin', pin);
-      router.push('/home');
-    } else {
-      alert('Mã PIN phải gồm 6 chữ số');
+  const handleSubmit = () => {
+    if (pin.length === 6) {
+      createPin(pin);
+      onCreated();
     }
   };
-  const handlePinCreate = (pin: string) => {
-    localStorage.setItem(`user:${phone}`, pin);
-    login({ phoneNumber: phone, hasPin: true });
-    router.push('/home');
-  };
+
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="p-4 space-y-4">
+      <h2 className="font-semibold">Tạo mã PIN (6 số)</h2>
       <input
         type="password"
-        placeholder="Tạo mã PIN (6 số)"
-        className="border rounded px-4 py-2"
+        placeholder="Hãy nhập PIN bạn mong muốn"
+        maxLength={6}
         value={pin}
-        onChange={(e) => setPin(e.target.value)}
+        onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
+        className="border px-3 py-2 w-full"
       />
-      <button className="bg-purple-600 text-white px-4 py-2 rounded" onClick={handleCreate}>
-        Tạo mã PIN
+      <button
+        onClick={handleSubmit}
+        className="bg-green-600 text-white px-4 py-2 rounded w-full"
+      >
+        Xác nhận
       </button>
     </div>
   );
