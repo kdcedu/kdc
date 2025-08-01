@@ -38,7 +38,7 @@ export default function DriveFolder({ name, id }: DriveFolderProps) {
       />
       <div
         onClick={handleClick}
-        className="py-3 px-6 bg-gray-100 rounded-lg flex-1 flex justify-between cursor-pointer active:bg-gray-200"
+        className="py-3 pl-5 pr-3 bg-gray-100 rounded-lg flex-1 flex justify-between cursor-pointer active:bg-gray-200"
       >
         <div className="flex items-center gap-4">
           <span>

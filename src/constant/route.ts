@@ -238,4 +238,11 @@ export const ROUTES = [
     pin: '1111',
     type: 'Thao tác số'
   },
+   {
+    grade: 11,
+    name: 'k11/hds01',
+    title: 'Đám mây số - Không gian lưu trữ khổng lồ - Tiếp theo',
+    pin: '1111',
+    type: 'Thao tác số'
+  },
 ]

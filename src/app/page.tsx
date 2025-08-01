@@ -122,6 +122,8 @@ export default function Home() {
           <CourseList grade={8} filter={selectedMenu} search={search} />
 
           <CourseList grade={10} filter={selectedMenu} search={search} />
+          
+          <CourseList grade={11} filter={selectedMenu} search={search} />
         </div>
       </div>
 
