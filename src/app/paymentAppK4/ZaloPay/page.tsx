@@ -2,10 +2,15 @@
 
 import { SendMoneyPopup } from "@/components/payment/ZaloPayFeatures/sendMoney";
 import { zaloFeaturesForKid } from "@/constant/payment/zaloFeatures";
+import { useZalo } from "@/context/ZaloPayContext";
+import { getVietnameseFirstName } from "@/utils/getVietnameseFirstName";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar } from "antd";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function ZaloPay() {
+  const { currentAccount } = useZalo();
   const [showSendMoney, setShowSendMoney] = useState(false);
   const handleShowPopup = (name: string) => {
     if (name === "Send") setShowSendMoney(true);
@@ -19,7 +24,7 @@ export default function ZaloPay() {
     }
   };
   return (
-    <div className="w-full mx-auto p-6 flex flex-col gap-6 font-[Comic Sans MS, cursive]">
+    <div className="w-full mx-auto p-6 flex flex-col text-4xl gap-6 font-[Comic Sans MS, cursive]">
       {/* Header */}
 
       <Image
@@ -30,22 +35,38 @@ export default function ZaloPay() {
       />
 
       {/* Balance Section */}
-      <div className="text-center h-[calc(30vh)] bg-white rounded-2xl flex flex-col items-center justify-center py-6 shadow-md">
-        <p className="text-2xl font-semibold text-[#0032c8]">Số tiền hiện tại:</p>
-        <h2 className="text-5xl font-extrabold text-[#30c786] mt-2">1.200$ </h2>
+      <div className="text-center h-[calc(30vh)] bg-white rounded-2xl flex flex-col items-center justify-center py-2 shadow-md">
+        {currentAccount && (
+          <div className="flex items-center justify-between gap-x-10 px-6">
+            <Avatar
+              size={100}
+              src={currentAccount?.avatar}
+              icon={!currentAccount?.avatar ? <UserOutlined /> : undefined}
+            />
+            <div className="text-left">
+              <p className=" font-semibold text-[#0032c8]">
+                Số tiền hiện tại của bạn{" "}
+                <span className={`text-pink-600`}>{getVietnameseFirstName(currentAccount?.name)}:</span>
+              </p>
+              <h2 className="text-6xl font-extrabold text-[#30c786] mt-1">
+                {currentAccount?.balance} VNĐ
+              </h2>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Action Buttons */}
       <div className="h-[calc(40vh)] mt-6">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 h-full">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-full">
           {zaloFeaturesForKid.map((item, i) => (
             <div
               key={i}
               onClick={() => handleShowPopup(item.name)}
-              className="flex flex-col items-center justify-center bg-white rounded-2xl p-4 hover:scale-105 transition shadow-lg cursor-pointer"
+              className="flex flex-col items-center justify-center bg-white rounded-2xl p-4 hover:scale-105 transition shadow-lg cursor-pointer h-full"
             >
               <Image src={item.icon} alt={item.label} width={60} height={60} />
-              <span className="mt-3 text-2xl text-center text-[#0032c8] font-semibold">
+              <span className="mt-3 text-center text-[#0032c8] font-semibold leading-snug h-[4rem]">
                 {item.label}
               </span>
             </div>

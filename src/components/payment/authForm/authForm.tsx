@@ -1,68 +1,56 @@
-// components/AuthForm.tsx
-import React, { useState } from 'react';
-import Link from 'next/link';
+"use client";
 
-interface Props {
-  mode: 'login' | 'register';
-}
+// src/pages/AuthFlow.tsx
+import { useEffect, useState } from "react";
+import PhoneInput from "@/components/payment/authForm/phoneInput";
+import OTPInput from "@/components/payment/authForm/OTPInput";
+import CreatePin from "@/components/payment/authForm/createPin";
+import EnterPin from "@/components/payment/authForm/enterPin";
+import { loginStepType } from "@/constant/payment/zaloFeatures";
+import { useZalo } from "@/context/ZaloPayContext";
+import { usePathname, useRouter } from "next/navigation";
+import EnterNewName from "./enterNewName";
 
-export default function AuthForm({ mode }: Props) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+export default function AuthFlow() {
+  const [step, setStep] = useState<loginStepType>("enterPhone");
+  const [phone, setPhone] = useState("");
+  // const [generatedOtp, setGeneratedOtp] = useState('');
+  const { loginWithPhone } = useZalo();
+  const router = useRouter();
+  const pathName = usePathname();
+  // const router = useRouter();
+  useEffect(() => {
+    alert(step);
+  }, [step]);
 
-  const isLogin = mode === 'login';
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log(`${isLogin ? 'Login' : 'Register'} with`, { email, password });
-    // handle logic
+  const goToParent = (pathname: string) => {
+    const segments = pathname.split("/").filter(Boolean); // ["page1", "a"]
+    segments.pop(); // xóa "a"
+    const parentPath = "/" + segments.join("/"); // "/page1"
+    return parentPath;
   };
-
+  const verifyLogin = (phoneNum: string) => {
+    const checkExistAcc = loginWithPhone(phoneNum);
+    if (checkExistAcc) setStep("enterPin");
+    else setStep("createPin");
+  };
+  const finishLogin = () => {
+    const gotoPath = goToParent(pathName);
+    router.replace(gotoPath);
+  };
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-5xl">
-      <h2 className="text-2xl font-bold mb-4">
-        {isLogin ? 'Đăng nhập' : 'Đăng ký'}
-      </h2>
-
-      <input
-        type="email"
-        placeholder="Email"
-        className="border p-2 w-full"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
-
-      <input
-        type="password"
-        placeholder="Mật khẩu"
-        className="border p-2 w-full"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 w-full">
-        {isLogin ? 'Đăng nhập' : 'Đăng ký'}
-      </button>
-
-      <p className="text-sm text-center mt-2">
-        {isLogin ? (
-          <>
-            Chưa có tài khoản?{' '}
-            <Link href="/auth/register" className="text-blue-500 underline">
-              Đăng ký
-            </Link>
-          </>
-        ) : (
-          <>
-            Đã có tài khoản?{' '}
-            <Link href="/auth/login" className="text-blue-500 underline">
-              Đăng nhập
-            </Link>
-          </>
-        )}
-      </p>
-    </form>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
+      {step === "enterPhone" && (
+        <PhoneInput setPhone={setPhone} onSuccess={() => setStep("otp")} />
+      )}
+      {phone && step === "otp" && (
+        <OTPInput onVerify={verifyLogin} phone={phone} />
+      )}
+      {step === "createPin" && (
+        <CreatePin onCreated={() => setStep("enterNewName")} />
+      )}
+      {step === "enterPin" && <EnterPin onSuccess={finishLogin} />}
+      {step === "enterNewName" && <EnterNewName onSuccess={finishLogin} />}
+    </div>
   );
 }

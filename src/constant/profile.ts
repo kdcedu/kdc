@@ -6,7 +6,8 @@ export const defaultProfile: IProfile = {
   fullName: 'Nguyễn Bin',
   gender: 'Nam',
   phone: "0912345678",
-  birth: dayjs("06/09/2010", "DD/MM/YYYY")
+  birth: dayjs("06/09/2010", "DD/MM/YYYY"),
+  avatar: "/avatars/boy_1.svg"
 }
 
 export interface IProfile {

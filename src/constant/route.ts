@@ -128,7 +128,7 @@ export const ROUTES = [
   },
   {
     grade: 4,
-    name: 'paymentApp',
+    name: 'paymentAppK4',
     title: 'Dịch vụ thanh toán điện tử',
     pin: '1111',
     type: 'Thao tác số'

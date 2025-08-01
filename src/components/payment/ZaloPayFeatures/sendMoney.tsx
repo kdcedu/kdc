@@ -34,7 +34,9 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
 
   useEffect(() => {
     if (accountNumber.trim().length >= 6) {
-      const user = mockUsers.find((u) => u.accountNumber === accountNumber.trim());
+      const user = mockUsers.find(
+        (u) => u.accountNumber === accountNumber.trim()
+      );
       setFoundUser(user ?? null);
     } else {
       setFoundUser(null);
@@ -42,7 +44,18 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
   }, [accountNumber]);
 
   if (!isOpen) return null;
-
+  const handleInputAccNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newErrors: typeof errors = {};
+    newErrors.accountNumber = "";
+    setErrors(newErrors);
+    setAccountNumber(e.target.value);
+  };
+  const handleInputMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newErrors: typeof errors = {};
+    newErrors.amount = "";
+    setErrors(newErrors);
+    setAmount(e.target.value);
+  };
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (popupRef.current && !popupRef.current.contains(e.target as Node)) {
       onClose();
@@ -53,7 +66,7 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
 
     if (!accountNumber || accountNumber.length < 6) {
       newErrors.accountNumber = "Số tài khoản không hợp lệ";
-      setFoundUser(null)
+      setFoundUser(null);
     }
 
     if (!amount || isNaN(+amount) || +amount <= 0) {
@@ -62,7 +75,7 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
+    if (Object.keys(newErrors).length === 0 && foundUser) {
       console.log("Chuyển tiền:", { accountNumber, amount, note });
       onClose(); // đóng pop-up nếu hợp lệ
     }
@@ -77,7 +90,7 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
         ref={popupRef}
         className="bg-white rounded-3xl p-6 pb-10 h-fit w-[calc(120vh)] shadow-lg border-4 border-blue-500 relative"
       >
-        <h2 className="text-xl font-semibold text-blue-600 mb-4 text-center">
+        <h2 className="text-3xl font-semibold text-blue-600 mb-4 text-center">
           Gửi tiền cho bạn
         </h2>
 
@@ -85,14 +98,10 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
           type="number"
           placeholder="👤 Số tài khoản của bạn"
           value={accountNumber}
-          onChange={(e) => {
-            const err: typeof errors = {}
-            err.accountNumber=""
-            setErrors(err)
-            setAccountNumber(e.target.value)}}
-          className={`w-full px-2 py-5 text-2xl mb-1 border-b-2 ${
-              errors.accountNumber ? "border-b-red-500" : ""
-            } focus:outline-none focus:border-blue-400 `}
+          onChange={handleInputAccNumber}
+          className={`w-full px-2 py-5 text-2xl mb-1 border-b-2 font-semibold border-gray-300 ${
+            errors.accountNumber ? "border-b-red-500" : ""
+          } focus:outline-none focus:border-blue-400 focus:text-blue-600`}
         />
 
         {/* Hiển thị tên người dùng nếu tìm thấy */}
@@ -106,7 +115,12 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
                 <strong>{foundUser.name}</strong>
               </div>
             ) : (
-              <span className="text-red-500">❌ {errors.accountNumber ? errors.accountNumber : "Không tìm thấy người dùng"}</span>
+              <span className="text-red-500">
+                ❌{" "}
+                {errors.accountNumber
+                  ? errors.accountNumber
+                  : "Không tìm thấy người dùng"}
+              </span>
             )}
           </div>
         )}
@@ -116,18 +130,22 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
           placeholder="✏️ Ghi chú (tùy chọn)"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full px-2 py-5 mb-4 text-2xl border-b-2 focus:outline-none focus:border-blue-400"
+          className="w-full px-2 py-5 mb-4 text-2xl font-semibold border-b-2 border-gray-300 focus:outline-none focus:text-blue-500 focus:border-blue-400"
         />
 
         <input
           type="number"
           placeholder="💸 Số tiền (VNĐ)"
           value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          className="w-full text-4xl px-2 py-10 mb-3 border-b-2 focus:outline-none focus:border-blue-400"
+          onChange={handleInputMoney}
+          className="w-full text-4xl px-2 py-10 mb-3 border-b-2 font-semibold border-gray-300 focus:outline-none focus:text-green-700 focus:border-blue-400"
         />
 
-        <div className="flex justify-between font-semibold">
+        {errors.amount && (
+          <span className="text-red-500">❌ {errors.amount}</span>
+        )}
+
+        <div className="flex justify-between font-semibold mt-12">
           <button
             onClick={onClose}
             className="bg-red-400 text-white py-2 px-4 rounded hover:bg-red-600 cursor-pointer"
@@ -135,7 +153,7 @@ export const SendMoneyPopup: React.FC<SendMoneyPopupProps> = ({
             Hủy
           </button>
           <button
-           onClick={handleTransfer}
+            onClick={handleTransfer}
             className={`py-2 px-4 rounded font-semibold cursor-pointer transition 
               bg-blue-500 text-white hover:bg-blue-600"
           `}

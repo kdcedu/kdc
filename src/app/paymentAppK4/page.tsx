@@ -11,7 +11,7 @@ import {
   SunFilled,
 } from "@ant-design/icons";
 // import { useState } from "react";
-export default function PaymentApp() {
+export default function PaymentAppForK4() {
   const { push } = useRouter();
   const pathName = usePathname();
   
@@ -91,7 +91,7 @@ export default function PaymentApp() {
           </div>
         ))}
         <div
-          onClick={() => handleClickApp("ZaloPay/auth/login")}
+          onClick={() => handleClickApp("ZaloPay/auth")}
           className="flex flex-col items-center gap-2 cursor-pointer active:opacity-50 hover:bg-white/10 hover:backdrop-blur-sm transition rounded-xl"
         >
           <Image
