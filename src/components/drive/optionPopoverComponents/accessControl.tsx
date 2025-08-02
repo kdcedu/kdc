@@ -1,6 +1,6 @@
 import { Dropdown, Button } from "antd";
 import {
-  DownOutlined,
+  CaretDownOutlined,
   CheckOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
@@ -82,7 +82,7 @@ export default function AccessControl() {
             type="text"
             className="!pl-[1px] h-auto !font-semibold text-base"
           >
-            {selected.label} <DownOutlined className="text-xs ml-1" />
+            <span className="ml-1">{selected.label}</span> <CaretDownOutlined className="text-xs ml-1" />
           </Button>
         </Dropdown>
 
@@ -102,7 +102,7 @@ export default function AccessControl() {
           >
             <Button type="text" className="p-0 h-auto font-medium text-base">
               {selectedPermisson?.label}{" "}
-              <DownOutlined className="text-xs ml-1" />
+              <CaretDownOutlined className="text-xs ml-1" />
             </Button>
           </Dropdown>
         </div>

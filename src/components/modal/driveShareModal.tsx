@@ -12,8 +12,8 @@ import {
 } from "antd";
 import {
   ArrowLeftOutlined,
+  CaretDownOutlined,
   CheckOutlined,
-  DownOutlined,
   LinkOutlined,
   QuestionCircleOutlined,
   SettingOutlined,
@@ -202,173 +202,175 @@ export default function ShareDriveModal({
                 className="mx-2  !h-[50px] w-[150px] font-medium text-base !border-1 !border-black"
               >
                 {selectedPermisson?.label}{" "}
-                <DownOutlined className="text-xs ml-1" />
+                <CaretDownOutlined className="text-xs ml-1" />
               </Button>
             </Dropdown>
           </div>
         )}
       </div>
-      {showHandleShared === false ? (
-        <>
-          <div className="mb-5">
+      {!showHandleShared ? (
+        < div className="transition-all duration-500">
+          <div className="mb-3">
             <div className="font-medium mb-2 text-base">
               Những người có quyền truy cập
             </div>
-            <div className="-mx-6 px-6 py-2 hover:bg-gray-200 flex items-center justify-between">
-              {/* Bên trái: avatar + thông tin */}
-              <div className="flex items-center gap-3">
-                <Avatar
-                  src="/avatars/boy_1.svg"
-                  alt="avatar"
-                  size={40}
-                  shape="circle"
-                />
-                <div>
-                  <div className="font-medium">
-                    {defaultProfile.fullName} (you)
-                  </div>
-                  <div className="text-gray-600 text-sm">
-                    {defaultProfile.email}
+            <div className="overflow-y-auto overflow-x-hidden  max-h-[250px] -mx-6 px-6 py-2">
+              <div className="-mx-6 px-6 py-2 hover:bg-gray-200 flex items-center justify-between">
+                {/* Bên trái: avatar + thông tin */}
+                <div className="flex items-center gap-3">
+                  <Avatar
+                    src="/avatars/boy_1.svg"
+                    alt="avatar"
+                    size={40}
+                    shape="circle"
+                  />
+                  <div>
+                    <div className="font-medium">
+                      {defaultProfile.fullName} (you)
+                    </div>
+                    <div className="text-gray-600 text-sm">
+                      {defaultProfile.email}
+                    </div>
                   </div>
                 </div>
+
+                {/* Bên phải: vai trò */}
+                <div className="text-sm text-gray-400 whitespace-nowrap">
+                  Chủ sở hữu
+                </div>
               </div>
+              {sharedWith &&
+                sharedWith.map((item, index) => {
+                  const currentPermission = permissions.find(
+                    (p) => p.value === item.permission
+                  );
+                  const isMarkedForRemoval = markedForRemoval.includes(
+                    item.user.email
+                  );
 
-              {/* Bên phải: vai trò */}
-              <div className="text-sm text-gray-400 whitespace-nowrap">
-                Chủ sở hữu
-              </div>
-            </div>
-            {sharedWith &&
-              sharedWith.map((item, index) => {
-                const currentPermission = permissions.find(
-                  (p) => p.value === item.permission
-                );
-                const isMarkedForRemoval = markedForRemoval.includes(
-                  item.user.email
-                );
+                  const menu = (
+                    <div className="w-[260px] py-1 bg-white  text-gray-800 rounded-xs shadow-[0_2px_3px_rgba(0,0,0,0.25)]">
+                      {permissions.map((perm) => (
+                        <div
+                          key={perm.value}
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-3 "
+                          onClick={() =>
+                            updateUserPermission(
+                              targetId,
+                              type,
+                              item.user.email,
+                              perm.value as "viewer" | "editor" | "commenter"
+                            )
+                          }
+                        >
+                          {!isMarkedForRemoval &&
+                          item.permission === perm.value ? (
+                            <CheckOutlined className="!text-blue-600 mt-1" />
+                          ) : (
+                            <span className="w-[14px]" />
+                          )}
 
-                const menu = (
-                  <div className="w-[260px] py-1 bg-white  text-gray-800 rounded-xs shadow-[0_2px_3px_rgba(0,0,0,0.25)]">
-                    {permissions.map((perm) => (
-                      <div
-                        key={perm.value}
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-3 "
-                        onClick={() =>
-                          updateUserPermission(
-                            targetId,
-                            type,
-                            item.user.email,
-                            perm.value as "viewer" | "editor" | "commenter"
-                          )
-                        }
-                      >
-                        {!isMarkedForRemoval &&
-                        item.permission === perm.value ? (
-                          <CheckOutlined className="!text-blue-600 mt-1" />
-                        ) : (
-                          <span className="w-[14px]" />
-                        )}
-
-                        <div>
-                          <div className="font-medium">{perm.label}</div>
-                          {/* {perm.des && (
+                          <div>
+                            <div className="font-medium">{perm.label}</div>
+                            {/* {perm.des && (
                             <div className="text-xs text-gray-500">
                               {perm.des}
                             </div>
                           )} */}
+                          </div>
                         </div>
-                      </div>
-                    ))}
+                      ))}
 
-                    {/* Divider */}
-                    <div className="h-[1px] bg-gray-400 my-2 w-full" />
+                      {/* Divider */}
+                      <div className="h-[1px] bg-gray-400 my-2 w-full" />
 
-                    {/* Extra actions */}
-                    <div
-                      className={clsx(
-                        "px-4 py-2 font-medium text-base",
-                        isMarkedForRemoval
-                          ? "text-gray-400 cursor-not-allowed"
-                          : "hover:bg-gray-100 cursor-pointer"
-                      )}
-                      onClick={() => {
-                        if (!isMarkedForRemoval) {
-                          // chuyển quyền logic ở đây
-                        }
-                      }}
-                    >
-                      Chuyển quyền sở hữu
-                    </div>
-
-                    <div
-                      className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-medium text-base "
-                      onClick={() => {
-                        setMarkedForRemoval((prev) => [
-                          ...prev,
-                          item.user.email,
-                        ]);
-                      }}
-                    >
-                      Xoá quyền truy cập
-                    </div>
-                  </div>
-                );
-
-                return (
-                  <div
-                    key={index}
-                    className="-mx-6 px-6 py-2 hover:bg-gray-200 flex items-center justify-between"
-                  >
-                    {/* Bên trái: avatar + thông tin */}
-                    <div className="flex items-center gap-3">
-                      <Avatar
-                        src={item?.user?.avatar}
-                        alt="avatar"
-                        size={40}
-                        shape="circle"
-                      />
-                      <div>
-                        <div
-                          className={clsx(
-                            "font-medium",
-                            isMarkedForRemoval && "line-through text-gray-500"
-                          )}
-                        >
-                          {item.user.name}
-                        </div>
-
-                        <div className="text-gray-600 text-sm">
-                          {item.user.email}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Bên phải: dropdown chọn quyền */}
-                    <div>
-                      <Dropdown
-                        dropdownRender={() => menu}
-                        trigger={["click"]}
-                        placement="bottomRight"
+                      {/* Extra actions */}
+                      <div
+                        className={clsx(
+                          "px-4 py-2 font-medium text-base",
+                          isMarkedForRemoval
+                            ? "text-gray-400 cursor-not-allowed"
+                            : "hover:bg-gray-100 cursor-pointer"
+                        )}
+                        onClick={() => {
+                          if (!isMarkedForRemoval) {
+                            // chuyển quyền logic ở đây
+                          }
+                        }}
                       >
-                        <Button
-                          type="text"
-                          className="p-0 h-auto font-medium text-base"
-                        >
-                          {isMarkedForRemoval ? (
-                            <span className="text-red-500 italic">
-                              Đã chọn xóa
-                            </span>
-                          ) : (
-                            <>{currentPermission?.label ?? "Vai trò"} </>
-                          )}
+                        Chuyển quyền sở hữu
+                      </div>
 
-                          <DownOutlined className="text-xs ml-1" />
-                        </Button>
-                      </Dropdown>
+                      <div
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-medium text-base "
+                        onClick={() => {
+                          setMarkedForRemoval((prev) => [
+                            ...prev,
+                            item.user.email,
+                          ]);
+                        }}
+                      >
+                        Xoá quyền truy cập
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+
+                  return (
+                    <div
+                      key={index}
+                      className="-mx-6 px-6 py-2 hover:bg-gray-200 flex items-center justify-between"
+                    >
+                      {/* Bên trái: avatar + thông tin */}
+                      <div className="flex items-center gap-3">
+                        <Avatar
+                          src={item?.user?.avatar}
+                          alt="avatar"
+                          size={40}
+                          shape="circle"
+                        />
+                        <div>
+                          <div
+                            className={clsx(
+                              "font-medium",
+                              isMarkedForRemoval && "line-through text-gray-500"
+                            )}
+                          >
+                            {item.user.name}
+                          </div>
+
+                          <div className="text-gray-600 text-sm">
+                            {item.user.email}
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Bên phải: dropdown chọn quyền */}
+                      <div>
+                        <Dropdown
+                          dropdownRender={() => menu}
+                          trigger={["click"]}
+                          placement="bottomRight"
+                        >
+                          <Button
+                            type="text"
+                            className="p-0 h-auto font-medium text-base"
+                          >
+                            {isMarkedForRemoval ? (
+                              <span className="text-red-500 italic">
+                                Đã chọn xóa
+                              </span>
+                            ) : (
+                              <>{currentPermission?.label ?? "Vai trò"} </>
+                            )}
+
+                            <CaretDownOutlined className="text-xs ml-1" />
+                          </Button>
+                        </Dropdown>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
 
           <div className="mb-8">
@@ -377,9 +379,9 @@ export default function ShareDriveModal({
             </div>
             <AccessControl />
           </div>
-        </>
+        </div>
       ) : (
-        <>
+        <div className="transition-all duration-500">
           {" "}
           <Checkbox
             checked={notify}
@@ -415,7 +417,7 @@ export default function ShareDriveModal({
               />
             </div>
           )}
-        </>
+        </div>
       )}
       <div className="flex justify-between items-center">
         <Button
@@ -436,13 +438,15 @@ export default function ShareDriveModal({
           {!showHandleShared && "Sao chép đường liên kết"}
         </Button>
         <div className="flex gap-3">
-          <Button
-            onClick={handleCancelShared}
-            type="primary"
-            className="!border-0 !shadow-0 !ring-0 !rounded-full !px-5 !h-10 !font-semibold !bg-white !text-blue-600 hover:!bg-blue-100"
-          >
-            Hủy
-          </Button>
+          {showHandleShared && (
+            <Button
+              onClick={handleCancelShared}
+              type="primary"
+              className="!border-0 !shadow-0 !ring-0 !rounded-full !px-5 !h-10 !font-semibold !bg-white !text-blue-600 hover:!bg-blue-100"
+            >
+              Hủy
+            </Button>
+          )}
           <Button
             type="primary"
             className="!rounded-full !px-5 !h-10 !font-semibold !bg-blue-600 hover:!bg-blue-500"
