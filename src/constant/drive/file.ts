@@ -1,12 +1,16 @@
+import { SharedUser } from "./user";
+
 export type FileType = 'image' | 'excel' | 'pdf';
 
+
 export interface File {
-    id: string;
-    name: string;
-    type: FileType;
-    image: string;
-    parent?: string;
-    size?: string;
+  id: string;
+  name: string;
+  type: FileType;
+  image: string;
+  parent?: string;
+  size?: string;
+  sharedWith?: SharedUser[]; // ✅ updated
 }
 
 export const files: File[] = [

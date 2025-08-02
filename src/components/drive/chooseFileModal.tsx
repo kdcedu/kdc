@@ -65,7 +65,9 @@ const siderMenu = [
 export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
   const pathName = usePathname();
 
-  const fileToChoose = pathName?.includes("k8") ? adultChooseFiles : chooseFiles;
+  const fileToChoose = pathName?.includes("k5")
+    ? chooseFiles
+    : adultChooseFiles;
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -80,7 +82,7 @@ export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
   useEffect(() => {
     const timer = setInterval(() => {
       if (percent === 100) {
-        if(selectedFile) {
+        if (selectedFile) {
           addFile({
             ...selectedFile,
             id: String(Date.now()),
@@ -95,8 +97,6 @@ export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
 
     return () => clearInterval(timer);
   }, [percent, selectedFile, addFile, id]);
-
-  
 
   const handleAddFile = () => {
     if (selectedFile) {
@@ -114,24 +114,27 @@ export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
         mask={false}
         placement="bottom"
         height="auto"
-        title={<div className="flex items-center justify-between">
-          <span>Đang tải 1 mục lên</span>
-          <div className="flex items-center gap-4">
-            <DownOutlined onClick={() => setOpenDrawer(false)}/>
-            <CloseOutlined
-              onClick={() => {
-                setOpenDrawer(false);
-              }}
-            />
+        title={
+          <div className="flex items-center justify-between">
+            <span>Đang tải 1 mục lên</span>
+            <div className="flex items-center gap-4">
+              <DownOutlined onClick={() => setOpenDrawer(false)} />
+              <CloseOutlined
+                onClick={() => {
+                  setOpenDrawer(false);
+                }}
+              />
+            </div>
           </div>
-        </div>}
+        }
         closable={false}
         closeIcon={null}
         style={{
           width: "30%",
           margin: "0 70%",
           borderRadius: "10px 10px 0 0",
-          boxShadow: 'none', borderTop: 'none'
+          boxShadow: "none",
+          borderTop: "none",
         }}
         styles={{
           header: {
@@ -144,22 +147,27 @@ export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
       >
         <div className="p-5 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className={renderFileIconColor(selectedFile?.type || "")}>{renderFileIcon(selectedFile?.type || "")}</span>
+            <span className={renderFileIconColor(selectedFile?.type || "")}>
+              {renderFileIcon(selectedFile?.type || "")}
+            </span>
             <span>{selectedFile?.name}</span>
           </div>
-          <DriveProgressBar endFunction={() => setOpenDrawer(false)} percent={percent} />
+          <DriveProgressBar
+            endFunction={() => setOpenDrawer(false)}
+            percent={percent}
+          />
         </div>
       </Drawer>
       <Modal
         title={
           <div className="flex items-center justify-between px-5 border-b border-gray-600 pt-2">
-              <div className="flex items-center gap-2 bg-gray-200 w-1/4 rounded-t-sm px-3">
-                <span className="text-yellow-500"><FolderOpenFilled /></span>
-                <span className="text-sm font-semibold">KDC</span>
-              </div>
-              <CloseOutlined
-                onClick={onClose}
-              />
+            <div className="flex items-center gap-2 bg-gray-200 w-1/4 rounded-t-sm px-3">
+              <span className="text-yellow-500">
+                <FolderOpenFilled />
+              </span>
+              <span className="text-sm font-semibold">KDC</span>
+            </div>
+            <CloseOutlined onClick={onClose} />
           </div>
         }
         styles={{
@@ -196,7 +204,13 @@ export default function ChooseFileModal({ open, onClose }: ChooseFileModal) {
                     item.id === 8 && "bg-blue-100 text-blue-600 font-semibold"
                   } flex items-center gap-2 py-1 px-3 hover:bg-gray-200 cursor-pointer`}
                 >
-                  <span className={`${item.id === 8 && "text-yellow-500"} text-black`}>{item.icon}</span>
+                  <span
+                    className={`${
+                      item.id === 8 && "text-yellow-500"
+                    } text-black`}
+                  >
+                    {item.icon}
+                  </span>
                   <span>{item.title}</span>
                 </div>
               ))}
