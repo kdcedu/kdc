@@ -1,6 +1,10 @@
 "use client";
 
-import { CloseCircleFilled, CloseOutlined, WarningFilled } from "@ant-design/icons";
+import {
+  CloseCircleFilled,
+  CloseOutlined,
+  WarningFilled,
+} from "@ant-design/icons";
 import { Button, Modal } from "antd";
 import { useEffect, useMemo, useState } from "react";
 
@@ -9,7 +13,7 @@ const WARNING_MESSAGES = [
   "Phát hiện phần mềm độc hại đang chạy nền!",
   "Cảnh báo tấn công mạng đang diễn ra!",
   "Dữ liệu của bạn đang bị đánh cắp!",
-  "Hãy cập nhật phần mềm bảo mật ngay!"
+  "Hãy cập nhật phần mềm bảo mật ngay!",
 ];
 
 export default function VirusModal() {
@@ -36,7 +40,8 @@ export default function VirusModal() {
     setOpen(false);
   };
 
-  return <Modal
+  return (
+    <Modal
       open={open}
       onCancel={onCancel}
       closable={false}
@@ -55,8 +60,11 @@ export default function VirusModal() {
             <WarningFilled />
             <span>Cảnh báo !!!</span>
           </div>
-          <span className="text-xl cursor-pointer" onClick={() => setOpen(false)}>
-            <CloseOutlined/>
+          <span
+            className="text-xl cursor-pointer"
+            onClick={() => setOpen(false)}
+          >
+            <CloseOutlined />
           </span>
         </div>
       }
@@ -77,5 +85,5 @@ export default function VirusModal() {
         <Button onClick={() => setOpen(false)}>Ok</Button>
       </div>
     </Modal>
-  ;
+  );
 }

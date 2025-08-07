@@ -20,6 +20,7 @@ export default function ShareOption({
   const [showSharedMenu, setShowSharedMenu] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
+
   const handleClickShared = (e: React.MouseEvent) => {
     e.stopPropagation();
   

@@ -1,23 +1,8 @@
 // components/OptionPopover/ShareModal.tsx
 "use client";
 
-import {
-  Modal,
-  Button,
-  Avatar,
-  Dropdown,
-  Checkbox,
-  Input,
-  MenuProps,
-} from "antd";
-import {
-  ArrowLeftOutlined,
-  CaretDownOutlined,
-  CheckOutlined,
-  LinkOutlined,
-  QuestionCircleOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { Modal, Button, Avatar, Dropdown, MenuProps } from "antd";
+import { CaretDownOutlined, CheckOutlined } from "@ant-design/icons";
 import ShareAutoComplete from "../drive/optionPopoverComponents/autoCompleteSearch";
 import { defaultProfile } from "@/constant/profile";
 import AccessControl from "../drive/optionPopoverComponents/accessControl";
@@ -25,7 +10,10 @@ import { useMemo, useState } from "react";
 import { useDrive } from "@/context/driveContext";
 import { permissions } from "@/constant/drive/sharedModalMockData";
 import { SharedUser, SharePermission } from "@/constant/drive/user";
-import clsx from "clsx";
+import ShareHeader from "../drive/optionPopoverComponents/shareHeader";
+import ShareUserList from "../drive/optionPopoverComponents/shareUserList";
+import ShareMessageInput from "../drive/optionPopoverComponents/shareMessageInput";
+import ShareActionButtons from "../drive/optionPopoverComponents/shareActionButton";
 
 interface ShareModalProps {
   open: boolean;
@@ -100,7 +88,7 @@ export default function ShareDriveModal({
 
   const sharedWith = currentItem?.sharedWith || [];
 
-  const [focused, setFocused] = useState(false);
+  // const [focused, setFocused] = useState(false);
   const updateShared = (users: SharedUser[]) => {
     if (type === "file") updateFileShare(targetId, users);
     else updateFolderShare(targetId, users);
@@ -143,34 +131,10 @@ export default function ShareDriveModal({
   return (
     <Modal
       title={
-        <div className="flex justify-between items-center">
-          <div>
-            {showHandleShared && (
-              <ArrowLeftOutlined
-                className={`mr-5`}
-                onClick={handleCancelShared}
-              />
-            )}
-            <span className="text-lg">Chia sẻ file</span>
-          </div>
-          <div className="flex items-center gap-2">
-            {/* Icon dấu hỏi */}
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer"
-              onClick={() => console.log("Dấu hỏi được bấm")}
-            >
-              <QuestionCircleOutlined className="text-gray-500 text-base" />
-            </div>
-
-            {/* Icon cài đặt */}
-            <div
-              className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer"
-              onClick={() => console.log("Cài đặt được bấm")}
-            >
-              <SettingOutlined className="text-gray-500 text-base" />
-            </div>
-          </div>
-        </div>
+        <ShareHeader
+          showHandleShared={showHandleShared}
+          onBack={handleCancelShared}
+        />
       }
       open={open}
       centered
@@ -209,13 +173,13 @@ export default function ShareDriveModal({
         )}
       </div>
       {!showHandleShared ? (
-        < div className="transition-all duration-500">
+        <div className="transition-all duration-500">
           <div className="mb-3">
             <div className="font-medium mb-2 text-base">
               Những người có quyền truy cập
             </div>
-            <div className="overflow-y-auto overflow-x-hidden  max-h-[250px] -mx-6 px-6 py-2">
-              <div className="-mx-6 px-6 py-2 hover:bg-gray-200 flex items-center justify-between">
+            <div className="overflow-y-auto overflow-x-hidden  max-h-[250px] -mx-6 px-6 py-2 ">
+              <div className="-mx-6 px-6 py-2 hover:bg-gray-200 flex items-center justify-between -mb-1">
                 {/* Bên trái: avatar + thông tin */}
                 <div className="flex items-center gap-3">
                   <Avatar
@@ -239,137 +203,14 @@ export default function ShareDriveModal({
                   Chủ sở hữu
                 </div>
               </div>
-              {sharedWith &&
-                sharedWith.map((item, index) => {
-                  const currentPermission = permissions.find(
-                    (p) => p.value === item.permission
-                  );
-                  const isMarkedForRemoval = markedForRemoval.includes(
-                    item.user.email
-                  );
-
-                  const menu = (
-                    <div className="w-[260px] py-1 bg-white  text-gray-800 rounded-xs shadow-[0_2px_3px_rgba(0,0,0,0.25)]">
-                      {permissions.map((perm) => (
-                        <div
-                          key={perm.value}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-3 "
-                          onClick={() =>
-                            updateUserPermission(
-                              targetId,
-                              type,
-                              item.user.email,
-                              perm.value as "viewer" | "editor" | "commenter"
-                            )
-                          }
-                        >
-                          {!isMarkedForRemoval &&
-                          item.permission === perm.value ? (
-                            <CheckOutlined className="!text-blue-600 mt-1" />
-                          ) : (
-                            <span className="w-[14px]" />
-                          )}
-
-                          <div>
-                            <div className="font-medium">{perm.label}</div>
-                            {/* {perm.des && (
-                            <div className="text-xs text-gray-500">
-                              {perm.des}
-                            </div>
-                          )} */}
-                          </div>
-                        </div>
-                      ))}
-
-                      {/* Divider */}
-                      <div className="h-[1px] bg-gray-400 my-2 w-full" />
-
-                      {/* Extra actions */}
-                      <div
-                        className={clsx(
-                          "px-4 py-2 font-medium text-base",
-                          isMarkedForRemoval
-                            ? "text-gray-400 cursor-not-allowed"
-                            : "hover:bg-gray-100 cursor-pointer"
-                        )}
-                        onClick={() => {
-                          if (!isMarkedForRemoval) {
-                            // chuyển quyền logic ở đây
-                          }
-                        }}
-                      >
-                        Chuyển quyền sở hữu
-                      </div>
-
-                      <div
-                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-medium text-base "
-                        onClick={() => {
-                          setMarkedForRemoval((prev) => [
-                            ...prev,
-                            item.user.email,
-                          ]);
-                        }}
-                      >
-                        Xoá quyền truy cập
-                      </div>
-                    </div>
-                  );
-
-                  return (
-                    <div
-                      key={index}
-                      className="-mx-6 px-6 py-2 hover:bg-gray-200 flex items-center justify-between"
-                    >
-                      {/* Bên trái: avatar + thông tin */}
-                      <div className="flex items-center gap-3">
-                        <Avatar
-                          src={item?.user?.avatar}
-                          alt="avatar"
-                          size={40}
-                          shape="circle"
-                        />
-                        <div>
-                          <div
-                            className={clsx(
-                              "font-medium",
-                              isMarkedForRemoval && "line-through text-gray-500"
-                            )}
-                          >
-                            {item.user.name}
-                          </div>
-
-                          <div className="text-gray-600 text-sm">
-                            {item.user.email}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Bên phải: dropdown chọn quyền */}
-                      <div>
-                        <Dropdown
-                          dropdownRender={() => menu}
-                          trigger={["click"]}
-                          placement="bottomRight"
-                        >
-                          <Button
-                            type="text"
-                            className="p-0 h-auto font-medium text-base"
-                          >
-                            {isMarkedForRemoval ? (
-                              <span className="text-red-500 italic">
-                                Đã chọn xóa
-                              </span>
-                            ) : (
-                              <>{currentPermission?.label ?? "Vai trò"} </>
-                            )}
-
-                            <CaretDownOutlined className="text-xs ml-1" />
-                          </Button>
-                        </Dropdown>
-                      </div>
-                    </div>
-                  );
-                })}
+              <ShareUserList
+                sharedWith={sharedWith}
+                markedForRemoval={markedForRemoval}
+                setMarkedForRemoval={setMarkedForRemoval}
+                updateUserPermission={updateUserPermission}
+                targetId={targetId}
+                type={type}
+              />
             </div>
           </div>
 
@@ -383,79 +224,19 @@ export default function ShareDriveModal({
       ) : (
         <div className="transition-all duration-500">
           {" "}
-          <Checkbox
-            checked={notify}
-            onChange={(e) => setNotify(e.target.checked)}
-          >
-            Thông báo cho những người này
-          </Checkbox>
-          {notify && (
-            <div className="relative my-4">
-              <label
-                className={clsx(
-                  "absolute z-20 left-3 text-gray-500 transition-all pointer-events-none bg-white px-1",
-                  {
-                    "text-xs -top-2.5 !text-blue-600": focused || message,
-                    "text-base top-2.5": !focused && !message,
-                  }
-                )}
-              >
-                Lời nhắn
-              </label>
-              <Input.TextArea
-                rows={5}
-                className={clsx(
-                  "z-10 pt-5 border border-gray-500",
-                  "hover:!border-black",
-                  "focus:!border-2 focus:!border-blue-600",
-                  "transition-all duration-200"
-                )}
-                value={message}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-                onChange={(e) => setMessage(e.target.value)}
-              />
-            </div>
-          )}
+          <ShareMessageInput
+            notify={notify}
+            onToggleNotify={setNotify}
+            message={message}
+            onChangeMessage={setMessage}
+          />
         </div>
       )}
-      <div className="flex justify-between items-center">
-        <Button
-          icon={
-            <LinkOutlined
-              className={`${
-                showHandleShared ? "!text-[22px]" : "!text-[16px]"
-              }  rotate-45 pt-1 !font-semibold`}
-            />
-          }
-          onClick={() => navigator.clipboard.writeText("https://your.link")}
-          className={`!rounded-full !h-10 ${
-            showHandleShared
-              ? "!border-0 !shadow-0 !ring-0"
-              : "!border-1 !border-black hover:!bg-blue-100 !text-blue-500 "
-          } !w-fit !px-5  !font-semibold`}
-        >
-          {!showHandleShared && "Sao chép đường liên kết"}
-        </Button>
-        <div className="flex gap-3">
-          {showHandleShared && (
-            <Button
-              onClick={handleCancelShared}
-              type="primary"
-              className="!border-0 !shadow-0 !ring-0 !rounded-full !px-5 !h-10 !font-semibold !bg-white !text-blue-600 hover:!bg-blue-100"
-            >
-              Hủy
-            </Button>
-          )}
-          <Button
-            type="primary"
-            className="!rounded-full !px-5 !h-10 !font-semibold !bg-blue-600 hover:!bg-blue-500"
-            onClick={handleConfirm}
-          >
-            Xong
-          </Button>
-        </div>
-      </div>
+      <ShareActionButtons
+        showHandleShared={showHandleShared}
+        onCancelShared={handleCancelShared}
+        onConfirm={handleConfirm}
+      />
     </Modal>
   );
 }

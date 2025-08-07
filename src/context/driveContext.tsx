@@ -3,7 +3,16 @@ import { adultFiles, File, files as filesData } from "@/constant/drive/file";
 import { Folder, folders as foldersData } from "@/constant/drive/folder";
 import { SharedUser, SharePermission } from "@/constant/drive/user";
 import { usePathname } from "next/navigation";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { message } from "antd";
+import { copyLinkExample } from "@/constant/drive/sharedModalMockData";
 
 type DriveContextType = {
   folders: Folder[];
@@ -27,6 +36,9 @@ type DriveContextType = {
     userEmail: string,
     newPermission: SharePermission
   ) => void;
+  setVisibleNoti: Dispatch<SetStateAction<boolean>>;
+  visibleNoti: boolean;
+  handleCopyLink: () => Promise<void>;
 };
 
 const DriveContext = createContext<DriveContextType | undefined>(undefined);
@@ -37,7 +49,7 @@ export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [folders, setFolders] = useState<Folder[]>([...foldersData]);
   const [files, setFiles] = useState<File[]>([...usingFiles]);
-
+  const [visibleNoti, setVisibleNoti] = useState<boolean>(false);
   useEffect(() => {
     const storedFolders = localStorage.getItem(
       `${pathName.includes("k5") ? "k5_" : "k8_"}folders`
@@ -77,7 +89,18 @@ export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
     );
     setFolders(updated);
   };
-
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(copyLinkExample);
+      setVisibleNoti(true);
+    } catch (err) {
+      if (err instanceof Error) {
+        message.error(err.message);
+      } else {
+        message.error("Không thể sao chép");
+      }
+    }
+  };
   const addFile = (file: File) => {
     const updated = [...files, file];
     localStorage.setItem(
@@ -101,7 +124,7 @@ export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
       String(file.id) === fileId ? { ...file, sharedWith: users } : file
     );
     localStorage.setItem(
-     `${pathName.includes("k5") ? "k5_" : "k8_"}files`,
+      `${pathName.includes("k5") ? "k5_" : "k8_"}files`,
       JSON.stringify(updated)
     );
     setFiles(updated);
@@ -126,7 +149,7 @@ export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
           : file
       );
       localStorage.setItem(
-       `${pathName.includes("k5") ? "k5_" : "k8_"}files`,
+        `${pathName.includes("k5") ? "k5_" : "k8_"}files`,
         JSON.stringify(updated)
       );
       setFiles(updated);
@@ -142,7 +165,7 @@ export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
           : folder
       );
       localStorage.setItem(
-       `${pathName.includes("k5") ? "k5_" : "k8_"}folders`,
+        `${pathName.includes("k5") ? "k5_" : "k8_"}folders`,
         JSON.stringify(updated)
       );
       setFolders(updated);
@@ -186,7 +209,7 @@ export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
           : folder
       );
       localStorage.setItem(
-       `${pathName.includes("k5") ? "k5_" : "k8_"}folders`,
+        `${pathName.includes("k5") ? "k5_" : "k8_"}folders`,
         JSON.stringify(updated)
       );
       setFolders(updated);
@@ -198,6 +221,9 @@ export const DriveProvider = ({ children }: { children: React.ReactNode }) => {
       value={{
         folders,
         files,
+        visibleNoti,
+        setVisibleNoti,
+        handleCopyLink,
         addFolder,
         deleteFolder,
         updateFolderShare,

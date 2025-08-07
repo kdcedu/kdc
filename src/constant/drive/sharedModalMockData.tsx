@@ -5,6 +5,7 @@ interface PermissionProps {
   label: string;
   des: string;
 }
+export const copyLinkExample = "https://www.kdc.edu.vn/"
 export const accessOptions = [
   {
     key: "restricted",
