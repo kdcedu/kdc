@@ -1,6 +1,5 @@
 "use client";
 
-import BackButton from "@/components/backButton";
 import CatConversation from "@/components/catConversation";
 import NotificationModal from "@/components/modal/notificationModal";
 import { lessonApps } from "@/constant/app";
@@ -26,8 +25,7 @@ export default function K1HDS03() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center gap-10 bg-[url(/backgrounds/backgroundDesktop.jpg)] pt-10">
-      <BackButton />
-      
+     
       <NotificationModal
         open={openNotification}
         onCancel={() => setOpenNotification(false)}

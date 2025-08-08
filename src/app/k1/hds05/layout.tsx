@@ -1,4 +1,4 @@
-import BackButton from "@/components/backButton";
+
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -13,7 +13,7 @@ export default function VideoLayout({
 }>) {
   return (
     <div className="w-full min-h-screen px-5 pt-10 bg-[url(/backgrounds/mainBackground.png)]">
-      <BackButton />
+
       {children}
     </div>
   );

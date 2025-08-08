@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import QRScanner from "@/components/QRCode/QRScanner";
 
 interface ScanPageProps {
@@ -10,10 +10,29 @@ interface ScanPageProps {
 
 const ScanPage = ({ onClose, resetQRScan }: ScanPageProps) => {
   const [result, setResult] = useState("");
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Đóng khi click ra ngoài
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [onClose]);
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex flex-col items-center justify-center">
-      <div className="bg-white w-[90vw] max-w-full flex flex-col items-center justify-center rounded-lg shadow-xl p-6 relative">
+      <div
+        ref={modalRef}
+        className="bg-white w-[90vw] max-w-full flex flex-col items-center justify-center rounded-lg shadow-xl p-6 relative"
+      >
         {/* Nút đóng */}
         <button
           onClick={onClose}

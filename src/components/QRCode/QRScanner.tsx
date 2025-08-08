@@ -61,8 +61,10 @@ const QRScanner: React.FC<QRScannerProps> = ({
         
       }
     );  
-
-    scannerInstanceRef.current = scanner;
+ if (!scannerContainerRef.current) {
+     scannerInstanceRef.current = scanner;
+    }
+    
   };
 
   setupScanner();
