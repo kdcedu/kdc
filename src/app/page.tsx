@@ -9,10 +9,10 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/authContext";
 import { logout } from "@/services/auth";
 import Footer from "@/components/footer";
-
+// import BackButton from "@/components/backButton";
+// import { usePathname } from "next/navigation";
 export default function Home() {
   const router = useRouter();
-
   useEffect(() => {
     // Profile context
     localStorage.removeItem("user");
@@ -96,9 +96,9 @@ export default function Home() {
 
           <div className="w-full flex justify-center px-5">
             <Button
-            variant="solid"
-            color="orange"
-            onClick={() => window.location.reload()}
+              variant="solid"
+              color="orange"
+              onClick={() => window.location.reload()}
             >
               Reload
             </Button>
@@ -122,12 +122,12 @@ export default function Home() {
           <CourseList grade={8} filter={selectedMenu} search={search} />
 
           <CourseList grade={10} filter={selectedMenu} search={search} />
-          
+
           <CourseList grade={11} filter={selectedMenu} search={search} />
         </div>
       </div>
 
-      <Footer/>
+      <Footer />
     </div>
   );
 }

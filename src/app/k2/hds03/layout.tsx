@@ -1,3 +1,5 @@
+import BackButton from "@/components/backButton";
+
 export default function HDS03Layout({
   children,
 }: Readonly<{
@@ -5,6 +7,7 @@ export default function HDS03Layout({
 }>) {
   return (
       <div className="w-screen min-h-screen bg-[url(/backgrounds/backgroundDesktop.jpg)] bg-cover bg-center px-5">
+        <BackButton />
         {children}
       </div>
   );

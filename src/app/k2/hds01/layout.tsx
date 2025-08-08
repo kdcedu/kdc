@@ -1,3 +1,4 @@
+import BackButton from "@/components/backButton";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,6 +13,7 @@ export default function HDS01Layout({
 }>) {
   return (
       <div className="w-full min-h-screen bg-[url(/backgrounds/mainBackground.png)]">
+        <BackButton />
         {children}
       </div>
   );

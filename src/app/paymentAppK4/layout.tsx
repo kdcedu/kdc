@@ -1,3 +1,4 @@
+import BackButton from "@/components/backButton";
 import { KDCPayProvider } from "@/context/KDCPayContext";
 
 export default function PaymentAppLayout({
@@ -5,5 +6,10 @@ export default function PaymentAppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <KDCPayProvider>{children}</KDCPayProvider>;
+  return (
+    <KDCPayProvider>
+      <BackButton />
+      {children}
+    </KDCPayProvider>
+  );
 }

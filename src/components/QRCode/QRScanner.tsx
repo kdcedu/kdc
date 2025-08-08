@@ -24,14 +24,25 @@ const QRScanner: React.FC<QRScannerProps> = ({
   const scannerInstanceRef = useRef<Html5QrcodeScanner | null>(null);
 
   useEffect(() => {
+  let isMounted = true;
+
+  const setupScanner = async () => {
     // Cleanup trước nếu có
     if (scannerInstanceRef.current) {
-      scannerInstanceRef.current.clear().catch(() => {});
+      try {
+        await scannerInstanceRef.current.clear();
+      } catch (e) {
+        console.warn("Failed to clear scanner:", e);
+      }
       scannerInstanceRef.current = null;
     }
+
     if (scannerContainerRef.current) {
       scannerContainerRef.current = null;
     }
+
+    if (!isMounted) return;
+
     const config = {
       fps: 10,
       qrbox: getResponsiveQrBoxSize(),
@@ -46,19 +57,28 @@ const QRScanner: React.FC<QRScannerProps> = ({
         onScanSuccess(decodedText);
       },
       () => {
-        // handle scan failure if needed
+        // scan failure
+        
       }
-    );
+    );  
 
     scannerInstanceRef.current = scanner;
+  };
 
-    return () => {
-      scanner.clear().catch(() => {});
+  setupScanner();
+
+  return () => {
+    isMounted = false;
+    
+
       scannerInstanceRef.current?.clear().catch(() => {});
       scannerInstanceRef.current = null;
-      scannerContainerRef.current = null;
-    };
-  }, [onScanSuccess,resetQRScan]);
+    
+    scannerContainerRef.current = null;
+    
+  };
+}, [onScanSuccess, resetQRScan]);
+
 
   return (
     <div className="flex justify-center items-center">
