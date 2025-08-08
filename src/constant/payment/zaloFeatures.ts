@@ -12,6 +12,7 @@ export const zaloFeaturesForKid = [
 
 export interface ZaloAccount {
   phone: string;
+  accNumber:string;
   name: string;
   pin: string;
   balance: number;
@@ -21,6 +22,7 @@ export interface ZaloAccount {
 export const fakeZaloAccounts: ZaloAccount[] = [
   {
     phone: "0123456789",
+    accNumber:"1234567890",
     name: "Nguyễn Van A",
     pin: "123456",
     balance: 500000,
@@ -28,6 +30,7 @@ export const fakeZaloAccounts: ZaloAccount[] = [
   },
   {
     phone: "0999888777",
+    accNumber:"1234567891",
     name: "Minh Anh",
     pin: "000000",
     balance: 250000,

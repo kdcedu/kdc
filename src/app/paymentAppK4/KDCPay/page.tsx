@@ -1,19 +1,29 @@
 "use client";
 
 import { SendMoneyPopup } from "@/components/payment/ZaloPayFeatures/sendMoney";
+import ScanPage from "@/components/QRCode/ScanPage";
 import { zaloFeaturesForKid } from "@/constant/payment/zaloFeatures";
-import { useZalo } from "@/context/ZaloPayContext";
+import { useKDCPay } from "@/context/KDCPayContext";
 import { getVietnameseFirstName } from "@/utils/getVietnameseFirstName";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 import Image from "next/image";
 import { useState } from "react";
 
-export default function ZaloPay() {
-  const { currentAccount } = useZalo();
+export default function KDCPayPay() {
+  const { currentAccount } = useKDCPay();
   const [showSendMoney, setShowSendMoney] = useState(false);
+  const [showScanQR, setShowScanQR] = useState(false);
+const [scannerKey, setScannerKey] = useState(0);
+
+const handleOpenScanner = () => {
+  setScannerKey(prev => prev + 1); // thay đổi key
+  setShowScanQR(true);
+};
+
   const handleShowPopup = (name: string) => {
     if (name === "Send") setShowSendMoney(true);
+    if (name === "QR") handleOpenScanner();
   };
   const handleClosePopup = (name: string) => {
     switch (name) {
@@ -43,14 +53,27 @@ export default function ZaloPay() {
               src={currentAccount?.avatar}
               icon={!currentAccount?.avatar ? <UserOutlined /> : undefined}
             />
-            <div className="text-left">
+            <div className="flex flex-col gap-5 text-left">
               <p className=" font-semibold text-[#0032c8]">
                 Số tiền hiện tại của bạn{" "}
-                <span className={`text-pink-600`}>{getVietnameseFirstName(currentAccount?.name)}:</span>
+                <span>{getVietnameseFirstName(currentAccount?.name)}: </span>
               </p>
-              <h2 className="text-6xl font-extrabold text-[#30c786] mt-1">
-                {currentAccount?.balance} VNĐ
-              </h2>
+              <p className=" font-semibold text-[#0032c8]">
+                Số tài khoản {"(STK)"} của bạn{" "}
+                <span>{getVietnameseFirstName(currentAccount?.name)}: </span>
+              </p>
+            </div>
+            <div className="text-left flex flex-col gap-5">
+              <p className=" font-semibold text-[#0032c8]">
+                <span className=" font-extrabold text-[#30c786] mt-1">
+                  {currentAccount?.balance} VNĐ
+                </span>
+              </p>
+              <p className=" font-semibold text-[#0032c8]">
+                <span className=" font-extrabold text-pink-600 mt-1">
+                  {currentAccount?.accNumber}
+                </span>
+              </p>
             </div>
           </div>
         )}
@@ -76,9 +99,11 @@ export default function ZaloPay() {
       {showSendMoney && (
         <SendMoneyPopup
           isOpen={showSendMoney}
+          key={scannerKey}
           onClose={() => handleClosePopup("Send")}
         />
       )}
+      {showScanQR && <ScanPage onClose={() => setShowScanQR(false)} resetQRScan={showScanQR} />}
       {/* Transaction History */}
       {/* <div className="bg-white rounded-2xl p-5 shadow-md flex-1 overflow-y-auto">
         <h3 className="text-2xl font-bold text-pink-600 mb-3">Lịch sử 🍭</h3>

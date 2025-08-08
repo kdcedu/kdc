@@ -1,5 +1,5 @@
 "use client";
-import { useZalo } from "@/context/ZaloPayContext";
+import { useKDCPay } from "@/context/KDCPayContext";
 import { useState } from "react";
 
 interface EnterNewNameProps {
@@ -8,7 +8,7 @@ interface EnterNewNameProps {
 
 export default function EnterNewName({ onSuccess }: EnterNewNameProps) {
   const [newName, setNewName] = useState("");
-  const { setName } = useZalo();
+  const { setName } = useKDCPay();
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setName(newName);

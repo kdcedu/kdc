@@ -1,6 +1,6 @@
 "use client";
 
-import { useZalo } from "@/context/ZaloPayContext";
+import { useZalo } from "@/context/KDCPayContext";
 
 interface OTPModalProps {
   OTP: string;

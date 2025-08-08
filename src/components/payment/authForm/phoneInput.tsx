@@ -22,7 +22,7 @@ export default function PhoneInput({ onSuccess, setPhone }: PhoneInputProps) {
   };
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-10 w-[700px] text-4xl ">
       {errMessage && (
         <div
           className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
@@ -35,13 +35,13 @@ export default function PhoneInput({ onSuccess, setPhone }: PhoneInputProps) {
       <input
         type="tel"
         placeholder="Nhập số điện thoại (10 số)"
-        className="border rounded px-3 py-2 w-full"
+        className="border rounded-lg px-3 py-2 w-full h-[100px]"
         value={phoneInput}
         onChange={(e) => setPhoneInput(e.target.value.replace(/\D/g, ""))}
       />
       <button
         onClick={handleSubmit}
-        className="bg-blue-600 text-white px-4 py-2 rounded w-full"
+        className="bg-blue-600 text-white px-4 py-2  rounded-lg h-[80px] w-full"
       >
         Tiếp tục
       </button>

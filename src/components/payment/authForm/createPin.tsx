@@ -1,11 +1,11 @@
 // components/CreatePin.tsx
 "use client";
 import { useState } from "react";
-import { useZalo } from "@/context/ZaloPayContext";
+import { useKDCPay } from "@/context/KDCPayContext";
 
 export default function CreatePin({ onCreated }: { onCreated: () => void }) {
   const [pin, setPin] = useState("");
-  const { createPin } = useZalo();
+  const { createPin } = useKDCPay();
 
   const handleSubmit = () => {
     if (pin.length === 6) {
@@ -15,7 +15,7 @@ export default function CreatePin({ onCreated }: { onCreated: () => void }) {
   };
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-10 w-[700px] text-3xl">
       <h2 className="font-semibold">Tạo mã PIN (6 số)</h2>
       <input
         type="password"

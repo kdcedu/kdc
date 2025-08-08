@@ -2,9 +2,11 @@
 "use client";
 import { fakeZaloAccounts, ZaloAccount } from "@/constant/payment/zaloFeatures";
 import { defaultProfile } from "@/constant/profile";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { generateRandomAccountNumber } from "@/utils/generateAccNumber";
 
-interface ZaloContextProps {
+interface KDCPayContextProps {
   currentAccount: ZaloAccount | null;
   setName: (name: string) => void;
   loginWithPhone: (phone: string) => boolean;
@@ -13,16 +15,20 @@ interface ZaloContextProps {
   logout: () => void;
 }
 
-const ZaloContext = createContext<ZaloContextProps | undefined>(undefined);
+const KDCPayContext = createContext<KDCPayContextProps | undefined>(undefined);
 
-export const ZaloProvider = ({ children }: { children: React.ReactNode }) => {
+export const KDCPayProvider = ({ children }: { children: React.ReactNode }) => {
   const [currentAccount, setCurrentAccount] = useState<ZaloAccount | null>(
     null
   );
   const [tempPhone, setTempPhone] = useState<string | null>(null);
-
+  const pathName = usePathname();
+  const router = useRouter();
+  useEffect(() => {
+    if (!currentAccount && pathName === "/paymentAppK4/KDCPay") router.replace(pathName + "/auth");
+  }, [currentAccount, pathName, router]);
   const loginWithPhone = (phone: string): boolean => {
-    console.log(fakeZaloAccounts)
+    console.log(fakeZaloAccounts);
     const existingAcc = fakeZaloAccounts.find((acc) => acc.phone === phone);
     if (existingAcc) {
       setTempPhone(phone);
@@ -31,6 +37,7 @@ export const ZaloProvider = ({ children }: { children: React.ReactNode }) => {
       const newAcc: ZaloAccount = {
         phone,
         name: "Người mới",
+        accNumber:generateRandomAccountNumber(),
         pin: "",
         balance: 0,
         avatar: defaultProfile.avatar,
@@ -71,7 +78,7 @@ export const ZaloProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <ZaloContext.Provider
+    <KDCPayContext.Provider
       value={{
         currentAccount,
         loginWithPhone,
@@ -82,12 +89,12 @@ export const ZaloProvider = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       {children}
-    </ZaloContext.Provider>
+    </KDCPayContext.Provider>
   );
 };
 
-export const useZalo = () => {
-  const ctx = useContext(ZaloContext);
-  if (!ctx) throw new Error("useZalo must be used inside ZaloProvider");
+export const useKDCPay = () => {
+  const ctx = useContext(KDCPayContext);
+  if (!ctx) throw new Error("useKDCPay must be used inside KDCPayProvider");
   return ctx;
 };

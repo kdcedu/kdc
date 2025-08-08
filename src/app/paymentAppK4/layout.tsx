@@ -1,9 +1,9 @@
-import { ZaloProvider } from "@/context/ZaloPayContext";
+import { KDCPayProvider } from "@/context/KDCPayContext";
 
 export default function PaymentAppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <ZaloProvider>{children}</ZaloProvider>;
+  return <KDCPayProvider>{children}</KDCPayProvider>;
 }

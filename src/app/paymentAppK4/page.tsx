@@ -91,7 +91,7 @@ export default function PaymentAppForK4() {
           </div>
         ))}
         <div
-          onClick={() => handleClickApp("ZaloPay/auth")}
+          onClick={() => handleClickApp("KDCPay/auth")}
           className="flex flex-col items-center gap-2 cursor-pointer active:opacity-50 hover:bg-white/10 hover:backdrop-blur-sm transition rounded-xl"
         >
           <Image
@@ -100,7 +100,7 @@ export default function PaymentAppForK4() {
             alt="virus"
             width={70}
           />
-          <span className="font-bold text-[#0032c8]">ZaloPay</span>
+          <span className="font-bold text-[#0032c8]">KDCPay</span>
         </div>
       </div>
     </div>
