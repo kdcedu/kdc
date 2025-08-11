@@ -1,6 +1,7 @@
 "use client";
 
 import { SendMoneyPopup } from "@/components/payment/ZaloPayFeatures/sendMoney";
+import QRShow from "@/components/QRCode/QRShow";
 import ScanPage from "@/components/QRCode/ScanPage";
 import { zaloFeaturesForKid } from "@/constant/payment/zaloFeatures";
 import { useKDCPay } from "@/context/KDCPayContext";
@@ -14,16 +15,18 @@ export default function KDCPayPay() {
   const { currentAccount } = useKDCPay();
   const [showSendMoney, setShowSendMoney] = useState(false);
   const [showScanQR, setShowScanQR] = useState(false);
-const [scannerKey, setScannerKey] = useState(0);
+  // const [scannerKey, setScannerKey] = useState(0);
 
-const handleOpenScanner = () => {
-  setScannerKey(prev => prev + 1); // thay đổi key
-  setShowScanQR(true);
-};
+  const [showQR, setShowQR] = useState(false);
+  const handleOpenScanner = () => {
+    // setScannerKey((prev) => prev + 1); // thay đổi key
+    setShowScanQR(true);
+  };
 
   const handleShowPopup = (name: string) => {
     if (name === "Send") setShowSendMoney(true);
     if (name === "QR") handleOpenScanner();
+    if (name === "Receive") setShowQR(true);
   };
   const handleClosePopup = (name: string) => {
     switch (name) {
@@ -99,11 +102,12 @@ const handleOpenScanner = () => {
       {showSendMoney && (
         <SendMoneyPopup
           isOpen={showSendMoney}
-          key={scannerKey}
+          // key={scannerKey}
           onClose={() => handleClosePopup("Send")}
         />
       )}
-      {showScanQR && <ScanPage onClose={() => setShowScanQR(false)} resetQRScan={showScanQR} />}
+      {showQR && <QRShow onClose={() => setShowQR(false)} />}
+      {showScanQR && <ScanPage onClose={() => setShowScanQR(false)} />}
       {/* Transaction History */}
       {/* <div className="bg-white rounded-2xl p-5 shadow-md flex-1 overflow-y-auto">
         <h3 className="text-2xl font-bold text-pink-600 mb-3">Lịch sử 🍭</h3>
