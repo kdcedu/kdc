@@ -7,8 +7,8 @@ interface ProductCardProps {
   title: string;
   price: number;
   color: string | string[];
-  image: string;
-  id: string;
+  images: string[];
+  id: number;
   discount?: number;
 }
 
@@ -16,7 +16,7 @@ export default function ProductCard({
   title,
   price,
   color,
-  image,
+  images,
   id,
   discount
 }: ProductCardProps) {
@@ -24,7 +24,13 @@ export default function ProductCard({
     <Card className="!rounded-none" onClick={() => redirect(`/k8/hds02/${id}`)}>
       <div className="relative">
       <DiscountTag discount={discount} />
-        <Image src={image} alt="product" preview={false} />
+        <Image 
+                    src={images && images.length > 0 ? images[0] : '/placeholder.jpg'} // Thêm fallback
+                    alt={title} 
+                    preview={false} 
+                    height={300} // Nên có chiều cao cố định
+                    style={{ objectFit: 'cover' }}
+                />
       </div>
       <div className="flex flex-col items-start gap-2">
         <div className="flex items-center justify-start gap-3">

@@ -1,6 +1,6 @@
 export type CartItem = {
     uniqueId?: number;
-    id: string;
+    id: number;
     title: string;
     price: number;
     size: string;
@@ -13,7 +13,7 @@ export type CartItem = {
 
 export const shirts: CartItem[] = [
     {
-        id: "1",
+        id: 1,
         title: "Levents® Blink Blink XL Logo Oversized Tee/ Black",
         price: 500000,
         size: "XL",
@@ -24,7 +24,7 @@ export const shirts: CartItem[] = [
         discount: 10
     },
     {
-        id: "2",
+        id: 2,
         title: "Levents® Classic Triple Star Semi-Oversized Tee",
         price: 420000,
         size: "L",
@@ -35,7 +35,7 @@ export const shirts: CartItem[] = [
         discount: 10
     },
     {
-        id: "3",
+        id: 3,
         title: "Levents® Classic Triple Star Semi-Oversized Tee",
         price: 420000,
         size: "L",
@@ -45,7 +45,7 @@ export const shirts: CartItem[] = [
         description: "Levents® Classic Triple Star Semi-Oversized Tee"
     },
     {
-        id: "4",
+        id: 4,
         title: "Levents® Classic Triple Star Semi-Oversized Tee",
         price: 420000,
         size: "L",
