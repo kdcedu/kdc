@@ -5,7 +5,7 @@ import { useGlobalMessage } from "@/context/globalMessageContext";
 
 export interface CartItemProps {
     uniqueId?: number;
-    id: string;
+    id: number;
     title: string;
     price: number;
     size: string;
