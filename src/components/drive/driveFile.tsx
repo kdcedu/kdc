@@ -82,16 +82,20 @@ export default function DriveFile({ file }: DriveFileProps) {
         onClick={handleClick}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 max-w-[75%] overflow-hidden">
             <span className={renderFileIconColor(file?.type)}>
               {renderFileIcon(file?.type)}
             </span>
-            <span className="font-semibold w-40 truncate">
+            <span className="font-semibold truncate whitespace-nowrap">
               {file?.name}.{renderFileSuffix(file?.type)}
             </span>
           </div>
           <div onClick={(e) => e.stopPropagation()}>
-            <OptionPopover onFinish={() => setOpenDeletePopup(true)} />
+            <OptionPopover
+              targetId={file.id}
+              type="file"
+              onFinish={() => setOpenDeletePopup(true)}
+            />
           </div>
         </div>
 

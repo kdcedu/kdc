@@ -1,12 +1,16 @@
+import { SharedUser } from "./user";
+
 export type FileType = 'image' | 'excel' | 'pdf';
 
+
 export interface File {
-    id: string;
-    name: string;
-    type: FileType;
-    image: string;
-    parent?: string;
-    size?: string;
+  id: string;
+  name: string;
+  type: FileType;
+  image: string;
+  parent?: string;
+  size?: string;
+  sharedWith?: SharedUser[]; // ✅ updated
 }
 
 export const files: File[] = [
@@ -135,14 +139,14 @@ export const adultChooseFiles: File[] = [
     id: '4',
     name: 'Sách Ngữ văn',
     type: 'pdf',
-    image: '/images/k8/ngu_van.png',
+    image: '/images/k8/ngu_van.jpeg',
     size: '5MB',
 },
 {
     id: '5',
     name: 'Sách Toán',
     type: 'pdf',
-    image: '/images/k8/toan.png',
+    image: '/images/k8/toan.jpeg',
     size: '8MB',
 },
 {

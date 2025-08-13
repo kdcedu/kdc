@@ -25,6 +25,7 @@ export default function K1HDS03() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center gap-10 bg-[url(/backgrounds/backgroundDesktop.jpg)] pt-10">
+     
       <NotificationModal
         open={openNotification}
         onCancel={() => setOpenNotification(false)}

@@ -38,16 +38,22 @@ export default function DriveFolder({ name, id }: DriveFolderProps) {
       />
       <div
         onClick={handleClick}
-        className="py-3 px-6 bg-gray-100 rounded-lg flex-1 flex justify-between cursor-pointer active:bg-gray-200"
+        className="py-3 pl-5 pr-3 bg-gray-100 rounded-lg flex-1 flex justify-between cursor-pointer active:bg-gray-200"
       >
-        <div className="flex items-center gap-4">
-          <span>
+        <div className="flex items-center gap-4 max-w-[70%] overflow-hidden">
+          <span className="shrink-0">
             <FolderFilled />
           </span>
-          <span className="font-semibold">{name}</span>
+          <span className="font-semibold truncate whitespace-nowrap">
+            {name}
+          </span>
         </div>
         <div onClick={(e) => e.stopPropagation()}>
-          <OptionPopover onFinish={() => setOpenDeletePopup(true)} />
+          <OptionPopover
+            targetId={id}
+            type="folder"
+            onFinish={() => setOpenDeletePopup(true)}
+          />
         </div>
       </div>
     </>

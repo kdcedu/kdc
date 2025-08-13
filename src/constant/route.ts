@@ -128,7 +128,7 @@ export const ROUTES = [
   },
   {
     grade: 4,
-    name: '',
+    name: 'paymentAppK4',
     title: 'Dịch vụ thanh toán điện tử',
     pin: '1111',
     type: 'Thao tác số'
@@ -235,6 +235,13 @@ export const ROUTES = [
     grade: 10,
     name: 'k10/hds01',
     title: 'Bảo vệ quyền riêng tư trên Internet và mạng xã hội',
+    pin: '1111',
+    type: 'Thao tác số'
+  },
+   {
+    grade: 11,
+    name: 'k11/hds01',
+    title: 'Đám mây số - Không gian lưu trữ khổng lồ - Tiếp theo',
     pin: '1111',
     type: 'Thao tác số'
   },

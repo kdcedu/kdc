@@ -1,9 +1,11 @@
-export interface Folder {
-    id: number;
-    name: string;
-    parent?: string;
-}
+import { SharedUser } from "./user";
 
+export interface Folder {
+  id: number;
+  name: string;
+  parent?: string;
+  sharedWith?: SharedUser[]; // ✅ updated
+}
 export const folders: Folder[] = [
     {
         id: 1,

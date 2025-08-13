@@ -154,9 +154,9 @@ export default function Home() {
 
           <div className="w-full flex justify-center px-5">
             <Button
-            variant="solid"
-            color="orange"
-            onClick={() => window.location.reload()}
+              variant="solid"
+              color="orange"
+              onClick={() => window.location.reload()}
             >
               Reload
             </Button>
